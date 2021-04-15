@@ -1,0 +1,34 @@
+###################################################################################################
+### Motan
+###################################################################################################
+motan:
+  #注册中心配置
+  registry:
+    regProtocol: zookeeper #注册中心协议
+    address: ${weibo.motan.address}
+    requestTimeout: 1000 #注册中心连接超时时间(毫秒)
+    connectTimeout: 3000 #注册中心请求超时时间(毫秒)
+  #协议配置
+  protocol:
+    name: motan #协议名称 固定值，不支持自定义
+    minWorkerThread: 20 #最小工作pool线程数
+    maxWorkerThread: 800 #最大工作pool线程数
+    maxServerConnection: 80000 #最大连接数
+    filter: ${weibo.motan.filter} #过滤器，支持多个，以英文逗号作为分隔符
+    serialization: hessian2 #指定序列化机制为hessian2
+  #指定需要解析的包名
+  annotation:
+    package: cn.deepdraw.training
+  #小说存储服务端配置
+  server:
+    export: 'protocol:${weibo.motan.server.storage.port}' #服务端口
+    group: ${weibo.motan.server.storage.group}
+    registry: registry
+  #客户端配置
+  client:
+      protocol: protocol
+      group: ${weibo.motan.client.group}
+      check: false
+      requestTimeout: 30000 #请求超时时间(毫秒)
+      connectTimeout: 5000 #连接超时时间(毫秒)
+      registry: registry

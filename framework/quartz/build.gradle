@@ -1,0 +1,56 @@
+buildscript {
+	ext {
+		artifactId = 'deepdraw-training-framework-quartz'
+
+		springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+	}
+}
+
+plugins {
+	id 'java'
+	id 'maven'
+    id 'java-library'
+}
+
+group = 'cn.deepdraw.training'
+version = '2.0.0'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = project.group
+        pom.artifactId = project.artifactId
+        pom.version = project.version
+    }
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: DEEPDRAW_REPO_URL) {
+				authentication(userName: DEEPDRAW_REPO_ACCOUNT, password: DEEPDRAW_REPO_PWD)
+			}
+			pom.project {
+				groupId project.group
+				artifactId project.artifactId
+				version project.version
+			}
+		}
+	}
+}
+
+dependencies {
+	api("org.springframework.boot:spring-boot-starter-quartz:$springBootVersion")
+}

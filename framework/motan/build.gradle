@@ -1,0 +1,68 @@
+buildscript {
+	ext {
+		artifactId = 'deepdraw-training-framework-motan'
+
+		springBootVersion = '2.3.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+	}
+}
+
+plugins {
+	id 'java'
+	id 'maven'
+    id 'java-library'
+}
+
+group = 'cn.deepdraw.training'
+version = '2.1.0'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = project.group
+        pom.artifactId = project.artifactId
+        pom.version = project.version
+    }
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: DEEPDRAW_REPO_URL) {
+				authentication(userName: DEEPDRAW_REPO_ACCOUNT, password: DEEPDRAW_REPO_PWD)
+			}
+			pom.project {
+				groupId project.group
+				artifactId project.artifactId
+				version project.version
+			}
+		}
+	}
+}
+
+dependencies {
+
+	implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
+    [
+        'com.weibo:motan-core:1.1.1',
+        'com.weibo:motan-transport-netty:1.1.1',
+        'com.weibo:motan-springsupport:1.1.1',
+        'com.weibo:motan-registry-zookeeper:1.1.1'
+    ].each { // motan jars
+        dep -> api(dep) {
+            exclude module: 'slf4j-log4j12'
+        }
+    }
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+}

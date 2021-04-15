@@ -1,0 +1,10 @@
+/build/
+/target/
+/bin/
+/.gradle/
+/.settings
+/.factorypath
+/.springBeans
+/catalina.base_IS_UNDEFINED/
+/.classpath
+/.project

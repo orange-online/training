@@ -1,0 +1,74 @@
+package cn.deepdraw.training.crawler.novel.app.application.core.impl;
+
+import cn.deepdraw.training.crawler.novel.app.application.core.NovelAppService;
+import cn.deepdraw.training.crawler.novel.app.domain.core.*;
+import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
+import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
+import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.Validate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Novel AppService Impl
+ * @author huangjiancheng
+ * 2020-06-19
+ */
+@Service
+@Transactional
+public class NovelAppServiceImpl implements NovelAppService {
+
+	@Autowired
+	private NovelRepository novelRepo;
+	
+	@Autowired
+	private NovelService novelService;
+	
+	@Autowired
+	private NovelCrawlingEventService crawlingEventService;
+
+	@Autowired
+	private NovelPackagingEventService packagingEventService;
+
+	@Override
+	public Novel create(String name, String author, LinkAddr link) throws WebAppRuntimeException {
+
+		Validate.isTrue(novelRepo.findByUnique(name, author) == null, "novel_already_exists");
+		return novelRepo.create(Novel.of(novelRepo.generateIdString(), name, author, link));
+	}
+
+	@Override
+	public Novel updateLink(String novelId, LinkAddr link) throws WebAppRuntimeException {
+
+		return novelRepo.update(findByNovelId(novelId).updateAddr(link));
+	}
+
+	@Override
+	public Novel updatePath(String novelId, Site site, String path) throws WebAppRuntimeException {
+
+		return novelRepo.update(findByNovelId(novelId).updateAddrPath(site, path));
+	}
+
+	@Override
+	public Novel crawl(String siteString, String url) {
+		
+		Site site = EnumUtils.getEnum(Site.class, siteString);
+		Novel novel = novelService.crawl(site, url);
+		crawlingEventService.publish(novel, site);
+		return novel;
+	}
+
+	@Override
+	public Novel packaging(String novelId, Site site) {
+
+		Novel novel = findByNovelId(novelId);
+		packagingEventService.publish(novel, site);
+		return novel;
+	}
+
+	private Novel findByNovelId(String novelId) {
+
+		return Validate.notNull(novelRepo.findByNovelId(novelId), "novelId_not_found");
+	}
+}

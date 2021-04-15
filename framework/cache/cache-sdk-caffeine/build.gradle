@@ -1,0 +1,56 @@
+buildscript {
+	ext {
+		artifactId = 'deepdraw-training-framework-cache-sdk-caffeine'
+	}
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies {
+	}
+}
+
+plugins {
+	id 'java'
+	id 'maven'
+    id 'java-library'
+}
+
+group = 'cn.deepdraw.training'
+version = '1.0.0'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+configurations {
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = project.group
+        pom.artifactId = project.artifactId
+        pom.version = project.version
+    }
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: DEEPDRAW_REPO_URL) {
+				authentication(userName: DEEPDRAW_REPO_ACCOUNT, password: DEEPDRAW_REPO_PWD)
+			}
+			pom.project {
+				groupId project.group
+				artifactId project.artifactId
+				version project.version
+			}
+		}
+	}
+}
+
+dependencies {
+	api('com.github.ben-manes.caffeine:caffeine:2.8.5')
+}

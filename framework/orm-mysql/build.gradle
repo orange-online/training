@@ -1,0 +1,79 @@
+buildscript {
+	ext {
+		artifactId = 'deepdraw-training-framework-orm-mysql'
+
+		springBootVersion = '2.3.1.RELEASE'
+		hibernateVersion = '5.4.17.Final'
+	}
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies {
+	}
+}
+
+plugins {
+	id 'java'
+	id 'maven'
+    id 'java-library'
+}
+
+group = 'cn.deepdraw.training'
+version = '4.3.0_beta-202104141716'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+configurations {
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = project.group
+        pom.artifactId = project.artifactId
+        pom.version = project.version
+    }
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: DEEPDRAW_REPO_URL) {
+				authentication(userName: DEEPDRAW_REPO_ACCOUNT, password: DEEPDRAW_REPO_PWD)
+			}
+			pom.project {
+				groupId project.group
+				artifactId project.artifactId
+				version project.version
+			}
+		}
+	}
+}
+
+dependencies {
+	api("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+	api("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
+
+	// hibernate ehcache jars
+	api("org.hibernate:hibernate-jcache:${hibernateVersion}")
+	api("javax.cache:cache-api:1.1.0")
+	api("org.ehcache:ehcache:3.8.1")
+
+	// slf4j jars
+	api('org.slf4j:slf4j-api:1.7.30')
+	api('org.slf4j:log4j-over-slf4j:1.7.30') // 转logback可以启用这个
+
+	// commons jars
+	api('commons-beanutils:commons-beanutils:1.9.3')
+	api('commons-collections:commons-collections:3.2.2')
+	api('commons-lang:commons-lang:2.6')
+
+	api('org.apache.tomcat:tomcat-jdbc:8.5.29')
+	api('mysql:mysql-connector-java:5.1.46')
+
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+}

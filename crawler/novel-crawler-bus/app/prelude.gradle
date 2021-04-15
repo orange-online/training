@@ -1,0 +1,52 @@
+// 放置各个项目打包时都需要用到的一些函数
+// 被发布到了 http://www.deepdraw.cn/internal/prelude.gradle
+ext.setPropertyDefaultValue = { propertyName, defaultValue ->
+    if (!project.hasProperty(propertyName)) {
+        ext[propertyName] = defaultValue
+    }
+}
+
+// 读取指定文件夹下所有properties文件
+ext.readDirProps = { dir ->
+
+	def props = new Properties()
+	fileTree(dir: dir, include: '*.properties')
+		.each{file ->
+			file.withInputStream {props.load(it)}
+	}
+
+	return props
+}
+
+// 读取指定文件夹下指定properties文件
+ext.readProps = { dir, fileName ->
+
+	def props = new Properties()
+
+	file("$dir/$fileName").withReader {
+	   props.load(it)
+	}
+
+	return props
+}
+
+ext.writeProps = { props, targetPath ->
+
+	ant.propertyfile(file: targetPath) {
+
+		props.each { key, val ->
+			entry(key: key, value: val)
+		}
+	}
+}
+
+ext.getReleaseName = {
+
+	// return env + '.' + new Date().format('yyMMdd-HHmm') + '.' + gitHash()
+	return new Date().format('yyMMdd-HHmm')
+}
+
+ext.dockerRegistry = {
+
+	return project.hasProperty("inVpc") ? 'registry-vpc' : 'registry';
+}

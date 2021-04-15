@@ -1,0 +1,82 @@
+buildscript {
+	ext {
+		artifactId = 'deepdraw-training-framework-web'
+		projectName = 'deepdraw-training-framework-web'
+		pomPath = "$buildDir/pom.xml"
+
+		springBootVersion = '2.3.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+	}
+}
+
+plugins {
+	id 'java'
+	id 'maven'
+    id 'java-library'
+}
+
+group = 'cn.deepdraw.training'
+version = '2.2.0'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+}
+
+task writePom {
+	doLast {
+		pom {
+		}.writeTo(pomPath)
+	}
+}
+
+jar {
+	dependsOn test, writePom
+	baseName "$projectName"
+	// 写入pom.xml
+	into("META-INF/maven/$project.group/$project.name") {
+		from pomPath
+	}
+
+	manifest {
+		attributes 'Implementation-Title': 'Gradle'
+		attributes 'Implementation-Version': version
+		attributes 'Created-By': 'Deepdraw'
+	}
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = project.group
+        pom.artifactId = project.artifactId
+        pom.version = project.version
+    }
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: DEEPDRAW_REPO_URL) {
+				authentication(userName: DEEPDRAW_REPO_ACCOUNT, password: DEEPDRAW_REPO_PWD)
+			}
+			pom.project {
+				groupId project.group
+				artifactId project.artifactId
+				version project.version
+			}
+		}
+	}
+}
+
+dependencies {
+	api("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+}
