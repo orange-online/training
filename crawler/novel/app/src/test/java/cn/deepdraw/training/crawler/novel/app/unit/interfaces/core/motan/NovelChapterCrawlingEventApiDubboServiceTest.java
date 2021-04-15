@@ -12,7 +12,7 @@ import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterCrawlingEventDTO;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelChapterCrawlingEventAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterCrawlingEvent;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelChapterCrawlingEventAdapter;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.motan.NovelChapterCrawlingEventApiMotanService;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.dubbo.NovelChapterCrawlingEventApiDubboService;
 
 /**
  * NovelChapterCrawlingEventApiMotanService Test
@@ -20,10 +20,10 @@ import cn.deepdraw.training.crawler.novel.app.interfaces.core.motan.NovelChapter
  * @Date 2020-11-26
  */
 @RunWith(MockitoJUnitRunner.class)
-public class NovelChapterCrawlingEventApiMotanServiceTest {
+public class NovelChapterCrawlingEventApiDubboServiceTest {
 
 	@InjectMocks
-	private NovelChapterCrawlingEventApiMotanService apiMotanService;
+	private NovelChapterCrawlingEventApiDubboService apiMotanService;
 	
 	@Mock
 	private NovelChapterCrawlingEventAppService eventAppService;

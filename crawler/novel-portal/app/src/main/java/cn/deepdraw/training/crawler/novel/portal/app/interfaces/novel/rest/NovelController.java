@@ -1,6 +1,6 @@
 package cn.deepdraw.training.crawler.novel.portal.app.interfaces.novel.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +25,7 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 @RequestMapping("/novels")
 public class NovelController {
 
-	@Autowired
+	@DubboReference
 	private NovelApi novelApi;
 
 	@GetMapping

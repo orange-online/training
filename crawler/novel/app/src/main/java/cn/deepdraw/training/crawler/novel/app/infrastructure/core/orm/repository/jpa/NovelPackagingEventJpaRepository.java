@@ -1,9 +1,10 @@
 package cn.deepdraw.training.crawler.novel.app.infrastructure.core.orm.repository.jpa;
 
+import org.springframework.stereotype.Repository;
+
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEvent;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEventRepository;
 import cn.deepdraw.training.crawler.novel.app.infrastructure.shared.orm.repository.jpa.IdEntityJpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author xujianing

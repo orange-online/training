@@ -1,14 +1,20 @@
 package cn.deepdraw.training.crawler.novel.app.application.core.impl;
 
-import cn.deepdraw.training.crawler.novel.app.application.core.NovelAppService;
-import cn.deepdraw.training.crawler.novel.app.domain.core.*;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
-import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import cn.deepdraw.training.crawler.novel.app.application.core.NovelAppService;
+import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
+import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
+import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
+import cn.deepdraw.training.crawler.novel.app.domain.core.NovelCrawlingEventService;
+import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEventService;
+import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
+import cn.deepdraw.training.crawler.novel.app.domain.core.NovelService;
+import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 
 /**
  * Novel AppService Impl

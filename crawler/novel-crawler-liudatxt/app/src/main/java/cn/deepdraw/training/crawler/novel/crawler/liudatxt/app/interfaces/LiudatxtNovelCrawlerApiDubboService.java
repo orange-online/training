@@ -2,9 +2,8 @@ package cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces;
 
 import java.util.List;
 
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.weibo.api.motan.config.springsupport.annotation.MotanService;
 
 import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
 import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
@@ -17,8 +16,8 @@ import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.application.Liuda
  * @author huangjiancheng
  * 2020-06-06
  */
-@MotanService(basicService = "baseService")
-public class LiudatxtNovelCrawlerApiMotanService implements LiudatxtNovelCrawlerApi {
+@DubboService
+public class LiudatxtNovelCrawlerApiDubboService implements LiudatxtNovelCrawlerApi {
 
 	@Autowired
 	private LiudatxtNovelCrawlerAppService appService;

@@ -20,7 +20,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '1.0.0'
+version = '1.2.0'
 sourceCompatibility = 1.8
 
 repositories {

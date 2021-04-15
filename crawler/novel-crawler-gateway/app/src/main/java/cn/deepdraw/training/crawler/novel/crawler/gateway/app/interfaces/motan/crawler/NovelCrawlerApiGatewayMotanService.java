@@ -3,9 +3,8 @@ package cn.deepdraw.training.crawler.novel.crawler.gateway.app.interfaces.motan.
 import java.util.List;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.weibo.api.motan.config.springsupport.annotation.MotanService;
 
 import cn.deepdraw.training.crawler.novel.crawler.api.NovelCrawlerApi;
 import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
@@ -18,7 +17,7 @@ import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGat
  * @author huangjiancheng
  * @Date 2020-12-11
  */
-@MotanService(basicService = "baseService")
+@DubboService
 public class NovelCrawlerApiGatewayMotanService implements NovelCrawlerApiGateway {
 
 	@Autowired

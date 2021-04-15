@@ -1,6 +1,7 @@
-package cn.deepdraw.training.crawler.novel.app.infrastructure.motan.proxy.crawler;
+package cn.deepdraw.training.crawler.novel.app.infrastructure.dubbo.proxy.crawler;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
 import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
 
 /**
  * NovelCrawlerApi Proxy
@@ -18,8 +20,8 @@ import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
 @Component
 public class NovelCrawlerApiProxy {
 
-	@Autowired
-	private NovelCrawlerApiGatewayProxy crawlerGateway;
+	@DubboReference
+	private NovelCrawlerApiGateway crawlerGateway;
 	
 	@Autowired
 	private NovelRepository novelRepo;

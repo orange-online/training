@@ -4,7 +4,6 @@ import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import cn.deepdraw.training.framework.motan.spring.config.MotanConfigContextInitializer;
 import cn.deepdraw.training.framework.orm.mysql.spring.datasource.DatasourceConfigContextInitializer;
 
 /**
@@ -19,7 +18,6 @@ public class Application {
 
 		SpringApplication application = new SpringApplication(Application.class);
 		application.addInitializers(new DatasourceConfigContextInitializer());
-		application.addInitializers(new MotanConfigContextInitializer());
 		application.setBannerMode(Mode.OFF);
 		application.run(args);
 	}

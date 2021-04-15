@@ -27,7 +27,7 @@ import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelAdapter;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelQueryBuilder;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.motan.NovelApiMotanService;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.dubbo.NovelApiDubboService;
 import cn.deepdraw.training.framework.api.adapter.page.PageRequestAdapter;
 import cn.deepdraw.training.framework.api.dto.page.PageDTO;
 import cn.deepdraw.training.framework.api.dto.page.PageRequest;
@@ -39,7 +39,7 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
  * @date 2020/11/12
  */
 @RunWith(MockitoJUnitRunner.class)
-public class NovelApiMotanServiceTest {
+public class NovelApiDubboServiceTest {
 
 	private String id;
 
@@ -71,7 +71,7 @@ public class NovelApiMotanServiceTest {
 	private NovelAppService appService;
 
 	@InjectMocks
-	private NovelApiMotanService service;
+	private NovelApiDubboService service;
 
 	@Before
 	public void init() {

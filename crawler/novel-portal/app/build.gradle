@@ -1,7 +1,9 @@
 buildscript {
 	ext {
 		projectName = 'crawler-novel-portal-app'
-		springBootVersion = '2.1.1.RELEASE'
+		
+		springBootVersion = '2.3.1.RELEASE'
+		springBootDubboVersion = '2.7.10'
 
 		configDir = 'src/main/resources'
 		allInOneProperties = "$buildDir/tmp/application.properties"
@@ -118,14 +120,13 @@ task release {
 	doLast { // 打包成功后将docker的版本号写入到指定文件中,以方便外界(比如jenkins)读取
 		// project.file('.dockerversion').text = dockerName
 	}
-
 }
 
 dependencies {
 
-	implementation('cn.deepdraw.training:deepdraw-training-framework-web:2.1.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-web:2.2.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-api:4.0.1')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-motan:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:1.2.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
 
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-api:3.4.0')
@@ -134,6 +135,7 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-liudatxt-api:2.2.0')
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-xuanshuwang-api:2.2.0')
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-storage-api:2.0.1')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:1.0.0')
 
 	testImplementation('junit:junit:4.12')
 	testImplementation('org.mockito:mockito-core:2.23.4')

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
-import cn.deepdraw.training.crawler.novel.app.infrastructure.motan.proxy.crawler.NovelCrawlerApiProxy;
+import cn.deepdraw.training.crawler.novel.app.infrastructure.dubbo.proxy.crawler.NovelCrawlerApiProxy;
 
 /**
  * Novel Service

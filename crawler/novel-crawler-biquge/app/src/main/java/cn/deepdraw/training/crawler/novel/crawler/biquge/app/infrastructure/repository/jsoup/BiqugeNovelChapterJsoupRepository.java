@@ -1,14 +1,15 @@
 package cn.deepdraw.training.crawler.novel.crawler.biquge.app.infrastructure.repository.jsoup;
 
-import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapter;
-import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapterRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapter;
+import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapterRepository;
 
 /**
  * @Description BiqugeNovelChapterJsoupRepository

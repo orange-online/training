@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.api.NovelChapterApi;
@@ -32,13 +32,13 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
+	@DubboReference
 	private NovelChapterApi chapterApi;
 
-	@Autowired
+	@DubboReference
 	private NovelPackagingEventApi eventApi;
 
-	@Autowired
+	@DubboReference
 	private ResourceStorageApi resourceStorageApi;
 
 	@Override

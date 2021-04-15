@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.weibo.api.motan.config.springsupport.annotation.MotanService;
 
 import cn.deepdraw.training.crawler.storage.api.ResourceStorageApi;
 import cn.deepdraw.training.crawler.storage.api.dto.FileItem;
@@ -24,7 +23,7 @@ import cn.deepdraw.training.crawler.storage.app.infrastructure.env.AppEnvironmen
  * @author huangjiancheng
  * 2020-07-14
  */
-@MotanService(basicService = "baseService")
+@DubboService
 public class ResourceStorageApiMotanService implements ResourceStorageApi {
 
 	@Autowired

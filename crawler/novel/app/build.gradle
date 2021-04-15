@@ -125,7 +125,7 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-api:4.0.1')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql:4.3.0_beta-202104141716')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql-api-adapter:6.2.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-motan:2.1.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:1.2.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-rocketmq-core:2.0.2')
 

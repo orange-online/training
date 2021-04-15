@@ -1,9 +1,10 @@
 package cn.deepdraw.training.crawler.novel.app.infrastructure.mq;
 
-import cn.deepdraw.training.framework.rocketmq.core.producer.RocketmqProducerSetting;
-import cn.deepdraw.training.framework.rocketmq.core.setting.DefaultRocketmqSetting;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import cn.deepdraw.training.framework.rocketmq.core.producer.RocketmqProducerSetting;
+import cn.deepdraw.training.framework.rocketmq.core.setting.DefaultRocketmqSetting;
 
 /**
  * 小说打包事件消息生产方配置

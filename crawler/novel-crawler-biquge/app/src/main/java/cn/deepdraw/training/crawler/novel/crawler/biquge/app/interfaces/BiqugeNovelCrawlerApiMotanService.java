@@ -2,9 +2,8 @@ package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces;
 
 import java.util.List;
 
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.weibo.api.motan.config.springsupport.annotation.MotanService;
 
 import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
 import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
@@ -20,7 +19,7 @@ import cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces.converte
  * @Author zhangzhucong
  * @Date 2020/6/6
  **/
-@MotanService(basicService = "baseService")
+@DubboService
 public class BiqugeNovelCrawlerApiMotanService implements BiqugeNovelCrawlerApi {
 
     @Autowired

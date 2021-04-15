@@ -10,10 +10,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
+import cn.deepdraw.training.crawler.novel.app.infrastructure.dubbo.proxy.crawler.NovelCrawlerApiProxy;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelService;
-import cn.deepdraw.training.crawler.novel.app.infrastructure.motan.proxy.crawler.NovelCrawlerApiProxy;
 
 /**
  * NovelService Test

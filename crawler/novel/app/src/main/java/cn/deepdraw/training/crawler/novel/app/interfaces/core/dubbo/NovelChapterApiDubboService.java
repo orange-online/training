@@ -1,12 +1,11 @@
-package cn.deepdraw.training.crawler.novel.app.interfaces.core.motan;
+package cn.deepdraw.training.crawler.novel.app.interfaces.core.dubbo;
 
 import java.util.List;
 
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.weibo.api.motan.config.springsupport.annotation.MotanService;
 
 import cn.deepdraw.training.crawler.novel.api.NovelChapterApi;
 import cn.deepdraw.training.crawler.novel.api.dto.LinkAddress;
@@ -30,9 +29,9 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
  * @author huangjiancheng
  * 2020-07-22
  */
+@DubboService
 @Transactional
-@MotanService(basicService = "chapterBaseService")
-public class NovelChapterApiMotanService implements NovelChapterApi {
+public class NovelChapterApiDubboService implements NovelChapterApi {
 
 	@Autowired
 	private NovelChapterAppService appService;

@@ -21,7 +21,7 @@ import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNo
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelChapterContentConverter;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelChapterConverter;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelConverter;
-import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelCrawlerApiMotanService;
+import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelCrawlerApiDubboService;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -36,7 +36,7 @@ import static org.mockito.Mockito.when;
 public class LiudatxtNovelCrawlerApiMotanServiceTest {
 
 	@InjectMocks
-	private LiudatxtNovelCrawlerApiMotanService motanService;
+	private LiudatxtNovelCrawlerApiDubboService motanService;
 
 	@Mock
 	private LiudatxtNovelCrawlerAppService appService;

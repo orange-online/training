@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		projectName = 'crawler-novel-crawler-xuanshuwang-app'
-		springBootVersion = '2.1.1.RELEASE'
+		springBootVersion = '2.3.1.RELEASE'
 
 		configDir = 'src/main/resources'
 		allInOneProperties = "$buildDir/tmp/application.properties"
@@ -123,8 +123,8 @@ task release {
 dependencies {
 	// api('org.springframework:spring-context-support:5.1.3.RELEASE')
 
-	implementation('cn.deepdraw.training:deepdraw-training-framework-web:2.1.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-motan:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-web:2.2.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:1.2.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
 
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-xuanshuwang-api:2.2.0')

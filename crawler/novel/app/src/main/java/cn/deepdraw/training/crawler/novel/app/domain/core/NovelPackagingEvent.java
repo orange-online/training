@@ -1,11 +1,17 @@
 package cn.deepdraw.training.crawler.novel.app.domain.core;
 
-import cn.deepdraw.training.framework.orm.mysql.constants.ColumnDefinitionConstants;
-import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import javax.persistence.*;
+import cn.deepdraw.training.framework.orm.mysql.constants.ColumnDefinitionConstants;
+import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
  * @author xujianing

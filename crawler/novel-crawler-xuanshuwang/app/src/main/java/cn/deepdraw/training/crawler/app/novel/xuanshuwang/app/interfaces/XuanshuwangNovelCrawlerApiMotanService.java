@@ -2,9 +2,8 @@ package cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.interfaces;
 
 import java.util.List;
 
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.weibo.api.motan.config.springsupport.annotation.MotanService;
 
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.application.XuanshuwangNovelCrawlerAppService;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangChapterContent;
@@ -19,7 +18,7 @@ import cn.deepdraw.training.crawler.novel.crawler.xuanshuwang.api.XuanshuwangNov
  * @author：杨攀
  * @date：2020年6月6日 下午7:49:20
  */
-@MotanService(basicService = "baseService")
+@DubboService
 public class XuanshuwangNovelCrawlerApiMotanService implements XuanshuwangNovelCrawlerApi {
 
     @Autowired
