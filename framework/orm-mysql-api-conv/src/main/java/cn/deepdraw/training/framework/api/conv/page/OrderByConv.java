@@ -1,4 +1,4 @@
-package cn.deepdraw.training.framework.api.adapter.page;
+package cn.deepdraw.training.framework.api.conv.page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +12,23 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * 排序转换器
+ * OrderBy Conv
  * @author huangjiancheng
- * 2018-09-21
+ * @Date 2021-04-19
  */
 @Component
-public class OrderByAdapter {
+public class OrderByConv {
 
 	public static final String ORDER_BY_SEPARATOR = ";";
 	
 	public static final String PROPERTY_SEPARATOR = "-";
 
-	public Sort adapt(String orderByValue) {
+	public Sort conv(String orderByValue) {
 
-		return Sort.by(doAdapt(orderByValue));
+		return Sort.by(doConv(orderByValue));
 	}
 
-	public List<Order> doAdapt(String orderByValue) {
+	public List<Order> doConv(String orderByValue) {
 
 		List<Order> orders = new ArrayList<>();
 		if (verify(orderByValue)) {

@@ -52,14 +52,14 @@
 /orm-mysql/.classpath
 /orm-mysql/.project
 
-/orm-mysql-api-adapter/build/
-/orm-mysql-api-adapter/target/
-/orm-mysql-api-adapter/bin/
-/orm-mysql-api-adapter/.gradle/
-/orm-mysql-api-adapter/catalina.base_IS_UNDEFINED/
-/orm-mysql-api-adapter/.settings/
-/orm-mysql-api-adapter/.classpath
-/orm-mysql-api-adapter/.project
+/orm-mysql-api-conv/build/
+/orm-mysql-api-conv/target/
+/orm-mysql-api-conv/bin/
+/orm-mysql-api-conv/.gradle/
+/orm-mysql-api-conv/catalina.base_IS_UNDEFINED/
+/orm-mysql-api-conv/.settings/
+/orm-mysql-api-conv/.classpath
+/orm-mysql-api-conv/.project
 
 /web/build/
 /web/target/

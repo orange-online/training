@@ -1,3 +1,7 @@
+#4.4.4 (2021-04-19)
+Features
+Rebuild all the component.
+
 #6.2.0 (2021-04-14)
 Features
 Upgrade the 'springBootVersion' to '2.3.1.RELEASE'.
