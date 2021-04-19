@@ -20,7 +20,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '4.3.0_beta-202104141716'
+version = '4.4.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -60,7 +60,7 @@ dependencies {
 
 	// hibernate ehcache jars
 	api("org.hibernate:hibernate-jcache:${hibernateVersion}")
-	api("javax.cache:cache-api:1.1.0")
+	api("javax.cache:cache-api:1.1.1")
 	api("org.ehcache:ehcache:3.8.1")
 
 	// slf4j jars
@@ -73,7 +73,7 @@ dependencies {
 	api('commons-lang:commons-lang:2.6')
 
 	api('org.apache.tomcat:tomcat-jdbc:8.5.29')
-	api('mysql:mysql-connector-java:5.1.46')
+	api('mysql:mysql-connector-java:8.0.20')
 
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
 }

@@ -1,3 +1,8 @@
+#4.4.0 (2021-04-19)
+Features
+The IdGenerator is replaced with the snowflake algorithm.
+Delete 'IdStringEntity' file.
+
 #4.3.0 (2021-04-14)
 Features
 Upgrade the 'hibernateVersion' to '5.4.17.Final'.
