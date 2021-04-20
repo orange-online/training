@@ -14,27 +14,27 @@ public class NovelCrawlingEventMessage implements Serializable {
 
 	private static final long serialVersionUID = 20201129L;
 
-	private String eventId;
+	private Long eventId;
 
-	private String novelId;
+	private Long novelId;
 
 	private String site;
 
 	private String link;
 
-	public String getEventId() {
+	public Long getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(String eventId) {
+	public void setEventId(Long eventId) {
 		this.eventId = eventId;
 	}
 
-	public String getNovelId() {
+	public Long getNovelId() {
 		return novelId;
 	}
 
-	public void setNovelId(String novelId) {
+	public void setNovelId(Long novelId) {
 		this.novelId = novelId;
 	}
 

@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.storage.app.interfaces.motan;
+package cn.deepdraw.training.crawler.storage.app.interfaces.dubbo;
 
 import java.io.IOException;
 
@@ -22,10 +22,10 @@ import cn.deepdraw.training.crawler.storage.app.infrastructure.env.AppEnvironmen
  * 2020-07-17
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ResourceStorageApiMotanServiceTest {
+public class ResourceStorageApiDubboServiceTest {
 
 	@InjectMocks
-	private ResourceStorageApiMotanService apiMotanService;
+	private ResourceStorageApiDubboService apiMotanService;
 
 	@Mock
 	private AppEnvironment appEnv;

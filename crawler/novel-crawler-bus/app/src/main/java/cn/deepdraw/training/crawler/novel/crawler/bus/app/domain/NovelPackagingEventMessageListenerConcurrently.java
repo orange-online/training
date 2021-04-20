@@ -51,7 +51,7 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 
 		String messageJSONString = message.toString();
 		logger.info("message body: " + messageJSONString);
-		if (StringUtils.isBlank(message.getEventId())) {
+		if (message.getEventId() == null) {
 
 			return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 		}
@@ -73,7 +73,7 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 		}
 	}
 
-	private List<String> findChapterContentPaths(String novelId, String site) {
+	private List<String> findChapterContentPaths(Long novelId, String site) {
 
 		return chapterApi.findByNovelId(novelId, site).stream().map(chapter -> chapter.getAddress().getPath()).collect(Collectors.toList());
 	}
@@ -97,6 +97,6 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 
 	private String prepareResourceStoragePath(NovelPackagingEventMessage message) {
 
-		return message.getNovelId();
+		return message.getNovelId().toString();
 	}
 }

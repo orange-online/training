@@ -58,7 +58,7 @@ public class NovelChapterCrawlingEventMessageListenerConcurrently implements Mes
 		}
 		try {
 
-			Resource resource = resourceStorageApi.store(FileItem.of(message.getChapterId(), prepareResourceStoragePath(message), chapterContent.getBytes()));
+			Resource resource = resourceStorageApi.store(FileItem.of(message.getChapterId().toString(), prepareResourceStoragePath(message), chapterContent.getBytes()));
 			String resourceJSONString = JsonUtils.toJson(resource);
 			logger.info("message body: " + messageJSONString + ", resource storage: " + resourceJSONString);
 			if (StringUtils.isBlank(resource.getPath())) {

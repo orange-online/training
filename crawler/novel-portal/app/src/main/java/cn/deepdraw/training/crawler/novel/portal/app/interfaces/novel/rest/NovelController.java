@@ -41,7 +41,7 @@ public class NovelController {
 	}
 
 	@GetMapping("/{novelId}")
-	public NovelDTO findByNovelId(@PathVariable String novelId) {
+	public NovelDTO findByNovelId(@PathVariable Long novelId) {
 
 		return novelApi.findByNovelId(novelId);
 	}

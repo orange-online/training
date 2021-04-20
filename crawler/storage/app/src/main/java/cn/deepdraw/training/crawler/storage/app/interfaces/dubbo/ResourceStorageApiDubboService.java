@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.storage.app.interfaces.motan;
+package cn.deepdraw.training.crawler.storage.app.interfaces.dubbo;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -24,7 +24,7 @@ import cn.deepdraw.training.crawler.storage.app.infrastructure.env.AppEnvironmen
  * 2020-07-14
  */
 @DubboService
-public class ResourceStorageApiMotanService implements ResourceStorageApi {
+public class ResourceStorageApiDubboService implements ResourceStorageApi {
 
 	@Autowired
 	private AppEnvironment appEnv;

@@ -16,13 +16,13 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 
 	private static final long serialVersionUID = 20201129L;
 
-	private String eventId;
+	private Long eventId;
 
-	private String novelId;
+	private Long novelId;
 
 	private String site;
 
-	private String chapterId;
+	private Long chapterId;
 
 	private String link;
 	
@@ -30,7 +30,7 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 	
 	private NovelChapterCrawlingEventMessage(NovelChapterCrawlingEventDTO event) {
 		
-		this.setEventId(event.getEventId());
+		this.setEventId(event.getEntityId());
 		this.setNovelId(event.getNovelId());
 		this.setSite(event.getSite());
 		this.setChapterId(event.getChapterId());
@@ -42,19 +42,19 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 		return new NovelChapterCrawlingEventMessage(event);
 	}
 
-	public String getEventId() {
+	public Long getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(String eventId) {
+	public void setEventId(Long eventId) {
 		this.eventId = eventId;
 	}
 
-	public String getNovelId() {
+	public Long getNovelId() {
 		return novelId;
 	}
 
-	public void setNovelId(String novelId) {
+	public void setNovelId(Long novelId) {
 		this.novelId = novelId;
 	}
 
@@ -66,11 +66,11 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 		this.site = site;
 	}
 
-	public String getChapterId() {
+	public Long getChapterId() {
 		return chapterId;
 	}
 
-	public void setChapterId(String chapterId) {
+	public void setChapterId(Long chapterId) {
 		this.chapterId = chapterId;
 	}
 

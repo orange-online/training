@@ -2,7 +2,6 @@ package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -45,7 +44,7 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 
 		String messageJSONString = message.toString();
 		logger.info("message body: " + messageJSONString);
-		if (StringUtils.isBlank(message.getEventId())) {
+		if (message.getEventId() == null) {
 			
 			return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 		}
