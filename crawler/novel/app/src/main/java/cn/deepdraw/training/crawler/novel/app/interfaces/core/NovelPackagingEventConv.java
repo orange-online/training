@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.api.dto.NovelPackagingEventDTO;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEvent;
-import cn.deepdraw.training.framework.api.adapter.EntityBaseAdapter;
+import cn.deepdraw.training.framework.api.conv.EntityBaseConv;
 
 /**
  * NovelPackagingEvent Adapter
@@ -12,13 +12,12 @@ import cn.deepdraw.training.framework.api.adapter.EntityBaseAdapter;
  * @Date 2021-02-23
  */
 @Component
-public class NovelPackagingEventAdapter extends EntityBaseAdapter<NovelPackagingEvent, NovelPackagingEventDTO> {
+public class NovelPackagingEventConv extends EntityBaseConv<NovelPackagingEvent, NovelPackagingEventDTO> {
 
 	@Override
-	protected NovelPackagingEventDTO doAdapt(NovelPackagingEvent event) {
+	protected NovelPackagingEventDTO doing(NovelPackagingEvent event) {
 
 		NovelPackagingEventDTO dto = new NovelPackagingEventDTO();
-		dto.setEventId(event.eventId());
 		dto.setNovelId(event.novelId());
 		dto.setSite(event.siteString());
 		dto.setPublished(event.published());

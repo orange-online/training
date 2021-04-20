@@ -16,33 +16,33 @@ public class PageRequestConv {
 	@Autowired
 	private OrderByConv conv;
 
-	private org.springframework.data.domain.PageRequest conv(int offset, int limit, String orderBy) {
+	private org.springframework.data.domain.PageRequest done(int offset, int limit, String orderBy) {
 
-		return org.springframework.data.domain.PageRequest.of(offset, limit, conv.conv(orderBy));
+		return org.springframework.data.domain.PageRequest.of(offset, limit, conv.done(orderBy));
 	}
 
-	public org.springframework.data.domain.PageRequest conv(PageRequest request) {
+	public org.springframework.data.domain.PageRequest done(PageRequest request) {
 
-		return conv(request.offset(), request.limit(), request.getOrderBy());
+		return done(request.offset(), request.limit(), request.getOrderBy());
 	}
 
-	public org.springframework.data.domain.PageRequest conv(Integer offset, Integer limit, String orderBy, Boolean count) {
+	public org.springframework.data.domain.PageRequest done(Integer offset, Integer limit, String orderBy, Boolean count) {
 
-		return conv(PageRequest.instance().offset(offset).limit(limit).orderBy(orderBy).count(count));
+		return done(PageRequest.instance().offset(offset).limit(limit).orderBy(orderBy).count(count));
 	}
 
-	public org.springframework.data.domain.PageRequest conv(Integer offset, Integer limit, String orderBy) {
+	public org.springframework.data.domain.PageRequest done(Integer offset, Integer limit, String orderBy) {
 
-		return conv(PageRequest.instance().offset(offset).limit(limit).orderBy(orderBy));
+		return done(PageRequest.instance().offset(offset).limit(limit).orderBy(orderBy));
 	}
 
-	public org.springframework.data.domain.PageRequest conv(Integer offset, Integer limit) {
+	public org.springframework.data.domain.PageRequest done(Integer offset, Integer limit) {
 
-		return conv(PageRequest.instance().offset(offset).limit(limit));
+		return done(PageRequest.instance().offset(offset).limit(limit));
 	}
 
-	public org.springframework.data.domain.PageRequest conv(Integer offset) {
+	public org.springframework.data.domain.PageRequest done(Integer offset) {
 
-		return conv(PageRequest.instance().offset(offset));
+		return done(PageRequest.instance().offset(offset));
 	}
 }

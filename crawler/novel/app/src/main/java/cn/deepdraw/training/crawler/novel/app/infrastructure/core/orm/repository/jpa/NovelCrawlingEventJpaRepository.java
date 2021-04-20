@@ -16,18 +16,10 @@ import cn.deepdraw.training.crawler.novel.app.infrastructure.shared.orm.reposito
 public interface NovelCrawlingEventJpaRepository extends NovelCrawlingEventRepository, IdEntityJpaRepository<NovelCrawlingEvent> {
 
 	@Override
-	default NovelCrawlingEvent findByEventId(String eventId) {
-
-		return findByEventIdAndRemoved(eventId, false);
-	}
-
-	public NovelCrawlingEvent findByEventIdAndRemoved(String eventId, boolean removed);
-
-	@Override
-	default NovelCrawlingEvent findByNovelIdAndSite(String novelId, Site site) {
+	default NovelCrawlingEvent findByNovelIdAndSite(Long novelId, Site site) {
 
 		return findByNovelIdAndSiteAndRemoved(novelId, site, false);
 	}
 
-	public NovelCrawlingEvent findByNovelIdAndSiteAndRemoved(String novelId, Site site, boolean removed);
+	public NovelCrawlingEvent findByNovelIdAndSiteAndRemoved(Long novelId, Site site, boolean removed);
 }

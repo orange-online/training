@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.api.dto.NovelQueryDTO;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
-import cn.deepdraw.training.framework.api.adapter.query.EntityBaseSpecificationBuilder;
+import cn.deepdraw.training.framework.api.builder.query.EntityBaseQueryBuilder;
 
 /**
  * Novel Query Adapter
@@ -20,10 +20,10 @@ import cn.deepdraw.training.framework.api.adapter.query.EntityBaseSpecificationB
  * 2020-06-19
  */
 @Component
-public class NovelQueryBuilder extends EntityBaseSpecificationBuilder<Novel, NovelQueryDTO> {
+public class NovelQueryBuilder extends EntityBaseQueryBuilder<Novel, NovelQueryDTO> {
 
 	@Override
-	protected void doBuild(Root<Novel> root, CriteriaQuery<?> query, CriteriaBuilder builder, List<Predicate> predicates, NovelQueryDTO dto) {
+	protected void building(Root<Novel> root, CriteriaQuery<?> query, CriteriaBuilder builder, List<Predicate> predicates, NovelQueryDTO dto) {
 
 		if (StringUtils.isNotBlank(dto.getName())) {
 

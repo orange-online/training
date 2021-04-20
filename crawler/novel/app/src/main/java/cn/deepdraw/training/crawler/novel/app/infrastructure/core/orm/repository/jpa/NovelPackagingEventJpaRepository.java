@@ -13,12 +13,4 @@ import cn.deepdraw.training.crawler.novel.app.infrastructure.shared.orm.reposito
  */
 @Repository
 public interface NovelPackagingEventJpaRepository extends NovelPackagingEventRepository, IdEntityJpaRepository<NovelPackagingEvent> {
-
-	@Override
-	default NovelPackagingEvent findByEventId(String eventId) {
-
-		return findByEventIdAndRemoved(eventId, false);
-	}
-
-	NovelPackagingEvent findByEventIdAndRemoved(String eventId, boolean removed);
 }

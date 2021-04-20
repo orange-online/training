@@ -34,7 +34,7 @@ public class NovelPackagingEventService {
 	public NovelPackagingEvent publish(Novel novel, Site site) {
 
 		Validate.notNull(novel.addrOf(site), "unsupported_site");
-		NovelPackagingEvent event = packagingEventRepo.create(NovelPackagingEvent.of(packagingEventRepo.generateIdString(), novel.novelId(), site));
+		NovelPackagingEvent event = packagingEventRepo.create(NovelPackagingEvent.of(novel.entityId(), site));
 		return messageProxy.send(setting, event) ? packagingEventRepo.update(event.publish()) : event;
 	}
 

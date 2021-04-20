@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterCrawlingEventDTO;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterCrawlingEvent;
-import cn.deepdraw.training.framework.api.adapter.EntityBaseAdapter;
+import cn.deepdraw.training.framework.api.conv.EntityBaseConv;
 
 /**
  * NovelChapterCrawlingEvent Adapter
@@ -12,13 +12,12 @@ import cn.deepdraw.training.framework.api.adapter.EntityBaseAdapter;
  * @Date 2020-11-26
  */
 @Component
-public class NovelChapterCrawlingEventAdapter extends EntityBaseAdapter<NovelChapterCrawlingEvent, NovelChapterCrawlingEventDTO> {
+public class NovelChapterCrawlingEventConv extends EntityBaseConv<NovelChapterCrawlingEvent, NovelChapterCrawlingEventDTO> {
 
 	@Override
-	protected NovelChapterCrawlingEventDTO doAdapt(NovelChapterCrawlingEvent event) {
+	protected NovelChapterCrawlingEventDTO doing(NovelChapterCrawlingEvent event) {
 
 		NovelChapterCrawlingEventDTO dto = new NovelChapterCrawlingEventDTO();
-		dto.setEventId(event.eventId());
 		dto.setNovelId(event.novelId());
 		dto.setSite(event.siteString());
 		dto.setChapterId(event.chapterId());

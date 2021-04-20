@@ -34,7 +34,7 @@ public abstract class EntityBase implements Serializable {
 
 	@CreatedBy
 	@Column(name = "created_by")
-	private String createdBy;
+	private Long createdBy;
 
 	@LastModifiedDate
 	@Column(name = "last_modified_date")
@@ -42,7 +42,7 @@ public abstract class EntityBase implements Serializable {
 
 	@LastModifiedBy
 	@Column(name = "last_modified_by")
-	private String lastModifiedBy;
+	private Long lastModifiedBy;
 
 	public boolean removed() {
 
@@ -54,7 +54,7 @@ public abstract class EntityBase implements Serializable {
 		return createdDate;
 	}
 
-	public String createdBy() {
+	public Long createdBy() {
 
 		return createdBy;
 	}
@@ -64,7 +64,7 @@ public abstract class EntityBase implements Serializable {
 		return lastModifiedDate;
 	}
 
-	public String lastModifiedBy() {
+	public Long lastModifiedBy() {
 
 		return lastModifiedBy;
 	}

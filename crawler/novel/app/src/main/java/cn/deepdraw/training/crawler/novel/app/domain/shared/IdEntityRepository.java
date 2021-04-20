@@ -4,18 +4,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-import cn.deepdraw.training.framework.orm.mysql.domain.EntityBase;
+import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
  * 仓储接口
  * @author huangjiancheng
  * 2020-06-09
  */
-public interface IdEntityRepository<T extends EntityBase> {
+public interface IdEntityRepository<T extends IdLongEntity> {
 
 	T create(T entity);
 
 	T update(T entity);
+	
+	T findByEntityId(Long entityId);
+	
+	T findByEntityIdAndRemoved(Long entityId, boolean removed);
 
 	Page<T> findByPage(Specification<T> specification, Pageable pageable);
 
@@ -23,10 +27,5 @@ public interface IdEntityRepository<T extends EntityBase> {
 
 		entity.remove();
 		update(entity);
-	}
-
-	default String generateIdString() {
-
-		return UUIDs.instance();
 	}
 }

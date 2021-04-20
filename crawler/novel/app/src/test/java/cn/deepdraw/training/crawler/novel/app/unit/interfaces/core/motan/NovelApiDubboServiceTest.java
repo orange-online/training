@@ -25,10 +25,10 @@ import cn.deepdraw.training.crawler.novel.app.application.core.NovelAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelAdapter;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPageConv;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelQueryBuilder;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.dubbo.NovelApiDubboService;
-import cn.deepdraw.training.framework.api.adapter.page.PageRequestAdapter;
+import cn.deepdraw.training.framework.api.conv.page.PageRequestConv;
 import cn.deepdraw.training.framework.api.dto.page.PageDTO;
 import cn.deepdraw.training.framework.api.dto.page.PageRequest;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
@@ -41,7 +41,7 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 @RunWith(MockitoJUnitRunner.class)
 public class NovelApiDubboServiceTest {
 
-	private String id;
+	private Long id;
 
 	private String name;
 
@@ -56,13 +56,13 @@ public class NovelApiDubboServiceTest {
 	private NovelDTO dto;
 
 	@Mock
-	private NovelAdapter novelAdapter;
+	private NovelPageConv novelConv;
 
 	@Mock
 	private NovelRepository novelRepo;
 
 	@Mock
-	private PageRequestAdapter pageReqAdapter;
+	private PageRequestConv pageReqConv;
 
 	@Mock
 	private NovelQueryBuilder queryBuilder;
@@ -76,14 +76,15 @@ public class NovelApiDubboServiceTest {
 	@Before
 	public void init() {
 
-		id = "id";
+		id = 123L;
 		name = "name";
 		author = "author";
 		link = LinkAddr.of(LinkAddr.Site.BIQUGE, "link", null);
 		address = LinkAddress.of("BIQUGE", "link");
-		novel = Novel.of(id, name, author, link);
+		novel = Novel.of(name, author, link);
+		novel.entityId(id);
 		dto = new NovelDTO();
-		dto.setNovelId(id);
+		dto.setEntityId(id);
 		dto.setName(name);
 		dto.setAuthor(author);
 		dto.setAddresses(Arrays.asList(address));
@@ -93,11 +94,11 @@ public class NovelApiDubboServiceTest {
 	public void create_happyPath() {
 
 		when(appService.create(name, author, link)).thenReturn(novel);
-		when(novelAdapter.adapt(novel)).thenReturn(dto);
+		when(novelConv.done(novel)).thenReturn(dto);
 
 		NovelDTO expected = service.create(name, author, address);
 
-		assertEquals(id, expected.getNovelId());
+		assertEquals(id, expected.getEntityId());
 		assertEquals(name, expected.getName());
 		assertEquals(author, expected.getAuthor());
 		assertNotNull(expected.addressOf("BIQUGE"));
@@ -107,7 +108,7 @@ public class NovelApiDubboServiceTest {
 	public void updateAddress_happyPath() throws WebAppRuntimeException {
 
 		when(appService.updateLink(id, link)).thenReturn(novel);
-		when(novelAdapter.adapt(novel)).thenReturn(dto);
+		when(novelConv.done(novel)).thenReturn(dto);
 
 		NovelDTO expected = service.updateAddress(id, address);
 
@@ -117,15 +118,16 @@ public class NovelApiDubboServiceTest {
 	@Test
 	public void updatePath_happyPath() throws WebAppRuntimeException {
 
-		Novel novel = Novel.of(id, name, author, LinkAddr.of(LinkAddr.Site.BIQUGE, "link", "path"));
+		Novel novel = Novel.of(name, author, LinkAddr.of(LinkAddr.Site.BIQUGE, "link", "path"));
+		novel.entityId(id);
 		NovelDTO dto = new NovelDTO();
-		dto.setNovelId(id);
+		dto.setEntityId(id);
 		dto.setName(name);
 		dto.setAuthor(author);
 		dto.setAddresses(Arrays.asList(LinkAddress.of("BIQUGE", "link", "path")));
 
 		when(appService.updatePath(id, LinkAddr.Site.BIQUGE, "path")).thenReturn(novel);
-		when(novelAdapter.adapt(novel)).thenReturn(dto);
+		when(novelConv.done(novel)).thenReturn(dto);
 
 		NovelDTO expected = service.updatePath(id, "BIQUGE", "path");
 
@@ -135,8 +137,8 @@ public class NovelApiDubboServiceTest {
 	@Test
 	public void findByNovelId_happyPath() {
 
-		when(novelRepo.findByNovelId(id)).thenReturn(novel);
-		when(novelAdapter.adapt(novel)).thenReturn(dto);
+		when(novelRepo.findByEntityId(id)).thenReturn(novel);
+		when(novelConv.done(novel)).thenReturn(dto);
 
 		NovelDTO expected = service.findByNovelId(id);
 
@@ -147,7 +149,7 @@ public class NovelApiDubboServiceTest {
 	public void findByNameAndAuthor_happyPath() {
 
 		when(novelRepo.findByUnique(name, author)).thenReturn(novel);
-		when(novelAdapter.adapt(novel)).thenReturn(dto);
+		when(novelConv.done(novel)).thenReturn(dto);
 
 		NovelDTO expected = service.findByNameAndAuthor(name, author);
 
@@ -167,9 +169,9 @@ public class NovelApiDubboServiceTest {
 		Page<Novel> novels = Page.empty();
 
 		when(queryBuilder.build(query)).thenReturn(specification);
-		when(pageReqAdapter.adapt(request)).thenReturn(pageRequest);
+		when(pageReqConv.done(request)).thenReturn(pageRequest);
 		when(novelRepo.findByPage(specification, pageRequest)).thenReturn(novels);
-		when(novelAdapter.adapt(novels)).thenReturn(dtos);
+		when(novelConv.done(novels)).thenReturn(dtos);
 
 		assertThat(service.findByPage(query, request).getData(), hasItem(dto));
 	}
@@ -180,7 +182,7 @@ public class NovelApiDubboServiceTest {
 		String site = "BIQUGE";
 		String url = "url";
 		when(appService.crawl(site, url)).thenReturn(novel);
-		when(novelAdapter.adapt(novel)).thenReturn(dto);
+		when(novelConv.done(novel)).thenReturn(dto);
 
 		NovelDTO expected = service.crawl(site, url);
 

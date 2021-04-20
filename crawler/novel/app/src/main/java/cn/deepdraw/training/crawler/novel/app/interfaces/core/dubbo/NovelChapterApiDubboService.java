@@ -17,9 +17,9 @@ import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapter;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterRepository;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelChapterAdapter;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelChapterPageConv;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelChapterQueryBuilder;
-import cn.deepdraw.training.framework.api.adapter.page.PageRequestAdapter;
+import cn.deepdraw.training.framework.api.conv.page.PageRequestConv;
 import cn.deepdraw.training.framework.api.dto.page.PageDTO;
 import cn.deepdraw.training.framework.api.dto.page.PageRequest;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
@@ -40,45 +40,45 @@ public class NovelChapterApiDubboService implements NovelChapterApi {
 	private NovelChapterRepository chapterRepo;
 
 	@Autowired
-	private NovelChapterAdapter chapterAdapter;
+	private NovelChapterPageConv chapterConv;
 
 	@Autowired
 	private NovelChapterQueryBuilder queryBuilder;
 
 	@Autowired
-	private PageRequestAdapter pageReqAdapter;
+	private PageRequestConv pageReqConv;
 
 	@Autowired
 	private NovelRepository novelRepo;
 
 	@Override
-	public NovelChapterDTO create(String novelId, String name, LinkAddress address) throws WebAppRuntimeException {
+	public NovelChapterDTO create(Long novelId, String name, LinkAddress address) throws WebAppRuntimeException {
 
 		LinkAddr addr = LinkAddr.of(EnumUtils.getEnum(Site.class, address.getSite()), address.getLink(), address.getPath());
-		return chapterAdapter.adapt(appService.create(NovelChapter.of(novelRepo.findByNovelId(novelId), chapterRepo.generateIdString(), name, addr)));
+		return chapterConv.done(appService.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr)));
 	}
 
 	@Override
-	public NovelChapterDTO updatePath(String novelId, String chapterId, String path) throws WebAppRuntimeException {
+	public NovelChapterDTO updatePath(Long novelId, Long chapterId, String path) throws WebAppRuntimeException {
 
-		return chapterAdapter.adapt(appService.updatePath(chapterRepo.findByChapterId(novelId, chapterId), path));
+		return chapterConv.done(appService.updatePath(chapterRepo.findByChapterId(novelId, chapterId), path));
 	}
 
 	@Override
-	public NovelChapterDTO findByChapterId(String novelId, String chapterId) {
+	public NovelChapterDTO findByChapterId(Long novelId, Long chapterId) {
 
-		return chapterAdapter.adapt(chapterRepo.findByChapterId(novelId, chapterId));
+		return chapterConv.done(chapterRepo.findByChapterId(novelId, chapterId));
 	}
 
 	@Override
-	public List<NovelChapterDTO> findByNovelId(String novelId, String site) {
+	public List<NovelChapterDTO> findByNovelId(Long novelId, String site) {
 
-		return chapterAdapter.adapt(chapterRepo.findByNovelId(novelId, Site.valueOf(site)));
+		return chapterConv.done(chapterRepo.findByNovelId(novelId, Site.valueOf(site)));
 	}
 
 	@Override
 	public PageDTO<NovelChapterDTO> findByPage(NovelChapterQueryDTO query, PageRequest request) {
 
-		return chapterAdapter.adapt(chapterRepo.findByPage(queryBuilder.build(query), pageReqAdapter.adapt(request)));
+		return chapterConv.done(chapterRepo.findByPage(queryBuilder.build(query), pageReqConv.done(request)));
 	}
 }

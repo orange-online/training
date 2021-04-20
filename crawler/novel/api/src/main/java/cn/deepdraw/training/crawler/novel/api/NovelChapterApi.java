@@ -16,13 +16,13 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
  */
 public interface NovelChapterApi {
 
-	NovelChapterDTO create(String novelId, String name, LinkAddress address) throws WebAppRuntimeException;
+	NovelChapterDTO create(Long novelId, String name, LinkAddress address) throws WebAppRuntimeException;
 
-	NovelChapterDTO updatePath(String novelId, String chapterId, String path) throws WebAppRuntimeException;
+	NovelChapterDTO updatePath(Long novelId, Long chapterId, String path) throws WebAppRuntimeException;
 
-	NovelChapterDTO findByChapterId(String novelId, String chapterId);
+	NovelChapterDTO findByChapterId(Long novelId, Long chapterId);
 
-	List<NovelChapterDTO> findByNovelId(String novelId, String site);
+	List<NovelChapterDTO> findByNovelId(Long novelId, String site);
 
 	PageDTO<NovelChapterDTO> findByPage(NovelChapterQueryDTO query, PageRequest request);
 }

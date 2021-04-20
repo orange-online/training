@@ -43,40 +43,40 @@ public class NovelChapterCrawlingEventAppServiceImpl implements NovelChapterCraw
 	private NovelPackagingEventService packagingEventService;
 
 	@Override
-	public NovelChapterCrawlingEvent create(String novelId, Site site, String chapterId, String link) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEvent create(Long novelId, Site site, Long chapterId, String link) throws WebAppRuntimeException {
 
-		return eventRepo.create(NovelChapterCrawlingEvent.of(eventRepo.generateIdString(), novelId, site, chapterId, link));
+		return eventRepo.create(NovelChapterCrawlingEvent.of(novelId, site, chapterId, link));
 	}
 
 	@Override
-	public NovelChapterCrawlingEvent publish(String novelId, String name, LinkAddr addr) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEvent publish(Long novelId, String name, LinkAddr addr) throws WebAppRuntimeException {
 
 		NovelChapter chapter = chapterRepo.findByChapterLink(novelId, addr.site(), addr.link());
 		if (chapter == null) {
 
-			chapter = chapterRepo.create(NovelChapter.of(novelRepo.findByNovelId(novelId), chapterRepo.generateIdString(), name, addr));
+			chapter = chapterRepo.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr));
 		}
-		return eventService.publish(create(novelId, chapter.site(), chapter.chapterId(), chapter.link()));
+		return eventService.publish(create(novelId, chapter.site(), chapter.entityId(), chapter.link()));
 	}
 
 	@Override
-	public NovelChapterCrawlingEvent publish(String eventId) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEvent publish(Long eventId) throws WebAppRuntimeException {
 
-		return eventService.publish(Validate.notNull(eventRepo.findByEventId(eventId), "event_id_not_found"));
+		return eventService.publish(Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found"));
 	}
 
 	@Override
-	public NovelChapterCrawlingEvent complete(String eventId, String path) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEvent complete(Long eventId, String path) throws WebAppRuntimeException {
 
-		NovelChapterCrawlingEvent event = eventService.complete(Validate.notNull(eventRepo.findByEventId(eventId), "event_id_not_found"), path);
+		NovelChapterCrawlingEvent event = eventService.complete(Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found"), path);
 		if (shouldPublishNovelPackagingEvent(event.novelId(), event.site())) {
 
-			packagingEventService.publish(novelRepo.findByNovelId(event.novelId()), event.site());
+			packagingEventService.publish(novelRepo.findByEntityId(event.novelId()), event.site());
 		}
 		return event;
 	}
 
-	private boolean shouldPublishNovelPackagingEvent(String novelId, Site site) {
+	private boolean shouldPublishNovelPackagingEvent(Long novelId, Site site) {
 
 		return eventRepo.countByNovelAndCompleted(novelId, site, false) == NumberUtils.LONG_ZERO;
 	}

@@ -18,19 +18,11 @@ import cn.deepdraw.training.crawler.novel.app.infrastructure.shared.orm.reposito
 public interface NovelChapterCrawlingEventJpaRepository extends NovelChapterCrawlingEventRepository, IdEntityJpaRepository<NovelChapterCrawlingEvent> {
 
 	@Override
-	default NovelChapterCrawlingEvent findByEventId(String eventId) {
-
-		return findByEventIdAndRemoved(eventId, false);
-	}
-	
-	public NovelChapterCrawlingEvent findByEventIdAndRemoved(String eventId, boolean removed);
-
-	@Override
-	default long countByNovelAndCompleted(String novelId, Site site, boolean completed) {
+	default long countByNovelAndCompleted(Long novelId, Site site, boolean completed) {
 
 		return countByNovelAndCompletedAndRemoved(novelId, site, completed, false);
 	}
 
 	@Query("select count(event) from NovelChapterCrawlingEvent event where event.novelId = :novelId and event.site = :site and event.completed = :completed and event.removed = :removed")
-	public long countByNovelAndCompletedAndRemoved(@Param("novelId") String novelId, @Param("site") Site site, @Param("completed") boolean completed, @Param("removed") boolean removed);
+	public long countByNovelAndCompletedAndRemoved(@Param("novelId") Long novelId, @Param("site") Site site, @Param("completed") boolean completed, @Param("removed") boolean removed);
 }

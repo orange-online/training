@@ -33,21 +33,21 @@ public class NovelCrawlingEventAppServiceImpl implements NovelCrawlingEventAppSe
 	private NovelCrawlingEventService eventService;
 
 	@Override
-	public NovelCrawlingEvent create(String novelId, String site, String link) throws WebAppRuntimeException {
+	public NovelCrawlingEvent create(Long novelId, String site, String link) throws WebAppRuntimeException {
 
-		return eventRepo.create(NovelCrawlingEvent.of(eventRepo.generateIdString(), novelId, EnumUtils.getEnum(Site.class, site), link));
+		return eventRepo.create(NovelCrawlingEvent.of(novelId, EnumUtils.getEnum(Site.class, site), link));
 	}
 
 	@Override
-	public NovelCrawlingEvent publish(String eventId) throws WebAppRuntimeException {
+	public NovelCrawlingEvent publish(Long eventId) throws WebAppRuntimeException {
 
-		NovelCrawlingEvent event = Validate.notNull(eventRepo.findByEventId(eventId), "event_id_not_found");
-		return eventService.publish(novelRepo.findByNovelId(event.novelId()), event.site());
+		NovelCrawlingEvent event = Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found");
+		return eventService.publish(novelRepo.findByEntityId(event.novelId()), event.site());
 	}
 
 	@Override
-	public NovelCrawlingEvent complete(String eventId, String path) throws WebAppRuntimeException {
+	public NovelCrawlingEvent complete(Long eventId, String path) throws WebAppRuntimeException {
 
-		return eventService.complete(Validate.notNull(eventRepo.findByEventId(eventId), "event_id_not_found"), path);
+		return eventService.complete(Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found"), path);
 	}
 }

@@ -17,14 +17,6 @@ import cn.deepdraw.training.crawler.novel.app.infrastructure.shared.orm.reposito
 public interface NovelJpaRepository extends NovelRepository, IdEntityJpaRepository<Novel> {
 
 	@Override
-	default Novel findByNovelId(String novelId) {
-
-		return findByNovelIdAndRemoved(novelId, false);
-	}
-
-	Novel findByNovelIdAndRemoved(String novelId, boolean removed);
-
-	@Override
 	default Novel findByUnique(String name, String author) {
 
 		return findByUnique(name, author, false);

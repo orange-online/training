@@ -12,9 +12,9 @@ import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
  */
 public interface NovelChapterRepository extends IdEntityRepository<NovelChapter> {
 
-	NovelChapter findByChapterId(String novelId, String chapterId);
+	NovelChapter findByChapterId(Long novelId, Long chapterId);
 
-	NovelChapter findByChapterLink(String novelId, Site site, String link);
+	NovelChapter findByChapterLink(Long novelId, Site site, String link);
 
-	List<NovelChapter> findByNovelId(String novelId, Site site);
+	List<NovelChapter> findByNovelId(Long novelId, Site site);
 }

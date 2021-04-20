@@ -9,7 +9,5 @@ import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
  */
 public interface NovelRepository extends IdEntityRepository<Novel> {
 
-	Novel findByNovelId(String novelId);
-
 	Novel findByUnique(String name, String author);
 }

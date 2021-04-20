@@ -41,17 +41,17 @@ public class NovelAppServiceImpl implements NovelAppService {
 	public Novel create(String name, String author, LinkAddr link) throws WebAppRuntimeException {
 
 		Validate.isTrue(novelRepo.findByUnique(name, author) == null, "novel_already_exists");
-		return novelRepo.create(Novel.of(novelRepo.generateIdString(), name, author, link));
+		return novelRepo.create(Novel.of(name, author, link));
 	}
 
 	@Override
-	public Novel updateLink(String novelId, LinkAddr link) throws WebAppRuntimeException {
+	public Novel updateLink(Long novelId, LinkAddr link) throws WebAppRuntimeException {
 
 		return novelRepo.update(findByNovelId(novelId).updateAddr(link));
 	}
 
 	@Override
-	public Novel updatePath(String novelId, Site site, String path) throws WebAppRuntimeException {
+	public Novel updatePath(Long novelId, Site site, String path) throws WebAppRuntimeException {
 
 		return novelRepo.update(findByNovelId(novelId).updateAddrPath(site, path));
 	}
@@ -66,15 +66,15 @@ public class NovelAppServiceImpl implements NovelAppService {
 	}
 
 	@Override
-	public Novel packaging(String novelId, Site site) {
+	public Novel packaging(Long novelId, Site site) {
 
 		Novel novel = findByNovelId(novelId);
 		packagingEventService.publish(novel, site);
 		return novel;
 	}
 
-	private Novel findByNovelId(String novelId) {
+	private Novel findByNovelId(Long novelId) {
 
-		return Validate.notNull(novelRepo.findByNovelId(novelId), "novelId_not_found");
+		return Validate.notNull(novelRepo.findByEntityId(novelId), "novelId_not_found");
 	}
 }

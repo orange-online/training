@@ -9,7 +9,7 @@ import cn.deepdraw.training.crawler.novel.api.NovelPackagingEventApi;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelPackagingEventDTO;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelPackagingEventAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPackagingEventAdapter;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPackagingEventConv;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 
 /**
@@ -25,23 +25,23 @@ public class NovelPackagingEventApiDubboService implements NovelPackagingEventAp
 	private NovelPackagingEventAppService eventAppService;
 	
 	@Autowired
-	private NovelPackagingEventAdapter eventAdapter;
+	private NovelPackagingEventConv eventConv;
 
 	@Override
-	public NovelPackagingEventDTO create(String novelId, String site) throws WebAppRuntimeException {
+	public NovelPackagingEventDTO create(Long novelId, String site) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.create(novelId, EnumUtils.getEnum(Site.class, site)));
+		return eventConv.done(eventAppService.create(novelId, EnumUtils.getEnum(Site.class, site)));
 	}
 
 	@Override
-	public NovelPackagingEventDTO publish(String eventId) throws WebAppRuntimeException {
+	public NovelPackagingEventDTO publish(Long eventId) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.publish(eventId));
+		return eventConv.done(eventAppService.publish(eventId));
 	}
 
 	@Override
-	public NovelPackagingEventDTO complete(String eventId, String path) throws WebAppRuntimeException {
+	public NovelPackagingEventDTO complete(Long eventId, String path) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.complete(eventId, path));
+		return eventConv.done(eventAppService.complete(eventId, path));
 	}
 }

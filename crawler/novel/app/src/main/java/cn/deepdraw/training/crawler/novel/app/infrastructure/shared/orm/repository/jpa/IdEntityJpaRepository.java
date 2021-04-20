@@ -29,6 +29,19 @@ public interface IdEntityJpaRepository<T extends IdLongEntity> extends IdEntityR
 	}
 	
 	@Override
+	default T findByEntityId(Long entityId) {
+
+		return this.findById(entityId).orElse(null);
+	}
+
+	@Override
+	default T findByEntityIdAndRemoved(Long entityId, boolean removed) {
+
+		T entity = findByEntityId(entityId);
+		return entity != null && entity.removed() == removed ? entity : null;
+	}
+
+	@Override
 	default Page<T> findByPage(Specification<T> specification, Pageable pageable) {
 
 		return findAll(specification, pageable);

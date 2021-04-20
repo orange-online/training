@@ -32,21 +32,21 @@ public class NovelPackagingEventAppServiceImpl implements NovelPackagingEventApp
 	private NovelPackagingEventService eventService;
 
 	@Override
-	public NovelPackagingEvent create(String novelId, Site site) throws WebAppRuntimeException {
+	public NovelPackagingEvent create(Long novelId, Site site) throws WebAppRuntimeException {
 
-		return eventRepo.create(NovelPackagingEvent.of(eventRepo.generateIdString(), novelId, site));
+		return eventRepo.create(NovelPackagingEvent.of(novelId, site));
 	}
 
 	@Override
-	public NovelPackagingEvent publish(String eventId) throws WebAppRuntimeException {
+	public NovelPackagingEvent publish(Long eventId) throws WebAppRuntimeException {
 
-		NovelPackagingEvent event = Validate.notNull(eventRepo.findByEventId(eventId), "event_id_not_found");
-		return eventService.publish(novelRepo.findByNovelId(event.novelId()), event.site());
+		NovelPackagingEvent event = Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found");
+		return eventService.publish(novelRepo.findByEntityId(event.novelId()), event.site());
 	}
 
 	@Override
-	public NovelPackagingEvent complete(String eventId, String path) throws WebAppRuntimeException {
+	public NovelPackagingEvent complete(Long eventId, String path) throws WebAppRuntimeException {
 
-		return eventService.complete(Validate.notNull(eventRepo.findByEventId(eventId), "event_id_not_found"), path);
+		return eventService.complete(Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found"), path);
 	}
 }

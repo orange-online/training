@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterQueryDTO;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapter;
-import cn.deepdraw.training.framework.api.adapter.query.EntityBaseSpecificationBuilder;
+import cn.deepdraw.training.framework.api.builder.query.EntityBaseQueryBuilder;
 
 /**
  * NovelChapter Query Adapter
@@ -22,14 +22,14 @@ import cn.deepdraw.training.framework.api.adapter.query.EntityBaseSpecificationB
  * 2020-07-22
  */
 @Component
-public class NovelChapterQueryBuilder extends EntityBaseSpecificationBuilder<NovelChapter, NovelChapterQueryDTO> {
+public class NovelChapterQueryBuilder extends EntityBaseQueryBuilder<NovelChapter, NovelChapterQueryDTO> {
 
 	@Override
-	protected void doBuild(Root<NovelChapter> root, CriteriaQuery<?> query, CriteriaBuilder builder, List<Predicate> predicates, NovelChapterQueryDTO dto) {
+	protected void building(Root<NovelChapter> root, CriteriaQuery<?> query, CriteriaBuilder builder, List<Predicate> predicates, NovelChapterQueryDTO dto) {
 
-		if (StringUtils.isNotBlank(dto.getNovelId())) {
+		if (dto.getNovelId() != null) {
 
-			predicates.add(builder.equal(root.get("novel").get("novelId").as(String.class), dto.getNovelId()));
+			predicates.add(builder.equal(root.get("novel").get("novelId").as(Long.class), dto.getNovelId()));
 		}
 		if (StringUtils.isNotBlank(dto.getSite()) && EnumUtils.isValidEnum(Site.class, dto.getSite())) {
 

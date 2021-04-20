@@ -11,13 +11,11 @@ public class NovelChapterCrawlingEventDTO extends IdEntityDTO {
 
 	private static final long serialVersionUID = 20201126L;
 
-	private String eventId;
-
-	private String novelId;
+	private Long novelId;
 
 	private String site;
 
-	private String chapterId;
+	private Long chapterId;
 
 	private String link;
 	
@@ -25,19 +23,11 @@ public class NovelChapterCrawlingEventDTO extends IdEntityDTO {
 	
 	private boolean completed;
 
-	public String getEventId() {
-		return eventId;
-	}
-
-	public void setEventId(String eventId) {
-		this.eventId = eventId;
-	}
-
-	public String getNovelId() {
+	public Long getNovelId() {
 		return novelId;
 	}
 
-	public void setNovelId(String novelId) {
+	public void setNovelId(Long novelId) {
 		this.novelId = novelId;
 	}
 
@@ -49,11 +39,11 @@ public class NovelChapterCrawlingEventDTO extends IdEntityDTO {
 		this.site = site;
 	}
 
-	public String getChapterId() {
+	public Long getChapterId() {
 		return chapterId;
 	}
 
-	public void setChapterId(String chapterId) {
+	public void setChapterId(Long chapterId) {
 		this.chapterId = chapterId;
 	}
 

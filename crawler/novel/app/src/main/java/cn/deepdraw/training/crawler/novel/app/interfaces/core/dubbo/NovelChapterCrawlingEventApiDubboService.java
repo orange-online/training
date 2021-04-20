@@ -11,7 +11,7 @@ import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterCrawlingEventDTO;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelChapterCrawlingEventAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelChapterCrawlingEventAdapter;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelChapterCrawlingEventConv;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 
 /**
@@ -27,30 +27,30 @@ public class NovelChapterCrawlingEventApiDubboService implements NovelChapterCra
 	private NovelChapterCrawlingEventAppService eventAppService;
 	
 	@Autowired
-	private NovelChapterCrawlingEventAdapter eventAdapter;
+	private NovelChapterCrawlingEventConv eventConv;
 
 	@Override
-	public NovelChapterCrawlingEventDTO create(String novelId, String site, String chapterId, String link) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEventDTO create(Long novelId, String site, Long chapterId, String link) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.create(novelId, EnumUtils.getEnum(Site.class, site), chapterId, link));
+		return eventConv.done(eventAppService.create(novelId, EnumUtils.getEnum(Site.class, site), chapterId, link));
 	}
 
 	@Override
-	public NovelChapterCrawlingEventDTO publish(String novelId, String name, LinkAddress address) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEventDTO publish(Long novelId, String name, LinkAddress address) throws WebAppRuntimeException {
 
 		LinkAddr addr = LinkAddr.of(EnumUtils.getEnum(Site.class, address.getSite()), address.getLink(), address.getPath());
-		return eventAdapter.adapt(eventAppService.publish(novelId, name, addr));
+		return eventConv.done(eventAppService.publish(novelId, name, addr));
 	}
 
 	@Override
-	public NovelChapterCrawlingEventDTO publish(String eventId) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEventDTO publish(Long eventId) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.publish(eventId));
+		return eventConv.done(eventAppService.publish(eventId));
 	}
 
 	@Override
-	public NovelChapterCrawlingEventDTO complete(String eventId, String path) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEventDTO complete(Long eventId, String path) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.complete(eventId, path));
+		return eventConv.done(eventAppService.complete(eventId, path));
 	}
 }

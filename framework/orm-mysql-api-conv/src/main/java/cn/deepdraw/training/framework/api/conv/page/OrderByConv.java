@@ -23,7 +23,7 @@ public class OrderByConv {
 	
 	public static final String PROPERTY_SEPARATOR = "-";
 
-	public Sort conv(String orderByValue) {
+	public Sort done(String orderByValue) {
 
 		return Sort.by(doConv(orderByValue));
 	}

@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.Validate;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
-import cn.deepdraw.training.framework.orm.mysql.constants.ColumnDefinitionConstants;
 import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
@@ -30,13 +29,10 @@ public class Novel extends IdLongEntity {
 
 	private static final long serialVersionUID = 20200609L;
 
-	@Column(name = "novel_id", columnDefinition = ColumnDefinitionConstants.VARCHAR_45, nullable = false, unique = true)
-	private String novelId;
-
-	@Column(name = "name", columnDefinition = ColumnDefinitionConstants.VARCHAR_45, nullable = false)
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "author", columnDefinition = ColumnDefinitionConstants.VARCHAR_45, nullable = false)
+	@Column(name = "author")
 	private String author;
 
 	@ElementCollection
@@ -45,22 +41,16 @@ public class Novel extends IdLongEntity {
 
 	private Novel() {}
 
-	private Novel(String novelId, String name, String author, LinkAddr addr) {
+	private Novel(String name, String author, LinkAddr addr) {
 
-		this.novelId = Validate.notBlank(novelId, "novelId_cannot_be_blank");
 		this.name = Validate.notBlank(name, "name_cannot_be_blank");
 		this.author = Validate.notBlank(author, "author_cannot_be_blank");
 		this.addrs = new ArrayList<>(Arrays.asList(Validate.notNull(addr, "addr_cannot_be_null")));
 	}
 
-	public static Novel of(String novelId, String name, String author, LinkAddr addr) {
+	public static Novel of(String name, String author, LinkAddr addr) {
 
-		return new Novel(novelId, name, author, addr);
-	}
-
-	public String novelId() {
-
-		return novelId;
+		return new Novel(name, author, addr);
 	}
 
 	public String name() {

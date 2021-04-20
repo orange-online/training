@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
-import cn.deepdraw.training.framework.orm.mysql.constants.ColumnDefinitionConstants;
 import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
@@ -28,48 +27,39 @@ public class NovelCrawlingEvent extends IdLongEntity {
 
 	private static final long serialVersionUID = 20201126L;
 
-	@Column(name = "event_id", columnDefinition = ColumnDefinitionConstants.VARCHAR_45, nullable = false, unique = true)
-	private String eventId;
-
-	@Column(name = "novel_id", columnDefinition = ColumnDefinitionConstants.VARCHAR_45, nullable = false)
-	private String novelId;
+	@Column(name = "novel_id")
+	private Long novelId;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "site", columnDefinition = ColumnDefinitionConstants.TINYINT_1, nullable = false)
+	@Column(name = "site")
 	private Site site;
 
-	@Column(name = "link", columnDefinition = ColumnDefinitionConstants.VARCHAR_255, nullable = false)
+	@Column(name = "link")
 	private String link;
 	
-	@Column(name = "published", columnDefinition = ColumnDefinitionConstants.TINYINT_1, nullable = false)
+	@Column(name = "published")
 	private boolean published;
 	
-	@Column(name = "completed", columnDefinition = ColumnDefinitionConstants.TINYINT_1, nullable = false)
+	@Column(name = "completed")
 	private boolean completed;
 
 	private NovelCrawlingEvent() {}
 
-	private NovelCrawlingEvent(String eventId, String novelId, Site site, String link) {
+	private NovelCrawlingEvent(Long novelId, Site site, String link) {
 
-		this.eventId = Validate.notBlank(eventId, "novel_id_cannot_be_blank");
-		this.novelId = Validate.notBlank(novelId, "novel_id_cannot_be_blank");
+		this.novelId = Validate.notNull(novelId, "novel_id_cannot_be_null");
 		this.site = Validate.notNull(site, "site_cannot_be_blank");
 		this.link = Validate.notBlank(link, "link_cannot_be_blank");
 		this.published = false;
 		this.completed = false;
 	}
 
-	public static NovelCrawlingEvent of(String eventId, String novelId, Site site, String link) {
+	public static NovelCrawlingEvent of(Long novelId, Site site, String link) {
 
-		return new NovelCrawlingEvent(eventId, novelId, site, link);
+		return new NovelCrawlingEvent(novelId, site, link);
 	}
 
-	public String eventId() {
-		
-		return eventId;
-	}
-
-	public String novelId() {
+	public Long novelId() {
 		
 		return novelId;
 	}
@@ -115,7 +105,7 @@ public class NovelCrawlingEvent extends IdLongEntity {
 	public String toString() {
 
 		ObjectNode objectNode = JsonNodeFactory.instance.objectNode();
-		objectNode.put("eventId", eventId);
+		objectNode.put("eventId", entityId());
 		objectNode.put("novelId", novelId);
 		objectNode.put("site", siteString());
 		objectNode.put("link", link);

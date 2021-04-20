@@ -16,11 +16,11 @@ public interface NovelApi {
 
 	NovelDTO create(String name, String author, LinkAddress address) throws WebAppRuntimeException;
 
-	NovelDTO updateAddress(String novelId, LinkAddress address) throws WebAppRuntimeException;
+	NovelDTO updateAddress(Long novelId, LinkAddress address) throws WebAppRuntimeException;
 
-	NovelDTO updatePath(String novelId, String site, String path) throws WebAppRuntimeException;
+	NovelDTO updatePath(Long novelId, String site, String path) throws WebAppRuntimeException;
 
-	NovelDTO findByNovelId(String novelId);
+	NovelDTO findByNovelId(Long novelId);
 
 	NovelDTO findByNameAndAuthor(String name, String author);
 
@@ -28,5 +28,5 @@ public interface NovelApi {
 
 	NovelDTO crawl(String site, String url);
 
-	NovelDTO packaging(String novelId, String site);
+	NovelDTO packaging(Long novelId, String site);
 }

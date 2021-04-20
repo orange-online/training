@@ -8,26 +8,26 @@ import org.junit.Test;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelDTO;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelAdapter;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPageConv;
 
 /**
  * @author xjn
  * @description NovelAdapterTest
  * @date 2020/11/20
  */
-public class NovelAdapterTest {
+public class NovelPageConvTest {
 
-	private NovelAdapter adapter = new NovelAdapter();
+	private NovelPageConv conv = new NovelPageConv();
 
 	@Test
-	public void doAdapt_happyPath() {
+	public void done_happyPath() {
 
 		LinkAddr addr = LinkAddr.of(LinkAddr.Site.BIQUGE, "link", null);
-		Novel novel = Novel.of("id", "name", "author", addr);
+		Novel novel = Novel.of("name", "author", addr);
+		novel.entityId(123L);
+		NovelDTO dto = conv.done(novel);
 
-		NovelDTO dto = adapter.adapt(novel);
-
-		assertEquals("id", dto.getNovelId());
+		assertEquals(123L, dto.getEntityId().longValue());
 		assertEquals("name", dto.getName());
 		assertEquals("author", dto.getAuthor());
 		assertNotNull(dto.addressOf("BIQUGE"));

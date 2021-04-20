@@ -8,6 +8,4 @@ import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
  * Novel Packaging Event Repository
  */
 public interface NovelPackagingEventRepository extends IdEntityRepository<NovelPackagingEvent> {
-
-	NovelPackagingEvent findByEventId(String eventId);
 }

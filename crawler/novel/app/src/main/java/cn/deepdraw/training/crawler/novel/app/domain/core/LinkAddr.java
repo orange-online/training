@@ -11,7 +11,6 @@ import org.apache.commons.lang3.Validate;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 import cn.deepdraw.training.crawler.novel.app.domain.shared.ValueObject;
-import cn.deepdraw.training.framework.orm.mysql.constants.ColumnDefinitionConstants;
 
 /**
  * 链接
@@ -24,13 +23,13 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 	private static final long serialVersionUID = 20200609L;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "site", columnDefinition = ColumnDefinitionConstants.TINYINT_1, nullable = false)
+	@Column(name = "site")
 	private Site site; // 站点
 
-	@Column(name = "link", columnDefinition = ColumnDefinitionConstants.VARCHAR_255, nullable = false)
+	@Column(name = "link")
 	private String link; // 站点链接
 
-	@Column(name = "path", columnDefinition = ColumnDefinitionConstants.VARCHAR_255, nullable = true)
+	@Column(name = "path")
 	private String path; // 服务器地址
 
 	private LinkAddr() {}

@@ -9,7 +9,7 @@ import cn.deepdraw.training.crawler.novel.api.dto.LinkAddress;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelDTO;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
-import cn.deepdraw.training.framework.api.adapter.EntityBasePageAdapter;
+import cn.deepdraw.training.framework.api.conv.IdLongEntityPageConv;
 
 /**
  * Novel Adapter
@@ -17,13 +17,12 @@ import cn.deepdraw.training.framework.api.adapter.EntityBasePageAdapter;
  * 2020-06-19
  */
 @Component
-public class NovelAdapter extends EntityBasePageAdapter<Novel, NovelDTO> {
+public class NovelPageConv extends IdLongEntityPageConv<Novel, NovelDTO> {
 
 	@Override
-	protected NovelDTO doAdapt(Novel novel) {
+	protected NovelDTO doing(Novel novel) {
 
 		NovelDTO dto = new NovelDTO();
-		dto.setNovelId(novel.novelId());
 		dto.setName(novel.name());
 		dto.setAuthor(novel.author());
 		dto.setAddresses(adaptLinks(novel.addrs()));

@@ -1,4 +1,4 @@
-#4.4.0 (2021-04-19)
+#4.4.4 (2021-04-19)
 Features
 The IdGenerator is replaced with the snowflake algorithm.
 Delete 'IdStringEntity' file.

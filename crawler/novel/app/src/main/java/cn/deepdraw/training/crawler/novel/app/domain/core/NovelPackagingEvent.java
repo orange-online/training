@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import cn.deepdraw.training.framework.orm.mysql.constants.ColumnDefinitionConstants;
 import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
@@ -25,45 +24,36 @@ public class NovelPackagingEvent extends IdLongEntity {
 
 	private static final long serialVersionUID = 963574916302359182L;
 
-	@Column(name = "event_id", columnDefinition = ColumnDefinitionConstants.VARCHAR_45, nullable = false, unique = true)
-	private String eventId;
-
-	@Column(name = "novel_id", columnDefinition = ColumnDefinitionConstants.VARCHAR_45, nullable = false)
-	private String novelId;
+	@Column(name = "novel_id")
+	private Long novelId;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "site", columnDefinition = ColumnDefinitionConstants.TINYINT_1, nullable = false)
+	@Column(name = "site")
 	private LinkAddr.Site site;
 
-	@Column(name = "published", columnDefinition = ColumnDefinitionConstants.TINYINT_1, nullable = false)
+	@Column(name = "published")
 	private boolean published;
 
-	@Column(name = "completed", columnDefinition = ColumnDefinitionConstants.TINYINT_1, nullable = false)
+	@Column(name = "completed")
 	private boolean completed;
 
 	private NovelPackagingEvent() {
 	}
 
-	private NovelPackagingEvent(String eventId, String novelId, LinkAddr.Site site) {
+	private NovelPackagingEvent(Long novelId, LinkAddr.Site site) {
 
-		this.eventId = eventId;
 		this.novelId = novelId;
 		this.site = site;
 		this.published = false;
 		this.completed = false;
 	}
 
-	public static NovelPackagingEvent of(String eventId, String novelId, LinkAddr.Site site) {
+	public static NovelPackagingEvent of(Long novelId, LinkAddr.Site site) {
 
-		return new NovelPackagingEvent(eventId, novelId, site);
+		return new NovelPackagingEvent(novelId, site);
 	}
 
-	public String eventId() {
-
-		return eventId;
-	}
-
-	public String novelId() {
+	public Long novelId() {
 
 		return novelId;
 	}
@@ -104,7 +94,7 @@ public class NovelPackagingEvent extends IdLongEntity {
 	public String toString() {
 
 		ObjectNode objectNode = JsonNodeFactory.instance.objectNode();
-		objectNode.put("eventId", eventId);
+		objectNode.put("eventId", entityId());
 		objectNode.put("novelId", novelId);
 		objectNode.put("site", siteString());
 		return objectNode.toString();

@@ -1,3 +1,7 @@
+#4.4.4 (2021-04-20)
+Features
+Rebuild all the component.
+
 #4.0.1 (2020-07-15)
 Features
 EntityBaseQueryDTO中removed属性默认初始化为false

@@ -11,17 +11,17 @@ public class NovelChapterQueryDTO extends IdEntityQueryDTO {
 
 	private static final long serialVersionUID = 20200722L;
 
-	private String novelId;
+	private Long novelId;
 
 	private String site;
 
 	private String name;
 
-	public String getNovelId() {
+	public Long getNovelId() {
 		return novelId;
 	}
 
-	public void setNovelId(String novelId) {
+	public void setNovelId(Long novelId) {
 		this.novelId = novelId;
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.deepdraw.training.crawler.novel.api.NovelCrawlingEventApi;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelCrawlingEventDTO;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelCrawlingEventAppService;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelCrawlingEventAdapter;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelCrawlingEventConv;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 
 /**
@@ -23,23 +23,23 @@ public class NovelCrawlingEventApiDubboService implements NovelCrawlingEventApi 
 	private NovelCrawlingEventAppService eventAppService;
 	
 	@Autowired
-	private NovelCrawlingEventAdapter eventAdapter;
+	private NovelCrawlingEventConv eventConv;
 
 	@Override
-	public NovelCrawlingEventDTO create(String novelId, String site, String link) throws WebAppRuntimeException {
+	public NovelCrawlingEventDTO create(Long novelId, String site, String link) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.create(novelId, site, link));
+		return eventConv.done(eventAppService.create(novelId, site, link));
 	}
 
 	@Override
-	public NovelCrawlingEventDTO publish(String eventId) throws WebAppRuntimeException {
+	public NovelCrawlingEventDTO publish(Long eventId) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.publish(eventId));
+		return eventConv.done(eventAppService.publish(eventId));
 	}
 
 	@Override
-	public NovelCrawlingEventDTO complete(String eventId, String path) throws WebAppRuntimeException {
+	public NovelCrawlingEventDTO complete(Long eventId, String path) throws WebAppRuntimeException {
 
-		return eventAdapter.adapt(eventAppService.complete(eventId, path));
+		return eventConv.done(eventAppService.complete(eventId, path));
 	}
 }

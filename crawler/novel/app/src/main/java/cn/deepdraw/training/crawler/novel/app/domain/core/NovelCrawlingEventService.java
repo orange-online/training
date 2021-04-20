@@ -31,13 +31,13 @@ public class NovelCrawlingEventService {
 	public NovelCrawlingEvent publish(Novel novel, Site site) {
 
 		LinkAddr addrOf = Validate.notNull(novel.addrOf(site), "unsupported_site");
-		NovelCrawlingEvent event = eventRepo.create(NovelCrawlingEvent.of(eventRepo.generateIdString(), novel.novelId(), site, addrOf.link()));
+		NovelCrawlingEvent event = eventRepo.create(NovelCrawlingEvent.of(novel.entityId(), site, addrOf.link()));
 		return messageProxy.send(setting, event) ? eventRepo.update(event.publish()) : event;
 	}
 
 	public NovelCrawlingEvent complete(NovelCrawlingEvent event, String path) {
 
-		novelRepo.update(novelRepo.findByNovelId(event.novelId()).updateAddrPath(event.site(), path));
+		novelRepo.update(novelRepo.findByEntityId(event.novelId()).updateAddrPath(event.site(), path));
 		return eventRepo.update(event.complete());
 	}
 }

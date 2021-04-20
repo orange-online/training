@@ -11,9 +11,7 @@ public class NovelPackagingEventDTO extends IdEntityDTO {
 
 	private static final long serialVersionUID = 1005496065634251588L;
 
-	private String eventId;
-
-	private String novelId;
+	private Long novelId;
 
 	private String site;
 
@@ -21,19 +19,11 @@ public class NovelPackagingEventDTO extends IdEntityDTO {
 
 	private boolean completed;
 
-	public String getEventId() {
-		return eventId;
-	}
-
-	public void setEventId(String eventId) {
-		this.eventId = eventId;
-	}
-
-	public String getNovelId() {
+	public Long getNovelId() {
 		return novelId;
 	}
 
-	public void setNovelId(String novelId) {
+	public void setNovelId(Long novelId) {
 		this.novelId = novelId;
 	}
 

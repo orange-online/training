@@ -23,14 +23,12 @@ public class NovelTest {
 	@Test
 	public void should_return_a_not_null_instance_when_of_factory_method_called_if_args_are_legal() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-		Novel novel = Novel.of(novelId, name, author, addr);
+		Novel novel = Novel.of(name, author, addr);
 		Assert.assertNotNull(novel);
 
-		Assert.assertSame(novel.novelId(), novelId);
 		Assert.assertSame(novel.name(), name);
 		Assert.assertSame(novel.author(), author);
 		Assert.assertThat(novel.addrs(), Matchers.hasSize(1));
@@ -38,88 +36,69 @@ public class NovelTest {
 	}
 
 	@Test
-	public void should_throw_exception_when_of_factory_method_called_but_novelId_is_illegal() {
-
-		String novelId = "  ";
-		String name = "novel_name";
-		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("novelId_cannot_be_blank");
-		Novel.of(novelId, name, author, addr);
-	}
-
-	@Test
 	public void should_throw_exception_when_of_factory_method_called_but_name_is_illegal() {
 
-		String novelId = "novel_id";
 		String name = "  ";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
 
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("name_cannot_be_blank");
-		Novel.of(novelId, name, author, addr);
+		Novel.of(name, author, addr);
 	}
 
 	@Test
 	public void should_throw_exception_when_of_factory_method_called_but_author_is_illegal() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "  ";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
 
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("author_cannot_be_blank");
-		Novel.of(novelId, name, author, addr);
+		Novel.of(name, author, addr);
 	}
 
 	@Test
 	public void should_throw_exception_when_of_factory_method_called_but_addr_is_illegal() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = null;
 
 		expectedException.expect(NullPointerException.class);
 		expectedException.expectMessage("addr_cannot_be_null");
-		Novel.of(novelId, name, author, addr);
+		Novel.of(name, author, addr);
 	}
 
 	@Test
 	public void should_return_the_specified_addr_when_addrOf_method_called_if_site_already_exists() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-		Novel novel = Novel.of(novelId, name, author, addr);
+		Novel novel = Novel.of(name, author, addr);
 		Assert.assertSame(addr, novel.addrOf(Site.BIQUGE));
 	}
 
 	@Test
 	public void should_return_a_null_instance_when_addrOf_method_called_if_site_donot_exist() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-		Novel novel = Novel.of(novelId, name, author, addr);
+		Novel novel = Novel.of(name, author, addr);
 		Assert.assertNull(novel.addrOf(Site.LIUDATXT));
 	}
 
 	@Test
 	public void should_add_a_new_addr_when_updateLink_method_called_if_site_of_addr_donot_exist() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
 		LinkAddr addrNonexistent = LinkAddr.of(Site.LIUDATXT, "novel_addr", "novel_path");
-		Novel novel = Novel.of(novelId, name, author, addr).updateAddr(addrNonexistent);
+		Novel novel = Novel.of(name, author, addr).updateAddr(addrNonexistent);
 
 		Assert.assertThat(novel.addrs(), Matchers.contains(addr, addrNonexistent));
 		Assert.assertThat(novel.addrs(), Matchers.hasSize(2));
@@ -128,12 +107,11 @@ public class NovelTest {
 	@Test
 	public void should_add_a_new_addr_when_updateLink_method_called_if_site_of_addr_already_exists() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
 		LinkAddr addrExistent = LinkAddr.of(Site.BIQUGE, "novel_addr_existent", "novel_path_existent");
-		Novel novel = Novel.of(novelId, name, author, addr).updateAddr(addrExistent);
+		Novel novel = Novel.of(name, author, addr).updateAddr(addrExistent);
 
 		Assert.assertThat(novel.addrs(), Matchers.contains(addr));
 		Assert.assertThat(novel.addrs(), Matchers.hasSize(1));
@@ -142,24 +120,22 @@ public class NovelTest {
 	@Test
 	public void should_update_the_path_of_the_addr_specified_when_updateLinkPath_method_called_if_site_already_exists() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-		Novel novel = Novel.of(novelId, name, author, addr).updateAddrPath(Site.BIQUGE, "novel_path_new");
+		Novel novel = Novel.of(name, author, addr).updateAddrPath(Site.BIQUGE, "novel_path_new");
 		Assert.assertSame("novel_path_new", novel.addrOf(Site.BIQUGE).path());
 	}
 
 	@Test
 	public void should_throw_exception_when_updateLinkPath_method_called_but_site_donot_exist() {
 
-		String novelId = "novel_id";
 		String name = "novel_name";
 		String author = "novel_author";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
 
 		expectedException.expect(NullPointerException.class);
 		expectedException.expectMessage("site_not_found");
-		Novel.of(novelId, name, author, addr).updateAddrPath(Site.LIUDATXT, "novel_path_new");
+		Novel.of(name, author, addr).updateAddrPath(Site.LIUDATXT, "novel_path_new");
 	}
 }

@@ -1,3 +1,7 @@
+#4.4.4 (2021-04-20)
+Features
+Upgrade the 'framework-api' component's version to '4.4.4'.
+
 #3.5.0 (2020-12-07)
 Features
 新增packaging，NovelPackagingEventApi系列接口，支持小说打包

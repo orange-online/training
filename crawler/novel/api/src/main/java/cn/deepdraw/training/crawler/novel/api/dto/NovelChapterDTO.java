@@ -11,28 +11,18 @@ public class NovelChapterDTO extends IdEntityDTO {
 
 	private static final long serialVersionUID = 20200722L;
 
-	private String novelId;
-
-	private String chapterId;
+	private Long novelId;
 
 	private String name;
 
 	private LinkAddress address;
 
-	public String getNovelId() {
+	public Long getNovelId() {
 		return novelId;
 	}
 
-	public void setNovelId(String novelId) {
+	public void setNovelId(Long novelId) {
 		this.novelId = novelId;
-	}
-
-	public String getChapterId() {
-		return chapterId;
-	}
-
-	public void setChapterId(String chapterId) {
-		this.chapterId = chapterId;
 	}
 
 	public String getName() {

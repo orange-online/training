@@ -11,10 +11,10 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
  */
 public interface NovelPackagingEventAppService {
 
-	NovelPackagingEvent create(String novelId, Site site) throws WebAppRuntimeException;
+	NovelPackagingEvent create(Long novelId, Site site) throws WebAppRuntimeException;
 
-	NovelPackagingEvent publish(String eventId) throws WebAppRuntimeException;
+	NovelPackagingEvent publish(Long eventId) throws WebAppRuntimeException;
 
-	NovelPackagingEvent complete(String eventId, String path) throws WebAppRuntimeException;
+	NovelPackagingEvent complete(Long eventId, String path) throws WebAppRuntimeException;
 
 }

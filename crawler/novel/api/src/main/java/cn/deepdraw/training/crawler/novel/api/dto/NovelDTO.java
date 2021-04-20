@@ -15,21 +15,11 @@ public class NovelDTO extends IdEntityDTO {
 
 	private static final long serialVersionUID = 20200609L;
 
-	private String novelId;
-
 	private String name;
 
 	private String author;
 
 	private List<LinkAddress> addresses;
-
-	public String getNovelId() {
-		return novelId;
-	}
-
-	public void setNovelId(String novelId) {
-		this.novelId = novelId;
-	}
 
 	public String getName() {
 		return name;

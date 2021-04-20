@@ -14,11 +14,11 @@ public interface NovelAppService {
 
 	Novel create(String name, String author, LinkAddr link) throws WebAppRuntimeException;
 
-	Novel updateLink(String novelId, LinkAddr link) throws WebAppRuntimeException;
+	Novel updateLink(Long novelId, LinkAddr link) throws WebAppRuntimeException;
 
-	Novel updatePath(String novelId, Site site, String path) throws WebAppRuntimeException;
+	Novel updatePath(Long novelId, Site site, String path) throws WebAppRuntimeException;
 
 	Novel crawl(String site, String url);
 
-	Novel packaging(String novelId, Site site);
+	Novel packaging(Long novelId, Site site);
 }

@@ -16,11 +16,11 @@ public abstract class EntityBaseDTO implements Serializable {
 
 	private Date createdDate;
 
-	private String createdBy;
+	private Long createdBy;
 
 	private Date lastModifiedDate;
 
-	private String lastModifiedBy;
+	private Long lastModifiedBy;
 
 	public boolean isRemoved() {
 		return removed;
@@ -38,11 +38,11 @@ public abstract class EntityBaseDTO implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public String getCreatedBy() {
+	public Long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -54,11 +54,11 @@ public abstract class EntityBaseDTO implements Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public String getLastModifiedBy() {
+	public Long getLastModifiedBy() {
 		return lastModifiedBy;
 	}
 
-	public void setLastModifiedBy(String lastModifiedBy) {
+	public void setLastModifiedBy(Long lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 }
