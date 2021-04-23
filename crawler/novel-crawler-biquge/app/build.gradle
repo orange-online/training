@@ -124,9 +124,9 @@ task release {
 }
 
 dependencies {
-	implementation('cn.deepdraw.training:deepdraw-training-framework-web:2.2.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:1.2.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-web:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-biquge-api:2.2.0')
 

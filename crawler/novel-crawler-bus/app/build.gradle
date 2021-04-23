@@ -123,16 +123,16 @@ task release {
 
 dependencies {
 
-	implementation('cn.deepdraw.training:deepdraw-training-framework-web:2.2.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-api:4.4.4')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:1.2.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-rocketmq-core:2.0.2')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-web:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-api:5.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-rocketmq-core:3.0.0')
 
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-api:4.4.4')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-api:5.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:2.1.0')
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:1.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-storage-api:2.2.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-storage-api:3.0.0')
 
 	testImplementation('junit:junit:4.12')
 	testImplementation('org.mockito:mockito-core:2.23.4')

@@ -1,3 +1,7 @@
+#3.0.0 (2021-04-23)
+Features
+Upgrade the 'framework-utils' component version to '3.0.0'.
+
 #2.2.0 (2021-02-22)
 Features
 删除小说打包接口

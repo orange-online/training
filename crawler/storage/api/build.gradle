@@ -15,7 +15,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '2.2.0'
+version = '3.0.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -50,7 +50,7 @@ uploadArchives {
 }
 
 dependencies {
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 	
     testImplementation('junit:junit:4.12')
 }

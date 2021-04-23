@@ -1,3 +1,8 @@
+#5.0.0 (2021-04-23)
+Features
+Upgrade the 'framework-api' component's version to '5.0.0'.
+Upgrade the 'framework-utils' component's version to '3.0.0'.
+
 #4.4.4 (2021-04-20)
 Features
 Upgrade the 'framework-api' component's version to '4.4.4'.

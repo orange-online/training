@@ -34,7 +34,7 @@ public class NovelController {
 		return novelApi.findByPage(query, request);
 	}
 
-	@PostMapping
+	@GetMapping("/create")
 	public NovelDTO create(@RequestParam String site, @RequestParam String url) throws WebAppRuntimeException {
 
 		return novelApi.crawl(site, url);
