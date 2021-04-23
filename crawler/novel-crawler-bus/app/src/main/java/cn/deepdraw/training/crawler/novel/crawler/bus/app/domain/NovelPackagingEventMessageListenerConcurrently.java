@@ -80,7 +80,7 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 
 	private List<String> findChapterContents(List<String> paths) {
 
-		return resourceStorageApi.download(paths).stream().filter(resource -> resource.getData() != null).map(resource -> resource.getData().toString()).collect(Collectors.toList());
+		return resourceStorageApi.download(paths).stream().filter(resource -> resource.getData() != null).map(resource -> new String(resource.getData())).collect(Collectors.toList());
 	}
 
 	private byte[] prepareResourceStorageData(NovelPackagingEventMessage message) {
