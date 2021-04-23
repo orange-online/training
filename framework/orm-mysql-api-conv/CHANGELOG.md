@@ -1,3 +1,7 @@
+#5.0.0 (2021-04-23)
+Features
+Upgrade the 'utils' component version to 2.2.0
+
 #4.4.4 (2021-04-19)
 Features
 Rebuild all the component.

@@ -20,7 +20,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '1.2.0'
+version = '2.0.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -63,5 +63,5 @@ dependencies {
 		exclude group: 'org.slf4j', module: 'slf4j-log4j12'
 	}
 	
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 }

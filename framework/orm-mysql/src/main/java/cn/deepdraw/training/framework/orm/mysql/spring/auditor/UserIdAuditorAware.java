@@ -2,7 +2,6 @@ package cn.deepdraw.training.framework.orm.mysql.spring.auditor;
 
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.AuditorAware;
 
 import cn.deepdraw.training.framework.utils.session.Session;
@@ -13,12 +12,12 @@ import cn.deepdraw.training.framework.utils.session.SessionContext;
  * @author huangjiancheng
  * @date Jul 25, 2018
  */
-public class UserIdAuditorAware implements AuditorAware<String> {
+public class UserIdAuditorAware implements AuditorAware<Long> {
 
 	@Override
-	public Optional<String> getCurrentAuditor() {
+	public Optional<Long> getCurrentAuditor() {
 
 		Session session = SessionContext.getInstance().get();
-		return Optional.of(session != null && StringUtils.isNotBlank(session.getUserId()) ? session.getUserId() : "");
+		return Optional.of(session != null && session.getUserId() != null ? session.getUserId() : 0L);
 	}
 }

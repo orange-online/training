@@ -20,7 +20,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '4.4.4'
+version = '5.0.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -75,5 +75,5 @@ dependencies {
 	api('org.apache.tomcat:tomcat-jdbc:8.5.29')
 	api('mysql:mysql-connector-java:8.0.20')
 
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 }

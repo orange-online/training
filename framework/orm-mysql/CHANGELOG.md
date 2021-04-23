@@ -1,3 +1,7 @@
+#5.0.0 (2021-04-23)
+Features
+Fix the UserIdAuditorAware's ClassCastException.
+
 #4.4.4 (2021-04-19)
 Features
 The IdGenerator is replaced with the snowflake algorithm.

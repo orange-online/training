@@ -5,6 +5,7 @@ buildscript {
 		pomPath = "$buildDir/pom.xml"
 	}
 	repositories {
+		mavenLocal()
 		mavenCentral()
 	}
 	dependencies {
@@ -18,10 +19,11 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '4.4.4'
+version = '5.0.0'
 sourceCompatibility = 1.8
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
@@ -74,5 +76,5 @@ uploadArchives {
 }
 
 dependencies {
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 }

@@ -1,3 +1,7 @@
+#2.0.0 (2021-04-23)
+Features
+Upgrade the 'utils' component version to 2.2.0
+
 #1.2.0 (2021-04-15)
 Features
 Delete the 'syso' codes.

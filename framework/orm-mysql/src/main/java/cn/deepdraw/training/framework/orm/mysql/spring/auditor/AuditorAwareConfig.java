@@ -17,7 +17,7 @@ import cn.deepdraw.training.framework.orm.mysql.spring.datasource.DatasourceConf
 public class AuditorAwareConfig {
 
 	@Bean("defaultAAAware")
-	public AuditorAware<String> userIdAuditorAware() {
+	public AuditorAware<Long> userIdAuditorAware() {
 
 		return new UserIdAuditorAware();
 	}

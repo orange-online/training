@@ -19,7 +19,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '4.4.4'
+version = '5.0.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -76,7 +76,7 @@ uploadArchives {
 }
 
 dependencies {
-	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql:4.4.4')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-api:4.4.4')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql:5.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-api:5.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 }

@@ -48,6 +48,7 @@ public class SessionRegister implements RegisterResponseApi {
 
 			return null;
 		}
-		return new Session(fieldValue(response, "user_id"));
+		String userIdString = fieldValue(response, "user_id");
+		return Session.of(Long.valueOf(userIdString));
 	}
 }

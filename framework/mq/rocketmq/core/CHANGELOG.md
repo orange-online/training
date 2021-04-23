@@ -1,3 +1,7 @@
+#3.0.0 (2021-04-23)
+Features
+Upgrade the 'utils' component version to 2.2.0
+
 #2.0.2 (2020-11-29)
 Features
 RocketmqProducer支持定制sendMsgTimeout配置

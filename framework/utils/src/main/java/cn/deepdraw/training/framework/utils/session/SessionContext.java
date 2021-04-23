@@ -11,22 +11,17 @@ public final class SessionContext {
 
 	private static SessionContext instance = null;
 
-	private static Object lock = new Object();
-
 	private SessionContext() {}
 
 	public static SessionContext getInstance() {
 
-		synchronized (lock) {
+		if (instance == null) {
 
-			if (instance == null) {
+			synchronized (SessionContext.class) {
 
-				synchronized (lock) {
+				if (instance == null) {
 
-					if (instance == null) {
-
-						instance = new SessionContext();
-					}
+					instance = new SessionContext();
 				}
 			}
 		}
