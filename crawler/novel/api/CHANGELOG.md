@@ -1,3 +1,7 @@
+#5.1.0 (2021-04-25)
+Features
+Add the 'index' property in the 'NovelChapter' class to store the chapter's index.
+
 #5.0.0 (2021-04-23)
 Features
 Upgrade the 'framework-api' component's version to '5.0.0'.

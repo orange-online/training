@@ -49,12 +49,12 @@ public class NovelChapterCrawlingEventAppServiceImpl implements NovelChapterCraw
 	}
 
 	@Override
-	public NovelChapterCrawlingEvent publish(Long novelId, String name, LinkAddr addr) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEvent publish(Long novelId, String name, LinkAddr addr, Integer index) throws WebAppRuntimeException {
 
 		NovelChapter chapter = chapterRepo.findByChapterLink(novelId, addr.site(), addr.link());
 		if (chapter == null) {
 
-			chapter = chapterRepo.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr));
+			chapter = chapterRepo.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr, index));
 		}
 		return eventService.publish(create(novelId, chapter.site(), chapter.entityId(), chapter.link()));
 	}

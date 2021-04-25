@@ -13,7 +13,7 @@ public interface NovelChapterCrawlingEventApi {
 
 	NovelChapterCrawlingEventDTO create(Long novelId, String site, Long chapterId, String link) throws WebAppRuntimeException;
 
-	NovelChapterCrawlingEventDTO publish(Long novelId, String name, LinkAddress address) throws WebAppRuntimeException;
+	NovelChapterCrawlingEventDTO publish(Long novelId, String name, LinkAddress address, Integer index) throws WebAppRuntimeException;
 
 	NovelChapterCrawlingEventDTO publish(Long eventId) throws WebAppRuntimeException;
 

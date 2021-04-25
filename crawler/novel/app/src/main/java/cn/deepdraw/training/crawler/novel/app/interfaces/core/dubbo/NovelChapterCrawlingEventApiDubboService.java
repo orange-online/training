@@ -36,10 +36,10 @@ public class NovelChapterCrawlingEventApiDubboService implements NovelChapterCra
 	}
 
 	@Override
-	public NovelChapterCrawlingEventDTO publish(Long novelId, String name, LinkAddress address) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEventDTO publish(Long novelId, String name, LinkAddress address, Integer index) throws WebAppRuntimeException {
 
 		LinkAddr addr = LinkAddr.of(EnumUtils.getEnum(Site.class, address.getSite()), address.getLink(), address.getPath());
-		return eventConv.done(eventAppService.publish(novelId, name, addr));
+		return eventConv.done(eventAppService.publish(novelId, name, addr, index));
 	}
 
 	@Override

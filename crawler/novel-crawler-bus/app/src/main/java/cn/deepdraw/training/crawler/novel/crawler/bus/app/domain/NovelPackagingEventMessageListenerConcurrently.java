@@ -1,6 +1,9 @@
 package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
 
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.api.NovelChapterApi;
 import cn.deepdraw.training.crawler.novel.api.NovelPackagingEventApi;
+import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterDTO;
 import cn.deepdraw.training.crawler.storage.api.ResourceStorageApi;
 import cn.deepdraw.training.crawler.storage.api.dto.FileItem;
 import cn.deepdraw.training.crawler.storage.api.dto.Resource;
@@ -28,7 +32,7 @@ import cn.deepdraw.training.framework.utils.JsonUtils;
 @Component
 public class NovelPackagingEventMessageListenerConcurrently implements MessageListenerConcurrently {
 
-	private static final String CHAPTER_CONTENT_SEPARATOR = "\n\r";
+	private static final String CHAPTER_OUTER_SEPARATOR = "\r\n";
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -47,23 +51,26 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 		return doConsumeMessage(JsonUtils.parse(new String(msgs.get(0).getBody()), NovelPackagingEventMessage.class));
 	}
 
-	private ConsumeConcurrentlyStatus doConsumeMessage(NovelPackagingEventMessage message) {
+	private ConsumeConcurrentlyStatus doConsumeMessage(NovelPackagingEventMessage em) {
 
-		String messageJSONString = message.toString();
+		String messageJSONString = em.toString();
 		logger.info("message body: " + messageJSONString);
-		if (message.getEventId() == null) {
+		if (em.getEventId() == null) {
 
 			return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 		}
 		try {
 
-			Resource resource = resourceStorageApi.store(FileItem.of(prepareResourceStorageName(message), prepareResourceStoragePath(message), prepareResourceStorageData(message)));
+			String name = prepareResourceStorageName(em);
+			String path = prepareResourceStoragePath(em);
+			byte[] data = prepareResourceStorageData(chapterApi.findByNovelId(em.getNovelId(), em.getSite()));
+			Resource resource = resourceStorageApi.store(FileItem.of(name, path, data));
 			if (StringUtils.isBlank(resource.getPath())) {
 
 				return ConsumeConcurrentlyStatus.RECONSUME_LATER;
 			}
 			String resourceJSONString = JsonUtils.toJson(resource);
-			eventApi.complete(message.getEventId(), resource.getPath());
+			eventApi.complete(em.getEventId(), resource.getPath());
 			logger.info("message body: " + messageJSONString + ", resource storage: " + resourceJSONString + ", completed: success!");
 			return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 		} catch (Exception e) {
@@ -73,21 +80,29 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 		}
 	}
 
-	private List<String> findChapterContentPaths(Long novelId, String site) {
+	private Map<String, String> findPath2DataMap(List<String> paths) {
 
-		return chapterApi.findByNovelId(novelId, site).stream().map(chapter -> chapter.getAddress().getPath()).collect(Collectors.toList());
+		return resourceStorageApi
+				.download(paths)
+				.stream()
+				.filter(resource -> resource.getData() != null)
+				.collect(Collectors.toMap(resource -> resource.getPath(), resource -> resource.getData() != null ? new String(resource.getData()) : null));
 	}
-
-	private List<String> findChapterContents(List<String> paths) {
-
-		return resourceStorageApi.download(paths).stream().filter(resource -> resource.getData() != null).map(resource -> new String(resource.getData())).collect(Collectors.toList());
+	
+	private byte[] doPrepareResourceStorageData(List<NovelChapterContent> contents) {
+		
+		Collections.sort(contents, (c1, c2) -> c1.getIndex() - c2.getIndex());
+		return StringUtils.join(contents, CHAPTER_OUTER_SEPARATOR).getBytes();
 	}
+	
+	private byte[] prepareResourceStorageData(List<NovelChapterDTO> chapters) {
 
-	private byte[] prepareResourceStorageData(NovelPackagingEventMessage message) {
-
-		List<String> chapterContentPaths = findChapterContentPaths(message.getNovelId(), message.getSite());
-		List<String> chapterContents = findChapterContents(chapterContentPaths);
-		return StringUtils.join(chapterContents, CHAPTER_CONTENT_SEPARATOR).getBytes();
+		Map<String, String> path2ContentMap = findPath2DataMap(chapters.parallelStream().map(chapter -> chapter.getAddress().getPath()).collect(Collectors.toList()));
+		return doPrepareResourceStorageData(chapters
+				.parallelStream()
+				.map(chapter -> NovelChapterContent.of(chapter, path2ContentMap.get(chapter.getAddress().getPath())))
+				.filter(content -> StringUtils.isNotBlank(content.getContent()))
+				.collect(Collectors.toList()));
 	}
 
 	private String prepareResourceStorageName(NovelPackagingEventMessage message) {
@@ -98,5 +113,67 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 	private String prepareResourceStoragePath(NovelPackagingEventMessage message) {
 
 		return message.getNovelId().toString();
+	}
+	
+	public static class NovelChapterContent implements Serializable {
+
+		private static final long serialVersionUID = Long.MAX_VALUE;
+
+		private static final String CHAPTER_INNER_SEPARATOR = "\n";
+		
+		private String title;
+		
+		private String content;
+		
+		private Integer index;
+		
+		public NovelChapterContent() {}
+		
+		public NovelChapterContent(String title, String content, Integer index) {
+			
+			this.title = title;
+			this.content = content;
+			this.index = index;
+		}
+		
+		public static NovelChapterContent of(String title, String content, Integer index) {
+			
+			return new NovelChapterContent(title, content, index);
+		}
+		
+		public static NovelChapterContent of(NovelChapterDTO chapter, String content) {
+			
+			return of(chapter.getName(), content, chapter.getIndex());
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
+		public String getContent() {
+			return content;
+		}
+
+		public void setContent(String content) {
+			this.content = content;
+		}
+
+		public Integer getIndex() {
+			return index;
+		}
+
+		public void setIndex(Integer index) {
+			this.index = index;
+		}
+		
+		@Override
+		public String toString() {
+			
+			return title + CHAPTER_INNER_SEPARATOR + content;
+		}
 	}
 }

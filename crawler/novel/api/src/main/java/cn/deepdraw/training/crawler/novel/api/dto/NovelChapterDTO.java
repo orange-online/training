@@ -16,6 +16,8 @@ public class NovelChapterDTO extends IdEntityDTO {
 	private String name;
 
 	private LinkAddress address;
+	
+	private Integer index;
 
 	public Long getNovelId() {
 		return novelId;
@@ -39,5 +41,13 @@ public class NovelChapterDTO extends IdEntityDTO {
 
 	public void setAddress(LinkAddress address) {
 		this.address = address;
+	}
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 }

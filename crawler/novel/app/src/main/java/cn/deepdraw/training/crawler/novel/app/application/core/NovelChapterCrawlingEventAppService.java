@@ -14,7 +14,7 @@ public interface NovelChapterCrawlingEventAppService {
 
 	NovelChapterCrawlingEvent create(Long novelId, Site site, Long chapterId, String link) throws WebAppRuntimeException;
 
-	NovelChapterCrawlingEvent publish(Long novelId, String name, LinkAddr addr) throws WebAppRuntimeException;
+	NovelChapterCrawlingEvent publish(Long novelId, String name, LinkAddr addr, Integer index) throws WebAppRuntimeException;
 
 	NovelChapterCrawlingEvent publish(Long eventId) throws WebAppRuntimeException;
 

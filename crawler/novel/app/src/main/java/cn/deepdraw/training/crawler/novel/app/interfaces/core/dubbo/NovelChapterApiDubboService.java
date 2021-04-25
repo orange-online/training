@@ -52,10 +52,10 @@ public class NovelChapterApiDubboService implements NovelChapterApi {
 	private NovelRepository novelRepo;
 
 	@Override
-	public NovelChapterDTO create(Long novelId, String name, LinkAddress address) throws WebAppRuntimeException {
+	public NovelChapterDTO create(Long novelId, String name, LinkAddress address, Integer index) throws WebAppRuntimeException {
 
 		LinkAddr addr = LinkAddr.of(EnumUtils.getEnum(Site.class, address.getSite()), address.getLink(), address.getPath());
-		return chapterConv.done(appService.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr)));
+		return chapterConv.done(appService.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr, index)));
 	}
 
 	@Override

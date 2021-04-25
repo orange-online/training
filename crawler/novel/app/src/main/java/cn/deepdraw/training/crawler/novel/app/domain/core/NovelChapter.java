@@ -35,18 +35,22 @@ public class NovelChapter extends IdLongEntity {
 	@Embedded
 	private LinkAddr addr;
 
+	@Column(name = "idx")
+	private Integer index;
+
 	private NovelChapter() {}
 
-	private NovelChapter(Novel novel, String name, LinkAddr addr) {
+	private NovelChapter(Novel novel, String name, LinkAddr addr, Integer index) {
 
 		this.novel = Validate.notNull(novel, "novel_id_cannot_be_null");
 		this.name = Validate.notBlank(name, "name_cannot_be_blank");
 		this.addr = Validate.notNull(addr, "addr_cannot_be_null");
+		this.index = Validate.notNull(index, "index_cannot_be_null");
 	}
 
-	public static NovelChapter of(Novel novel, String name, LinkAddr addr) {
+	public static NovelChapter of(Novel novel, String name, LinkAddr addr, Integer index) {
 
-		return new NovelChapter(novel, name, addr);
+		return new NovelChapter(novel, name, addr, index);
 	}
 
 	public Novel novel() {
@@ -62,6 +66,11 @@ public class NovelChapter extends IdLongEntity {
 	public LinkAddr addr() {
 
 		return addr;
+	}
+	
+	public Integer index() {
+
+		return index;
 	}
 
 	public Site site() {

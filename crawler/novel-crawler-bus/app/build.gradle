@@ -129,7 +129,7 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-rocketmq-core:3.0.0')
 
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-api:5.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-api:5.1.0')
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:2.1.0')
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:1.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-storage-api:3.0.0')

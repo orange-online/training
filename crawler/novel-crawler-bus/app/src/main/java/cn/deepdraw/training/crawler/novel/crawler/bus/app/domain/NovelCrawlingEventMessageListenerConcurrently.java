@@ -1,5 +1,7 @@
 package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -40,25 +42,32 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 		return doConsumeMessage(JsonUtils.parse(new String(msgs.get(0).getBody()), NovelCrawlingEventMessage.class));
 	}
 
-	private ConsumeConcurrentlyStatus doConsumeMessage(NovelCrawlingEventMessage message) {
+	private ConsumeConcurrentlyStatus doConsumeMessage(NovelCrawlingEventMessage em) {
 
-		String messageJSONString = message.toString();
+		String messageJSONString = em.toString();
 		logger.info("message body: " + messageJSONString);
-		if (message.getEventId() == null) {
+		if (em.getEventId() == null) {
 			
 			return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 		}
-		crawlChapters(message.getSite(), message.getLink()).parallelStream().forEach(chapterOnline -> {
+		List<ChapterDTO> chaptersOnline = crawlChapters(em.getSite(), em.getLink());
+		List<NovelChapter> chapters = new ArrayList<>(chaptersOnline.size());
+		for (int index = 0, len = chaptersOnline.size(); index < len; index++) {
 			
-			String chapterJSONString = JsonUtils.toJson(chapterOnline);
-			logger.info("message body: " + messageJSONString + ", online chapter: " + chapterJSONString);
+			ChapterDTO chapter = chaptersOnline.get(index);
+			chapters.add(NovelChapter.of(em.getNovelId(), chapter.getName(), em.getSite(), chapter.getUrl(), index + 1));
+		}
+		chapters.parallelStream().forEach(chapter -> {
+			
+			String chapterJSONString = JsonUtils.toJson(chapter);
+			logger.info("message body: " + messageJSONString + ", chapter: " + chapterJSONString);
 			try {
 				
-				NovelChapterCrawlingEventDTO event = eventApi.publish(message.getNovelId(), chapterOnline.getName(), LinkAddress.of(message.getSite(), chapterOnline.getUrl()));
-				logger.info("message body: " + messageJSONString + ", online chapter: " + chapterJSONString + ", event content: " + JsonUtils.toJson(event));
+				NovelChapterCrawlingEventDTO event = eventApi.publish(chapter.getNovelId(), chapter.getName(), chapter.address(), chapter.getIndex());
+				logger.info("message body: " + messageJSONString + ", chapter: " + chapterJSONString + ", event content: " + JsonUtils.toJson(event));
 			} catch (Exception e) {
 				
-				logger.error("message body: " + messageJSONString + ", online chapter: " + chapterJSONString + ", published failed. exception message: " + e.getMessage(), e);
+				logger.error("message body: " + messageJSONString + ", chapter: " + chapterJSONString + ", published failed. exception message: " + e.getMessage(), e);
 				// TODO need to send an exception queue message here. by huangjiancheng 20201129
 			}
 		});
@@ -68,5 +77,81 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 	public List<ChapterDTO> crawlChapters(String site, String link) {
 		
 		return crawlerGateway.findChapters(site, link);
+	}
+	
+	public static class NovelChapter implements Serializable{
+
+		private static final long serialVersionUID = Long.MAX_VALUE;
+		
+		private Long novelId;
+		
+		private String name;
+		
+		private String site;
+		
+		private String link;
+		
+		private Integer index;
+		
+		public NovelChapter() {}
+		
+		public NovelChapter(Long novelId, String name, String site, String link, Integer index) {
+			
+			this.novelId = novelId;
+			this.name = name;
+			this.site = site;
+			this.link = link;
+			this.index = index;
+		}
+		
+		public static NovelChapter of(Long novelId, String name, String site, String link, Integer index) {
+			
+			return new NovelChapter(novelId, name, site, link, index);
+		}
+
+		public Long getNovelId() {
+			return novelId;
+		}
+
+		public void setNovelId(Long novelId) {
+			this.novelId = novelId;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getSite() {
+			return site;
+		}
+
+		public void setSite(String site) {
+			this.site = site;
+		}
+
+		public String getLink() {
+			return link;
+		}
+
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		public Integer getIndex() {
+			return index;
+		}
+
+		public void setIndex(Integer index) {
+			this.index = index;
+		}
+
+		public LinkAddress address() {
+			
+			return LinkAddress.of(site, link);
+		}
 	}
 }

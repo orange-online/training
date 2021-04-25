@@ -26,7 +26,7 @@ public class NovelChapterPageConvTest {
 		LinkAddr addr = LinkAddr.of(LinkAddr.Site.BIQUGE, "link", null);
 		Novel novel = Novel.of("novelName", "author", addr);
 		novel.entityId(123L);
-		NovelChapter chapter = NovelChapter.of(novel, "chapterName", addr);
+		NovelChapter chapter = NovelChapter.of(novel, "chapterName", addr, 1);
 		chapter.entityId(234L);
 		NovelChapterDTO dto = conv.done(chapter);
 

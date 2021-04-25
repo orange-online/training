@@ -34,7 +34,7 @@ public class NovelChapterTest {
 		Novel novel = instanceOfNovel();
 		String name = "chapter_name";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
-		NovelChapter chapter = NovelChapter.of(novel, name, addr);
+		NovelChapter chapter = NovelChapter.of(novel, name, addr, 1);
 
 		Assert.assertNotNull(chapter);
 		Assert.assertSame(novel, chapter.novel());
@@ -54,7 +54,7 @@ public class NovelChapterTest {
 		Novel novel = null;
 		String name = "chapter_name";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
-		NovelChapter.of(novel, name, addr);
+		NovelChapter.of(novel, name, addr, 1);
 	}
 
 	@Test
@@ -66,7 +66,7 @@ public class NovelChapterTest {
 		Novel novel = instanceOfNovel();
 		String name = null;
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
-		NovelChapter.of(novel, name, addr);
+		NovelChapter.of(novel, name, addr, 1);
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class NovelChapterTest {
 		Novel novel = instanceOfNovel();
 		String name = "  ";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
-		NovelChapter.of(novel, name, addr);
+		NovelChapter.of(novel, name, addr, 1);
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class NovelChapterTest {
 		Novel novel = instanceOfNovel();
 		String name = "chapter_name";
 		LinkAddr addr = null;
-		NovelChapter.of(novel, name, addr);
+		NovelChapter.of(novel, name, addr, 1);
 	}
 
 	@Test
@@ -99,7 +99,7 @@ public class NovelChapterTest {
 		Novel novel = instanceOfNovel();
 		String name = "chapter_name";
 		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
-		NovelChapter chapter = NovelChapter.of(novel, name, addr).updateAddrPath("chapter_path1");
+		NovelChapter chapter = NovelChapter.of(novel, name, addr, 1).updateAddrPath("chapter_path1");
 
 		Assert.assertNotEquals("chapter_path", chapter.path());
 		Assert.assertEquals("chapter_path1", chapter.path());
