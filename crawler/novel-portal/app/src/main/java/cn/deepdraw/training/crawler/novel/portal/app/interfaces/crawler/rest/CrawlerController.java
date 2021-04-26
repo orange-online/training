@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.NovelCrawlerApi;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
+import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
 
 /**
  * 爬虫Controller
@@ -24,30 +24,24 @@ import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
 @RequestMapping("/crawler")
 public class CrawlerController {
 
-	@Autowired
-	private List<NovelCrawlerApi> crawlerApis;
+	@DubboReference
+	private NovelCrawlerApiGateway crawlerGateway;
 
 	@GetMapping("/novels")
-	public Map<String, List<NovelDTO>> find(@RequestParam String keywords) {
+	public Map<String, List<Novel>> find(@RequestParam String keywords) {
 
-		return crawlerApis.stream().collect(Collectors.toMap(NovelCrawlerApi::site, crawler -> crawler.find(keywords)));
-	}
-
-	@GetMapping("/novel")
-	public Map<String, NovelDTO> findNovel(@RequestParam String url) {
-
-		return crawlerApis.stream().collect(Collectors.toMap(NovelCrawlerApi::site, crawler -> crawler.findNovel(url)));
+		return crawlerGateway.find(keywords).stream().collect(Collectors.groupingBy(Novel::getSite));
 	}
 
 	@GetMapping("/chapters")
-	public Map<String, List<ChapterDTO>> findChapters(@RequestParam String site, @RequestParam String url) {
+	public List<Chapter> findChapters(@RequestParam String site, @RequestParam String url) {
 
-		return crawlerApis.stream().filter(crawler -> crawler.site().equals(site)).collect(Collectors.toMap(NovelCrawlerApi::site, crawler -> crawler.findChapters(url)));
+		return crawlerGateway.findChapters(site, url);
 	}
 
 	@GetMapping("/contents")
-	public Map<String, ChapterContentDTO> findChapterContents(@RequestParam String site, @RequestParam String url) {
+	public ChapterContent findChapterContents(@RequestParam String site, @RequestParam String url) {
 
-		return crawlerApis.stream().filter(crawler -> crawler.site().equals(site)).collect(Collectors.toMap(NovelCrawlerApi::site, crawler -> crawler.findChapterContent(url)));
+		return crawlerGateway.findChapterContent(site, url);
 	}
 }

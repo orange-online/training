@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.api.NovelChapterCrawlingEventApi;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
 import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
 import cn.deepdraw.training.crawler.storage.api.ResourceStorageApi;
 import cn.deepdraw.training.crawler.storage.api.dto.FileItem;
@@ -77,7 +77,7 @@ public class NovelChapterCrawlingEventMessageListenerConcurrently implements Mes
 
 	private String crawlChapterContent(String site, String link) {
 
-		ChapterContentDTO content = crawlerGateway.findChapterContent(site, link);
+		ChapterContent content = crawlerGateway.findChapterContent(site, link);
 		return content == null ? null : content.getContent();
 	}
 

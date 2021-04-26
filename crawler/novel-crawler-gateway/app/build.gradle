@@ -126,11 +126,11 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:2.1.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:1.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-biquge-api:2.2.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-liudatxt-api:2.2.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-xuanshuwang-api:2.2.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-biquge-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-liudatxt-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-xuanshuwang-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:3.0.0')
 
 	testImplementation('junit:junit:4.12')
 	testImplementation('org.mockito:mockito-core:2.23.4')

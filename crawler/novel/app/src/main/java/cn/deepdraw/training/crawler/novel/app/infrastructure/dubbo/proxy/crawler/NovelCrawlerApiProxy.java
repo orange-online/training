@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
 import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
 
 /**
@@ -23,7 +22,7 @@ public class NovelCrawlerApiProxy {
 	
 	public Novel crawl(Site site, String link) {
 
-		NovelDTO novelDTO = Validate.notNull(crawlerGateway.findNovel(site.toString(), link), "novel_crawled_failed");
+		cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel novelDTO = Validate.notNull(crawlerGateway.findNovel(site.toString(), link), "novel_crawled_failed");
 		return Novel.of(novelDTO.getName(), novelDTO.getAuthor(), LinkAddr.of(site, link, null));
 	}
 }

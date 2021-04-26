@@ -17,7 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangNovel;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.interfaces.XuanshuwangNovelConverter;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 
 /**
  * 职责: XuanshuwangNove与XuanshuwangNoveDTO互相转换
@@ -42,29 +42,29 @@ public class XuanshuwangNovelConverterTest {
     }
 
     @Test
-    public void toNovelDTOs_shouldReturnEmptyList_ifNovelsIsEmpty() {
+    public void toNovels_shouldReturnEmptyList_ifNovelsIsEmpty() {
 
         novels = Collections.emptyList();
         
-        List<NovelDTO> result = converter.toNovelDTOs(novels);
+        List<Novel> result = converter.toNovels(novels);
         assertThat(result, is(empty()));
     }
 
     @Test
-    public void toNovelDTOs_shouldReturnNovelDTOS_ifNovelsIsNormal() {
+    public void toNovels_shouldReturnNovelS_ifNovelsIsNormal() {
 
-        List<NovelDTO> result = converter.toNovelDTOs(novels);
-        NovelDTO dto = result.get(0);
+        List<Novel> result = converter.toNovels(novels);
+        Novel dto = result.get(0);
         assertThat(dto.getName(), is("name"));
         assertThat(dto.getAuthor(), is("author"));
-        assertThat(dto.getUrl(), is("url"));
+        assertThat(dto.getLink(), is("url"));
     }
 
     @Test
-    public void toNovelDTO_shouldReturnNull_ifNovelIsNull() {
+    public void toNovel_shouldReturnNull_ifNovelIsNull() {
 
         novel = null;
-        NovelDTO dto = converter.toNovelDTO(novel);
+        Novel dto = converter.toNovel(novel);
         assertNull(dto);
     }
 }

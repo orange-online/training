@@ -19,8 +19,8 @@ public class LiudatxtNovelChapterTest {
 		LiudatxtNovelChapter instance = LiudatxtNovelChapter.of("chapter_name", "url", 300);
 		Assert.assertNotNull(instance);
 		Assert.assertEquals("chapter_name", instance.name());
-		Assert.assertEquals("url", instance.url());
-		Assert.assertThat(instance.sequence(), Matchers.is(300));
+		Assert.assertEquals("url", instance.link());
+		Assert.assertThat(instance.index(), Matchers.is(300));
 	}
 
 	@Test
@@ -63,13 +63,13 @@ public class LiudatxtNovelChapterTest {
 	public void should_return_a_json_string_who_contains_all_property_values_when_toString_method_called() {
 
 		LiudatxtNovelChapter instance = LiudatxtNovelChapter.of("chapter_name", "url", 300);
-		Assert.assertEquals("{\"name\":\"chapter_name\",\"url\":\"url\",\"sequence\":300}", instance.toString());
+		Assert.assertEquals("{\"name\":\"chapter_name\",\"link\":\"url\",\"index\":300}", instance.toString());
 	}
 
 	@Test
 	public void should_return_the_same_hashCode_of_toString_when_hashCode_method_called() {
 
 		LiudatxtNovelChapter instance = LiudatxtNovelChapter.of("chapter_name", "url", 300);
-		Assert.assertEquals("{\"name\":\"chapter_name\",\"url\":\"url\",\"sequence\":300}".hashCode(), instance.hashCode());
+		Assert.assertEquals("{\"name\":\"chapter_name\",\"link\":\"url\",\"index\":300}".hashCode(), instance.hashCode());
 	}
 }

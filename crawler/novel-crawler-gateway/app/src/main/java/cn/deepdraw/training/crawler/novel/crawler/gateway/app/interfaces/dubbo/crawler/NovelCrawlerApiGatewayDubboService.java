@@ -1,15 +1,16 @@
-package cn.deepdraw.training.crawler.novel.crawler.gateway.app.interfaces.motan.crawler;
+package cn.deepdraw.training.crawler.novel.crawler.gateway.app.interfaces.dubbo.crawler;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.deepdraw.training.crawler.novel.crawler.api.NovelCrawlerApi;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
 
 /**
@@ -18,31 +19,37 @@ import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGat
  * @Date 2020-12-11
  */
 @DubboService
-public class NovelCrawlerApiGatewayMotanService implements NovelCrawlerApiGateway {
+public class NovelCrawlerApiGatewayDubboService implements NovelCrawlerApiGateway {
 
 	@Autowired
 	private List<NovelCrawlerApi> crawlers;
 
 	@Override
-	public List<NovelDTO> find(String site, String keywords) {
+	public List<Novel> find(String keywords) {
+
+		return crawlers.parallelStream().flatMap(crawler -> crawler.find(keywords).stream()).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Novel> find(String site, String keywords) {
 
 		return crawler(site).find(keywords);
 	}
 
 	@Override
-	public NovelDTO findNovel(String site, String url) {
+	public Novel findNovel(String site, String url) {
 
 		return crawler(site).findNovel(url);
 	}
 
 	@Override
-	public ChapterContentDTO findChapterContent(String site, String url) {
+	public ChapterContent findChapterContent(String site, String url) {
 
 		return crawler(site).findChapterContent(url);
 	}
 
 	@Override
-	public List<ChapterDTO> findChapters(String site, String url) {
+	public List<Chapter> findChapters(String site, String url) {
 
 		return crawler(site).findChapters(url);
 	}

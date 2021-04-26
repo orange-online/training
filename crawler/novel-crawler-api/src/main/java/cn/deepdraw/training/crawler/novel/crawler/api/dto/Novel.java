@@ -7,15 +7,17 @@ import java.io.Serializable;
  * @Author zhangzhucong
  * @Date 2020/6/2
  **/
-public class NovelDTO implements Serializable {
+public class Novel implements Serializable {
 
     private static final long serialVersionUID = 20200602L;
 
     private String name;
 
     private String author;
+    
+    private String site;
 
-    private String url;
+    private String link;
 
     public String getName() {
         return name;
@@ -33,11 +35,19 @@ public class NovelDTO implements Serializable {
         this.author = author;
     }
 
-    public String getUrl() {
-        return url;
-    }
+	public String getSite() {
+		return site;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setSite(String site) {
+		this.site = site;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
 }

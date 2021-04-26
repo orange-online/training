@@ -17,12 +17,12 @@ public class LiudatxtNovelChapterContentConverterTest {
 	@Test
 	public void should_return_null_when_chapterContent_is_null() {
 
-		Assert.assertThat(new LiudatxtNovelChapterContentConverter().toChapterContentDTO(null), Matchers.nullValue());
+		Assert.assertThat(new LiudatxtNovelChapterContentConverter().toChapterContent(null), Matchers.nullValue());
 	}
 
 	@Test
 	public void should_return_object_not_null_when_chapterContent_is_not_null() {
 
-		Assert.assertThat(new LiudatxtNovelChapterContentConverter().toChapterContentDTO(LiudatxtNovelChapterContent.of("content")), Matchers.notNullValue());
+		Assert.assertThat(new LiudatxtNovelChapterContentConverter().toChapterContent(LiudatxtNovelChapterContent.of("content")), Matchers.notNullValue());
 	}
 }

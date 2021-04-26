@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.portal.app.interfaces.crawler.motan;
+package cn.deepdraw.training.crawler.novel.crawler.gateway.app.infrastructure.dubbo.proxy.crawler;
 
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Component;

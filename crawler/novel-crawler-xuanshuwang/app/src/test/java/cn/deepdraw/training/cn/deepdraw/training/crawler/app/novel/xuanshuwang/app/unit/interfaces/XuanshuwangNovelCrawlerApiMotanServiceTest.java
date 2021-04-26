@@ -3,7 +3,8 @@ package cn.deepdraw.training.cn.deepdraw.training.crawler.app.novel.xuanshuwang.
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,17 +18,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangNovel;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.application.XuanshuwangNovelCrawlerAppService;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangChapter;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangChapterContent;
+import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangNovel;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.interfaces.XuanshuwangChapterContentConverter;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.interfaces.XuanshuwangChapterConverter;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.interfaces.XuanshuwangNovelConverter;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.interfaces.XuanshuwangNovelCrawlerApiMotanService;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 
 /**
  * 选书网爬虫 motan服务单元测试
@@ -64,7 +65,7 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
         String keywords = null;
         when(appService.findByKeywords(keywords)).thenReturn(Collections.emptyList());
         
-        List<NovelDTO> result = service.find(keywords);
+        List<Novel> result = service.find(keywords);
         assertThat(result, is(empty()));
     }
 
@@ -74,7 +75,7 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
         String keywords = "";
         when(appService.findByKeywords(keywords)).thenReturn(Collections.emptyList());
         
-        List<NovelDTO> result = service.find(keywords);
+        List<Novel> result = service.find(keywords);
         assertThat(result, is(empty()));
     }
 
@@ -84,7 +85,7 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
         String keywords = " ";
         when(appService.findByKeywords(keywords)).thenReturn(Collections.emptyList());
         
-        List<NovelDTO> result = service.find(keywords);
+        List<Novel> result = service.find(keywords);
         assertThat(result, is(empty()));
     }
 
@@ -92,15 +93,15 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
     public void find_shouldReturnNovels_whenNormal() {
 
         String keywords = "keywords";
-        NovelDTO novelDTO = mock(NovelDTO.class);
-        List<NovelDTO> novelDTOs = Arrays.asList(novelDTO);
+        Novel novelDTO = mock(Novel.class);
+        List<Novel> novelDTOs = Arrays.asList(novelDTO);
         XuanshuwangNovel novel = mock(XuanshuwangNovel.class);
         List<XuanshuwangNovel> novels = Arrays.asList(novel);
         
         when(appService.findByKeywords(keywords)).thenReturn(novels);
-        when(converter.toNovelDTOs(novels)).thenReturn(novelDTOs);
+        when(converter.toNovels(novels)).thenReturn(novelDTOs);
         
-        List<NovelDTO> result = service.find(keywords);
+        List<Novel> result = service.find(keywords);
         assertThat(result, contains(novelDTO));
     }
 
@@ -110,7 +111,7 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
         String url = null;
         when(appService.findChapters(url)).thenReturn(Collections.emptyList());
         
-        List<ChapterDTO> result = service.findChapters(url);
+        List<Chapter> result = service.findChapters(url);
         assertThat(result, is(empty()));
     }
 
@@ -120,7 +121,7 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
         String url = "";
         when(appService.findChapters(url)).thenReturn(Collections.emptyList());
         
-        List<ChapterDTO> result = service.findChapters(url);
+        List<Chapter> result = service.findChapters(url);
         assertThat(result, is(empty()));
     }
 
@@ -130,7 +131,7 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
         String url = " ";
         when(appService.findChapters(url)).thenReturn(Collections.emptyList());
         
-        List<ChapterDTO> result = service.findChapters(url);
+        List<Chapter> result = service.findChapters(url);
         assertThat(result, is(empty()));
     }
 
@@ -140,13 +141,13 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
         String url = "url";
         XuanshuwangChapter chapter = new XuanshuwangChapter("name", "url", 2046);
         List<XuanshuwangChapter> chapters = Arrays.asList(chapter);
-        ChapterDTO chapterDTO = mock(ChapterDTO.class);
-        List<ChapterDTO> chapterDTOs = Arrays.asList(chapterDTO);
+        Chapter chapterDTO = mock(Chapter.class);
+        List<Chapter> chapterDTOs = Arrays.asList(chapterDTO);
         
         when(appService.findChapters(url)).thenReturn(chapters);
-        when(chapterConverter.toChapterDTOs(chapters)).thenReturn(chapterDTOs);
+        when(chapterConverter.toChapters(chapters)).thenReturn(chapterDTOs);
         
-        List<ChapterDTO> result = service.findChapters(url);
+        List<Chapter> result = service.findChapters(url);
         assertThat(result, contains(chapterDTO));
     }
 
@@ -155,12 +156,12 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
 
         String chapterUrl = "chapterUrl";
         XuanshuwangChapterContent content = mock(XuanshuwangChapterContent.class);
-        ChapterContentDTO contentDTO = mock(ChapterContentDTO.class);
+        ChapterContent contentDTO = mock(ChapterContent.class);
         
         when(appService.findChapterContent(chapterUrl)).thenReturn(content);
-        when(contentConverter.toChapterContentDTO(content)).thenReturn(contentDTO);
+        when(contentConverter.toChapterContent(content)).thenReturn(contentDTO);
         
-        ChapterContentDTO result = service.findChapterContent(chapterUrl);
+        ChapterContent result = service.findChapterContent(chapterUrl);
         assertThat(result, is(contentDTO));
     }
 
@@ -169,10 +170,10 @@ public class XuanshuwangNovelCrawlerApiMotanServiceTest {
 
         String url = "url";
         XuanshuwangNovel xuanshuwangNovel = mock(XuanshuwangNovel.class);
-        NovelDTO novelDTO = mock(NovelDTO.class);
+        Novel novelDTO = mock(Novel.class);
 
         when(appService.findNovel(url)).thenReturn(xuanshuwangNovel);
-        when(converter.toNovelDTO(xuanshuwangNovel)).thenReturn(novelDTO);
+        when(converter.toNovel(xuanshuwangNovel)).thenReturn(novelDTO);
 
         assertEquals(novelDTO, service.findNovel(url));
     }

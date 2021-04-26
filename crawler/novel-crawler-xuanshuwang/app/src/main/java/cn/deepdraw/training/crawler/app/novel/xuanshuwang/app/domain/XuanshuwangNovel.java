@@ -20,15 +20,15 @@ public class XuanshuwangNovel implements Serializable {
 
     private String author;
 
-    private String url;
+    private String link;
 
     private XuanshuwangNovel() {}
 
-    private XuanshuwangNovel(String name, String author, String url) {
+    private XuanshuwangNovel(String name, String author, String link) {
 
         this.name = name;
         this.author = author;
-        this.url = url;
+        this.link = link;
     }
 
     public static XuanshuwangNovel of() {
@@ -36,13 +36,13 @@ public class XuanshuwangNovel implements Serializable {
     	return new XuanshuwangNovel();
 	}
 
-    public static XuanshuwangNovel of(String name, String author, String url) {
+    public static XuanshuwangNovel of(String name, String author, String link) {
 
-		if (StringUtils.isBlank(name) || StringUtils.isBlank(author) || StringUtils.isBlank(url)) {
+		if (StringUtils.isBlank(name) || StringUtils.isBlank(author) || StringUtils.isBlank(link)) {
 
 			return null;
 		}
-		return new XuanshuwangNovel(name, author, url);
+		return new XuanshuwangNovel(name, author, link);
 	}
 
     public String name() {
@@ -53,8 +53,8 @@ public class XuanshuwangNovel implements Serializable {
         return author;
     }
 
-    public String url() {
-        return url;
+    public String link() {
+        return link;
     }
 
     @Override
@@ -89,6 +89,6 @@ public class XuanshuwangNovel implements Serializable {
     @Override
     public String toString() {
 
-        return JsonNodeFactory.instance.objectNode().put("name", name).put("author", author).put("url", url).toString();
+        return JsonNodeFactory.instance.objectNode().put("name", name).put("author", author).put("link", link).toString();
     }
 }

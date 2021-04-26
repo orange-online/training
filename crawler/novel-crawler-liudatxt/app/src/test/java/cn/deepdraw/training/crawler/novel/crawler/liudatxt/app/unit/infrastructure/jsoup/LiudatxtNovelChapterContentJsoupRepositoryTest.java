@@ -3,6 +3,7 @@ package cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.unit.infrastruct
 import org.junit.Assert;
 import org.junit.Test;
 
+import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtConstants;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.infrastructure.repository.jsoup.LiudatxtNovelChapterContentJsoupRepository;
 
 /**
@@ -17,7 +18,7 @@ public class LiudatxtNovelChapterContentJsoupRepositoryTest {
 	@Test
 	public void should_return_a_not_null_chapter_content_when_url_is_available() {
 
-		String url = "http://www.liudatxt.com/so/30254/12045485.html";
+		String url = LiudatxtConstants.URL_BASE + "/so/2352/32775082.html";
 		Assert.assertNotNull(chapterContentRepo.findChapterContent(url));
 		System.out.println(chapterContentRepo.findChapterContent(url).content());
 	}

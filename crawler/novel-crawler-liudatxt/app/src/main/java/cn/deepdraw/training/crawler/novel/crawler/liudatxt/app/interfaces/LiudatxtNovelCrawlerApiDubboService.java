@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.api.LiudatxtNovelCrawlerApi;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.application.LiudatxtNovelCrawlerAppService;
 
@@ -32,26 +32,26 @@ public class LiudatxtNovelCrawlerApiDubboService implements LiudatxtNovelCrawler
 	private LiudatxtNovelChapterContentConverter chapterContentConv;
 
 	@Override
-	public List<NovelDTO> find(String keywords) {
+	public List<Novel> find(String keywords) {
 
-		return novelConv.toNovelDTOs(appService.find(keywords));
+		return novelConv.toNovels(appService.find(keywords));
 	}
 
 	@Override
-	public NovelDTO findNovel(String url) {
+	public Novel findNovel(String url) {
 
-		return novelConv.toNovelDTO(appService.findNovel(url));
+		return novelConv.toNovel(appService.findNovel(url));
 	}
 
 	@Override
-	public List<ChapterDTO> findChapters(String url) {
+	public List<Chapter> findChapters(String url) {
 
-		return chapterConv.toChapterDTOs(appService.findChapters(url));
+		return chapterConv.toChapters(appService.findChapters(url));
 	}
 
 	@Override
-	public ChapterContentDTO findChapterContent(String url) {
+	public ChapterContent findChapterContent(String url) {
 
-		return chapterContentConv.toChapterContentDTO(appService.findChapterContent(url));
+		return chapterContentConv.toChapterContent(appService.findChapterContent(url));
 	}
 }

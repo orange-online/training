@@ -130,8 +130,8 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-rocketmq-core:3.0.0')
 
 	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-api:5.1.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:2.1.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:1.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:3.0.0')
 
 	testImplementation('junit:junit:4.12')
 	testImplementation('org.mockito:mockito-core:2.23.4')

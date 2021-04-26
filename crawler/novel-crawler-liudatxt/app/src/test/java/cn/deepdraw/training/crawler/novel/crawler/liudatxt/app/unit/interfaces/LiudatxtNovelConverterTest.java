@@ -20,18 +20,18 @@ public class LiudatxtNovelConverterTest {
 	@Test
 	public void should_return_empty_list_when_novels_is_empty() {
 
-		Assert.assertThat(new LiudatxtNovelConverter().toNovelDTOs(Collections.emptyList()), Matchers.empty());
+		Assert.assertThat(new LiudatxtNovelConverter().toNovels(Collections.emptyList()), Matchers.empty());
 	}
 
 	@Test
 	public void should_return_a_list_with_same_size_when_novels_is_not_empty_and_novels_has_no_null_element() {
 
-		Assert.assertThat(new LiudatxtNovelConverter().toNovelDTOs(Arrays.asList(LiudatxtNovel.of("novel_name", "novel_author", "url"))), Matchers.hasSize(1));
+		Assert.assertThat(new LiudatxtNovelConverter().toNovels(Arrays.asList(LiudatxtNovel.of("novel_name", "novel_author", "url"))), Matchers.hasSize(1));
 	}
 
 	@Test
 	public void should_return_a_list_with_same_size_when_novels_is_not_empty_and_novels_has_a_null_element() {
 
-		Assert.assertThat(new LiudatxtNovelConverter().toNovelDTOs(Arrays.asList(LiudatxtNovel.of("novel_name", "novel_author", "url"), null)), Matchers.hasSize(1));
+		Assert.assertThat(new LiudatxtNovelConverter().toNovels(Arrays.asList(LiudatxtNovel.of("novel_name", "novel_author", "url"), null)), Matchers.hasSize(1));
 	}
 }

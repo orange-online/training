@@ -2,9 +2,9 @@ package cn.deepdraw.training.crawler.novel.crawler.api.gateway;
 
 import java.util.List;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 
 /**
  * NovelCrawlerApi Gateway
@@ -13,11 +13,13 @@ import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
  */
 public interface NovelCrawlerApiGateway {
 
-    List<NovelDTO> find(String site, String keywords);
+    List<Novel> find(String keywords);
 
-    NovelDTO findNovel(String site, String url);
+    List<Novel> find(String site, String keywords);
 
-    List<ChapterDTO> findChapters(String site, String url);
+    Novel findNovel(String site, String url);
 
-    ChapterContentDTO findChapterContent(String site, String url);
+    List<Chapter> findChapters(String site, String url);
+
+    ChapterContent findChapterContent(String site, String url);
 }

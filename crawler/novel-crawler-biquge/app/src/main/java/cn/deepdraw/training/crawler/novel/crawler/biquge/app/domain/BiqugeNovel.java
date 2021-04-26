@@ -13,18 +13,18 @@ public class BiqugeNovel {
 
     private String author;
 
-    private String url;
+    private String link;
 
     private String totalChapterNum;
 
     private BiqugeNovel() {
     }
 
-    private BiqugeNovel(String name, String author, String url) {
+    private BiqugeNovel(String name, String author, String link) {
 
         this.name = name;
         this.author = author;
-        this.url = url;
+        this.link = link;
     }
 
     public static BiqugeNovel of() {
@@ -32,13 +32,13 @@ public class BiqugeNovel {
         return new BiqugeNovel();
     }
 
-    public static BiqugeNovel of(String name, String author, String url) {
+    public static BiqugeNovel of(String name, String author, String link) {
 
-        if (StringUtils.isBlank(name) || StringUtils.isBlank(author) || StringUtils.isBlank(url)) {
+        if (StringUtils.isBlank(name) || StringUtils.isBlank(author) || StringUtils.isBlank(link)) {
 
             return null;
         }
-        return new BiqugeNovel(name, author, url);
+        return new BiqugeNovel(name, author, link);
     }
 
     public String getName() {
@@ -57,12 +57,12 @@ public class BiqugeNovel {
         this.author = author;
     }
 
-    public String getUrl() {
-        return url;
+    public String getLink() {
+        return link;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getTotalChapterNum() {

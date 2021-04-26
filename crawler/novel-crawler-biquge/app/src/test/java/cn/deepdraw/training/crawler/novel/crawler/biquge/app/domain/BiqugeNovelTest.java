@@ -1,9 +1,9 @@
 package cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author xjn
@@ -20,7 +20,7 @@ public class BiqugeNovelTest {
 		Assert.assertNotNull(novel);
 		assertEquals("name", novel.getName());
 		assertEquals("author", novel.getAuthor());
-		assertEquals("url", novel.getUrl());
+		assertEquals("url", novel.getLink());
 	}
 
 	@Test
@@ -46,9 +46,9 @@ public class BiqugeNovelTest {
 	public void setUrl_happyPath() {
 
 		BiqugeNovel novel = BiqugeNovel.of();
-		novel.setUrl("url");
+		novel.setLink("url");
 
-		assertEquals("url", novel.getUrl());
+		assertEquals("url", novel.getLink());
 	}
 
 	@Test

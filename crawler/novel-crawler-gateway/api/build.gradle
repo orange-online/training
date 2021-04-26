@@ -15,7 +15,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '1.0.0'
+version = '3.0.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -50,7 +50,7 @@ uploadArchives {
 }
 
 dependencies {
-	api('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:2.1.0')
+	api('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:3.0.0')
 	
     testImplementation('junit:junit:4.12')
 }

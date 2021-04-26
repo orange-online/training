@@ -1,5 +1,9 @@
 package cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.unit.interfaces;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,9 +15,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.application.LiudatxtNovelCrawlerAppService;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovel;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovelChapter;
@@ -22,10 +26,6 @@ import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.Liudat
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelChapterConverter;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelConverter;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces.LiudatxtNovelCrawlerApiDubboService;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * 溜达小说爬虫接口Motan服务
@@ -63,14 +63,14 @@ public class LiudatxtNovelCrawlerApiMotanServiceTest {
 		List<LiudatxtNovel> novelsMocked = Arrays.asList(Mockito.mock(LiudatxtNovel.class));
 		when(appService.find(keywords)).thenReturn(novelsMocked);
 
-		List<NovelDTO> novelDTOsMocked = Arrays.asList(Mockito.mock(NovelDTO.class));
-		when(novelConv.toNovelDTOs(novelsMocked)).thenReturn(novelDTOsMocked);
+		List<Novel> novelDTOsMocked = Arrays.asList(Mockito.mock(Novel.class));
+		when(novelConv.toNovels(novelsMocked)).thenReturn(novelDTOsMocked);
 
-		List<NovelDTO> novelDTOs = motanService.find(keywords);
+		List<Novel> novelDTOs = motanService.find(keywords);
 
 		Assert.assertSame(novelDTOsMocked, novelDTOs);
 		Mockito.verify(appService).find(keywords);
-		Mockito.verify(novelConv).toNovelDTOs(novelsMocked);
+		Mockito.verify(novelConv).toNovels(novelsMocked);
 	}
 
 	@Test
@@ -80,14 +80,14 @@ public class LiudatxtNovelCrawlerApiMotanServiceTest {
 		List<LiudatxtNovelChapter> chaptersMocked = Arrays.asList(Mockito.mock(LiudatxtNovelChapter.class));
 		when(appService.findChapters(url)).thenReturn(chaptersMocked);
 
-		List<ChapterDTO> chapterDTOsMocked = Arrays.asList(Mockito.mock(ChapterDTO.class));
-		when(chapterConv.toChapterDTOs(chaptersMocked)).thenReturn(chapterDTOsMocked);
+		List<Chapter> chapterDTOsMocked = Arrays.asList(Mockito.mock(Chapter.class));
+		when(chapterConv.toChapters(chaptersMocked)).thenReturn(chapterDTOsMocked);
 
-		List<ChapterDTO> chapterDTOs = motanService.findChapters(url);
+		List<Chapter> chapterDTOs = motanService.findChapters(url);
 
 		Assert.assertSame(chapterDTOsMocked, chapterDTOs);
 		Mockito.verify(appService).findChapters(url);
-		Mockito.verify(chapterConv).toChapterDTOs(chaptersMocked);
+		Mockito.verify(chapterConv).toChapters(chaptersMocked);
 	}
 
 	@Test
@@ -97,14 +97,14 @@ public class LiudatxtNovelCrawlerApiMotanServiceTest {
 		LiudatxtNovelChapterContent chapterContentMocked = Mockito.mock(LiudatxtNovelChapterContent.class);
 		when(appService.findChapterContent(url)).thenReturn(chapterContentMocked);
 
-		ChapterContentDTO chapterContentDTOMocked = Mockito.mock(ChapterContentDTO.class);
-		when(chapterContentConv.toChapterContentDTO(chapterContentMocked)).thenReturn(chapterContentDTOMocked);
+		ChapterContent chapterContentDTOMocked = Mockito.mock(ChapterContent.class);
+		when(chapterContentConv.toChapterContent(chapterContentMocked)).thenReturn(chapterContentDTOMocked);
 
-		ChapterContentDTO chapterContentDTO = motanService.findChapterContent(url);
+		ChapterContent chapterContentDTO = motanService.findChapterContent(url);
 
 		Assert.assertSame(chapterContentDTOMocked, chapterContentDTO);
 		Mockito.verify(appService).findChapterContent(url);
-		Mockito.verify(chapterContentConv).toChapterContentDTO(chapterContentMocked);
+		Mockito.verify(chapterContentConv).toChapterContent(chapterContentMocked);
 	}
 
 	@Test

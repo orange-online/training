@@ -1,10 +1,12 @@
-package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces;
+package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces.heartbeat;
 
-import cn.deepdraw.training.framework.utils.response.Response;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces.heartbeat.HeartbeatController;
+import cn.deepdraw.training.framework.utils.response.Response;
 
 /**
  * @author xjn

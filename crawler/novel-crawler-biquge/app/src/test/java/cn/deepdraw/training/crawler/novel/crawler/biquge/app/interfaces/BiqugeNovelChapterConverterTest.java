@@ -1,14 +1,16 @@
-package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces.converter;
+package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapter;
-import org.junit.Test;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapter;
 
 /**
  * @author xjn
@@ -20,35 +22,35 @@ public class BiqugeNovelChapterConverterTest {
 	private BiqugeNovelChapterConverter converter = new BiqugeNovelChapterConverter();
 
 	@Test
-	public void toChapterDTO_happyPath() {
+	public void toChapter_happyPath() {
 
 		BiqugeNovelChapter chapter = composeBiqugeNovelChapter();
-		ChapterDTO expected = composeChapterDTO();
+		Chapter expected = composeChapter();
 
-		ChapterDTO dto = converter.toChapterDTO(chapter);
+		Chapter dto = converter.toChapter(chapter);
 
 		assertEquals(expected.getName(), dto.getName());
-		assertEquals(expected.getUrl(), dto.getUrl());
+		assertEquals(expected.getLink(), dto.getLink());
 	}
 
 	@Test
 	public void toChaptersDTOs() {
 
 		BiqugeNovelChapter chapter = composeBiqugeNovelChapter();
-		ChapterDTO dto = composeChapterDTO();
+		Chapter dto = composeChapter();
 		List<BiqugeNovelChapter> chapters = Arrays.asList(null, chapter);
-		List<ChapterDTO> dtos = converter.toChapterDTOs(chapters);
+		List<Chapter> dtos = converter.toChapters(chapters);
 
 		assertThat(dtos, hasSize(1));
 		assertEquals(dtos.get(0).getName(), dto.getName());
-		assertEquals(dtos.get(0).getUrl(), dto.getUrl());
+		assertEquals(dtos.get(0).getLink(), dto.getLink());
 	}
 
-	private ChapterDTO composeChapterDTO() {
+	private Chapter composeChapter() {
 
-		ChapterDTO expected = new ChapterDTO();
+		Chapter expected = new Chapter();
 		expected.setName("chapter 1 name");
-		expected.setUrl("url");
+		expected.setLink("url");
 		return expected;
 	}
 
@@ -57,12 +59,12 @@ public class BiqugeNovelChapterConverterTest {
 		BiqugeNovelChapter chapter = new BiqugeNovelChapter();
 		chapter.setName("name");
 		chapter.setSubTitle("chapter 1");
-		chapter.setUrl("url");
+		chapter.setLink("url");
 		return chapter;
 	}
 
 	@Test
-	public void toChapterDTOS_happyPath() {
+	public void toChapterS_happyPath() {
 
 
 	}

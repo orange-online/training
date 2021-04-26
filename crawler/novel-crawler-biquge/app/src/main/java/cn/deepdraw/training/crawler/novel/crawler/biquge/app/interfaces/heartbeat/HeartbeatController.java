@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces;
+package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces.heartbeat;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

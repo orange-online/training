@@ -15,29 +15,29 @@ public class LiudatxtNovelChapter implements ValueObject<LiudatxtNovelChapter> {
 
 	private String name;
 
-	private String url;
+	private String link;
 
-	private Integer sequence;
+	private Integer index;
 
 	private LiudatxtNovelChapter() {}
 
-	private LiudatxtNovelChapter(String name, String url, Integer sequence) {
+	private LiudatxtNovelChapter(String name, String link, Integer index) {
 
 		this.name = name;
-		this.url = url;
-		this.sequence = sequence;
+		this.link = link;
+		this.index = index;
 	}
 
-	public static LiudatxtNovelChapter of(String name, String url, Integer sequence) {
+	public static LiudatxtNovelChapter of(String name, String link, Integer index) {
 
 		if (StringUtils.isBlank(name)
-				|| StringUtils.isBlank(url)
-				|| sequence == null
-				|| sequence <= 0) {
+				|| StringUtils.isBlank(link)
+				|| index == null
+				|| index <= 0) {
 
 			return null;
 		}
-		return new LiudatxtNovelChapter(name, url, sequence);
+		return new LiudatxtNovelChapter(name, link, index);
 	}
 
 	public String name() {
@@ -45,14 +45,14 @@ public class LiudatxtNovelChapter implements ValueObject<LiudatxtNovelChapter> {
 		return name;
 	}
 
-	public String url() {
+	public String link() {
 
-		return url;
+		return link;
 	}
 
-	public Integer sequence() {
+	public Integer index() {
 
-		return sequence;
+		return index;
 	}
 	
 	@Override
@@ -87,7 +87,7 @@ public class LiudatxtNovelChapter implements ValueObject<LiudatxtNovelChapter> {
 	@Override
 	public String toString() {
 
-		return JsonNodeFactory.instance.objectNode().put("name", name).put("url", url).put("sequence", sequence).toString();
+		return JsonNodeFactory.instance.objectNode().put("name", name).put("link", link).put("index", index).toString();
 	}
 
 	@Override

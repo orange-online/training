@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.application.XuanshuwangNovelCrawlerAppService;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangChapterContent;
 import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangNovel;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 import cn.deepdraw.training.crawler.novel.crawler.xuanshuwang.api.XuanshuwangNovelCrawlerApi;
 
 /**
@@ -34,28 +34,28 @@ public class XuanshuwangNovelCrawlerApiMotanService implements XuanshuwangNovelC
     private XuanshuwangChapterContentConverter contentConverter;
 
     @Override
-    public List<NovelDTO> find(String keywords) {
+    public List<Novel> find(String keywords) {
 
         List<XuanshuwangNovel> novels = appService.findByKeywords(keywords);
-        return novelConverter.toNovelDTOs(novels);
+        return novelConverter.toNovels(novels);
     }
 
     @Override
-    public NovelDTO findNovel(String url) {
+    public Novel findNovel(String url) {
 
-        return novelConverter.toNovelDTO(appService.findNovel(url));
+        return novelConverter.toNovel(appService.findNovel(url));
     }
 
     @Override
-    public List<ChapterDTO> findChapters(String url) {
+    public List<Chapter> findChapters(String url) {
 
-        return chapterConverter.toChapterDTOs(appService.findChapters(url));
+        return chapterConverter.toChapters(appService.findChapters(url));
     }
 
     @Override
-    public ChapterContentDTO findChapterContent(String chapterUrl) {
+    public ChapterContent findChapterContent(String chapterUrl) {
 
         XuanshuwangChapterContent content = appService.findChapterContent(chapterUrl);
-        return contentConverter.toChapterContentDTO(content);
+        return contentConverter.toChapterContent(content);
     }
 }

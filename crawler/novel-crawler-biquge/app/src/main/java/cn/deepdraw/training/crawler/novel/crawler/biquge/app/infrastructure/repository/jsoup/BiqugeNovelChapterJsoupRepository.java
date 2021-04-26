@@ -53,7 +53,7 @@ public class BiqugeNovelChapterJsoupRepository extends BiqugeNovelBaseJsoupRepos
                 subtitle = ele.text();
             } else {
 
-                chapter.setUrl(BIQUGE_URL + ele.selectFirst("a").attr("href"));
+                chapter.setLink(BIQUGE_URL + ele.selectFirst("a").attr("href"));
                 chapter.setName(ele.selectFirst("a").text());
                 chapter.setSubTitle(subtitle);
                 chapters.add(chapter);

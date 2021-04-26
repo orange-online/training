@@ -17,15 +17,15 @@ public class LiudatxtNovel implements ValueObject<LiudatxtNovel> {
 
 	private String author;
 
-	private String url;
+	private String link;
 
 	private LiudatxtNovel() {}
 
-	private LiudatxtNovel(String name, String author, String url) {
+	private LiudatxtNovel(String name, String author, String link) {
 
 		this.name = name;
 		this.author = author;
-		this.url = url;
+		this.link = link;
 	}
 
 	public static LiudatxtNovel of() {
@@ -33,15 +33,15 @@ public class LiudatxtNovel implements ValueObject<LiudatxtNovel> {
 		return new LiudatxtNovel();
 	}
 
-	public static LiudatxtNovel of(String name, String author, String url) {
+	public static LiudatxtNovel of(String name, String author, String link) {
 
 		if (StringUtils.isBlank(name)
 				|| StringUtils.isBlank(author)
-				|| StringUtils.isBlank(url)) {
+				|| StringUtils.isBlank(link)) {
 
 			return null;
 		}
-		return new LiudatxtNovel(name, author, url);
+		return new LiudatxtNovel(name, author, link);
 	}
 
 	public String name() {
@@ -54,9 +54,9 @@ public class LiudatxtNovel implements ValueObject<LiudatxtNovel> {
 		return author;
 	}
 
-	public String url() {
+	public String link() {
 
-		return url;
+		return link;
 	}
 	
 	@Override
@@ -91,7 +91,7 @@ public class LiudatxtNovel implements ValueObject<LiudatxtNovel> {
 	@Override
 	public String toString() {
 
-		return JsonNodeFactory.instance.objectNode().put("name", name).put("author", author).put("url", url).toString();
+		return JsonNodeFactory.instance.objectNode().put("name", name).put("author", author).put("link", link).toString();
 	}
 
 	@Override

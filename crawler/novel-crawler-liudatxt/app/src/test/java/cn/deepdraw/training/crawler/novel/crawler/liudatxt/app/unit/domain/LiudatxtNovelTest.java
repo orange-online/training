@@ -19,7 +19,7 @@ public class LiudatxtNovelTest {
 		Assert.assertNotNull(instance);
 		Assert.assertEquals("novel_name", instance.name());
 		Assert.assertEquals("novel_author", instance.author());
-		Assert.assertEquals("url", instance.url());
+		Assert.assertEquals("url", instance.link());
 	}
 
 	@Test
@@ -60,13 +60,13 @@ public class LiudatxtNovelTest {
 	public void should_return_a_json_string_who_contains_all_property_values_when_toString_method_called() {
 
 		LiudatxtNovel instance = LiudatxtNovel.of("novel_name", "novel_author", "url");
-		Assert.assertEquals("{\"name\":\"novel_name\",\"author\":\"novel_author\",\"url\":\"url\"}", instance.toString());
+		Assert.assertEquals("{\"name\":\"novel_name\",\"author\":\"novel_author\",\"link\":\"url\"}", instance.toString());
 	}
 
 	@Test
 	public void should_return_the_same_hashCode_of_toString_when_hashCode_method_called() {
 
 		LiudatxtNovel instance = LiudatxtNovel.of("novel_name", "novel_author", "url");
-		Assert.assertEquals("{\"name\":\"novel_name\",\"author\":\"novel_author\",\"url\":\"url\"}".hashCode(), instance.hashCode());
+		Assert.assertEquals("{\"name\":\"novel_name\",\"author\":\"novel_author\",\"link\":\"url\"}".hashCode(), instance.hashCode());
 	}
 }

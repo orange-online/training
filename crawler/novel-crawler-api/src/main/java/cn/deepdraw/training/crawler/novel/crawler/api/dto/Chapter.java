@@ -1,27 +1,23 @@
-package cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain;
+package cn.deepdraw.training.crawler.novel.crawler.api.dto;
+
+import java.io.Serializable;
 
 /**
- * @Description 小说基本信息
+ * @Description 小说章节信息
  * @Author zhangzhucong
- * @Date 2020/6/6
+ * @Date 2020/6/2
  **/
-public class BiqugeNovelChapter {
+public class Chapter implements Serializable {
 
-    private String subTitle;
+    private static final long serialVersionUID = 20200602L;
 
     private String name;
+    
+    private String site;
 
     private String link;
 
     private Integer index;
-
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
 
     public String getName() {
         return name;
@@ -30,6 +26,14 @@ public class BiqugeNovelChapter {
     public void setName(String name) {
         this.name = name;
     }
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
+	}
 
 	public String getLink() {
 		return link;

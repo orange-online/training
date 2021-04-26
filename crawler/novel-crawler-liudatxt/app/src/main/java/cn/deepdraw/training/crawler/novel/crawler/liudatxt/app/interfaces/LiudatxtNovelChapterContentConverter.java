@@ -2,7 +2,7 @@ package cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.interfaces;
 
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovelChapterContent;
 
 /**
@@ -13,14 +13,14 @@ import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNo
 @Component
 public class LiudatxtNovelChapterContentConverter {
 
-	public ChapterContentDTO toChapterContentDTO(LiudatxtNovelChapterContent chapterContent) {
+	public ChapterContent toChapterContent(LiudatxtNovelChapterContent chapterContent) {
 
-		return chapterContent != null ? adapt(chapterContent) : null;
+		return chapterContent != null ? done(chapterContent) : null;
 	}
 
-	private ChapterContentDTO adapt(LiudatxtNovelChapterContent chapterContent) {
+	private ChapterContent done(LiudatxtNovelChapterContent chapterContent) {
 
-		ChapterContentDTO dto = new ChapterContentDTO();
+		ChapterContent dto = new ChapterContent();
 		dto.setContent(chapterContent.content());
 		return dto;
 	}

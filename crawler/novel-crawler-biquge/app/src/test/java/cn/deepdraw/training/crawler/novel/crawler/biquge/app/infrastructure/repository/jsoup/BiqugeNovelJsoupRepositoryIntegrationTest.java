@@ -33,6 +33,6 @@ public class BiqugeNovelJsoupRepositoryIntegrationTest {
 
         assertEquals("完美世界", biqugeNovel.getName());
         assertEquals("辰东", biqugeNovel.getAuthor());
-        assertEquals("http://www.biquge.com/0_14/", biqugeNovel.getUrl());
+        assertEquals("http://www.biquge.com/0_14/", biqugeNovel.getLink());
     }
 }

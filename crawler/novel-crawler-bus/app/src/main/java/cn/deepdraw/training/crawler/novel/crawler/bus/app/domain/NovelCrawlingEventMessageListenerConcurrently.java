@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import cn.deepdraw.training.crawler.novel.api.NovelChapterCrawlingEventApi;
 import cn.deepdraw.training.crawler.novel.api.dto.LinkAddress;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterCrawlingEventDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
 import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
 import cn.deepdraw.training.framework.utils.JsonUtils;
 
@@ -50,12 +50,12 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 			
 			return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 		}
-		List<ChapterDTO> chaptersOnline = crawlChapters(em.getSite(), em.getLink());
+		List<Chapter> chaptersOnline = crawlChapters(em.getSite(), em.getLink());
 		List<NovelChapter> chapters = new ArrayList<>(chaptersOnline.size());
 		for (int index = 0, len = chaptersOnline.size(); index < len; index++) {
 			
-			ChapterDTO chapter = chaptersOnline.get(index);
-			chapters.add(NovelChapter.of(em.getNovelId(), chapter.getName(), em.getSite(), chapter.getUrl(), index + 1));
+			Chapter chapter = chaptersOnline.get(index);
+			chapters.add(NovelChapter.of(em.getNovelId(), chapter.getName(), em.getSite(), chapter.getLink(), index + 1));
 		}
 		chapters.parallelStream().forEach(chapter -> {
 			
@@ -74,7 +74,7 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 		return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 	}
 	
-	public List<ChapterDTO> crawlChapters(String site, String link) {
+	public List<Chapter> crawlChapters(String site, String link) {
 		
 		return crawlerGateway.findChapters(site, link);
 	}

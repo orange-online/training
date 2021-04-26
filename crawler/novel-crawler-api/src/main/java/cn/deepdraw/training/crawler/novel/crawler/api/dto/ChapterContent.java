@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @Author zhangzhucong
  * @Date 2020/6/2
  **/
-public class ChapterContentDTO implements Serializable {
+public class ChapterContent implements Serializable {
 
     private static final long serialVersionUID = 20200602L;
 

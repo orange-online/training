@@ -1,3 +1,7 @@
+#3.0.0 (2021-04-26)
+Features
+重构爬取数据结构
+
 #2.0.1 (2020-06-11)
 Features
 移除NovelDTO中的chapterCount属性

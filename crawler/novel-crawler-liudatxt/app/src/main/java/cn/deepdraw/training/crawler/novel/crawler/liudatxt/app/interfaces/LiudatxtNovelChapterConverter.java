@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtConstants;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovelChapter;
 
 /**
@@ -18,22 +19,23 @@ import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNo
 @Component
 public class LiudatxtNovelChapterConverter {
 
-	public List<ChapterDTO> toChapterDTOs(List<LiudatxtNovelChapter> chapters) {
+	public List<Chapter> toChapters(List<LiudatxtNovelChapter> chapters) {
 
-		return CollectionUtils.isEmpty(chapters) ? Collections.emptyList() : chapters.stream().map(chapter -> toChapterDTO(chapter)).filter(dto -> dto != null).collect(Collectors.toList());
+		return CollectionUtils.isEmpty(chapters) ? Collections.emptyList() : chapters.stream().map(chapter -> toChapter(chapter)).filter(dto -> dto != null).collect(Collectors.toList());
 	}
 
-	public ChapterDTO toChapterDTO(LiudatxtNovelChapter chapter) {
+	public Chapter toChapter(LiudatxtNovelChapter chapter) {
 
 		return chapter != null ? adapt(chapter) : null;
 	}
 
-	private ChapterDTO adapt(LiudatxtNovelChapter chapter) {
+	private Chapter adapt(LiudatxtNovelChapter chapter) {
 
-		ChapterDTO dto = new ChapterDTO();
+		Chapter dto = new Chapter();
 		dto.setName(chapter.name());
-		dto.setSequence(chapter.sequence());
-		dto.setUrl(chapter.url());
+		dto.setSite(LiudatxtConstants.SITE);
+		dto.setLink(chapter.link());
+		dto.setIndex(chapter.index());
 		return dto;
 	}
 }

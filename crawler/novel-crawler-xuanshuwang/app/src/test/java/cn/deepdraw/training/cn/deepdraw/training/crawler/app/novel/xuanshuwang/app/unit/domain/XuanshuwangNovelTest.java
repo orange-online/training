@@ -1,11 +1,13 @@
 package cn.deepdraw.training.cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.unit.domain;
 
-import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangNovel;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+
+import cn.deepdraw.training.crawler.app.novel.xuanshuwang.app.domain.XuanshuwangNovel;
 
 /**
  * @author xjn
@@ -22,7 +24,7 @@ public class XuanshuwangNovelTest {
 		Assert.assertNotNull(novel);
 		assertEquals("name", novel.name());
 		assertEquals("author", novel.author());
-		assertEquals("url", novel.url());
+		assertEquals("url", novel.link());
 	}
 
 	@Test
@@ -35,13 +37,12 @@ public class XuanshuwangNovelTest {
 	@Test
 	public void hashCode_happyPath() {
 
-		assertEquals(1255793196, XuanshuwangNovel.of("name", "author", "url").hashCode());
+		assertEquals(JsonNodeFactory.instance.objectNode().put("name", "name").put("author", "author").put("link", "url").toString().hashCode(), XuanshuwangNovel.of("name", "author", "url").hashCode());
 	}
 
 	@Test
 	public void toString_happyPath() {
 
-		assertEquals(JsonNodeFactory.instance.objectNode().put("name", "name").put("author", "author").put("url", "url").toString(),
-				XuanshuwangNovel.of("name", "author", "url").toString());
+		assertEquals(JsonNodeFactory.instance.objectNode().put("name", "name").put("author", "author").put("link", "url").toString(), XuanshuwangNovel.of("name", "author", "url").toString());
 	}
 }

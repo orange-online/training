@@ -1,8 +1,8 @@
-package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces.converter;
+package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces;
 
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContentDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
 import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapterContent;
 
 /**
@@ -13,14 +13,13 @@ import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelC
 @Component
 public class BiqugeNovelChapterContentConverter {
 
-    public ChapterContentDTO toChapterContentDTO(BiqugeNovelChapterContent content) {
+    public ChapterContent toChapterContent(BiqugeNovelChapterContent content) {
 
         if (content == null) {
 
             return null;
         }
-
-        ChapterContentDTO dto = new ChapterContentDTO();
+        ChapterContent dto = new ChapterContent();
         dto.setContent(content.getContent());
         return dto;
     }

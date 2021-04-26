@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces.converter;
+package cn.deepdraw.training.crawler.novel.crawler.biquge.app.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.NovelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
 import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovel;
 
 /**
@@ -27,22 +27,22 @@ public class BiqugeNovelConverterTest {
     private BiqugeNovelConverter converter;
 
     @Test
-    public void toNovelDTO_happyPath() {
+    public void toNovel_happyPath() {
 
         BiqugeNovel biqugeNovel = createWithAuthorAndNameAndUrl("author", "name", "url");
-        NovelDTO novelDTO = converter.toNovelDTO(biqugeNovel);
+        Novel novelDTO = converter.toNovel(biqugeNovel);
 
         assertEquals("author", novelDTO.getAuthor());
         assertEquals("name", novelDTO.getName());
-        assertEquals("url", novelDTO.getUrl());
+        assertEquals("url", novelDTO.getLink());
     }
 
     @Test
-    public void toNovelDTOs_happyPath() {
+    public void toNovels_happyPath() {
 
         BiqugeNovel biqugeNovel = Mockito.mock(BiqugeNovel.class);
 
-        assertThat(converter.toNovelDTOs(Arrays.asList(biqugeNovel)), Matchers.hasSize(1));
+        assertThat(converter.toNovels(Arrays.asList(biqugeNovel)), Matchers.hasSize(1));
     }
 
     private BiqugeNovel createWithAuthorAndNameAndUrl(String author, String name, String url) {

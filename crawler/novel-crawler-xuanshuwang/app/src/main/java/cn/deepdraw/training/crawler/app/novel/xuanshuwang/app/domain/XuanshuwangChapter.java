@@ -24,35 +24,35 @@ public class XuanshuwangChapter implements Serializable {
     /**
      * 章节地址
      */
-    private String url;
+    private String link;
 
     /**
      * 章节排序号
      */
-    private int sequence;
+    private int index;
 
     protected XuanshuwangChapter() {}
 
-    public XuanshuwangChapter(String name, String url, int sequence) {
+    public XuanshuwangChapter(String name, String link, int index) {
 
         Validate.notBlank(name, "chapter_name_cannot_be_blank");
-        Validate.notBlank(url, "chapter_url_cannot_be_blank");
+        Validate.notBlank(link, "chapter_link_cannot_be_blank");
         
         this.name = name;
-        this.url = url;
-        this.sequence = sequence;
+        this.link = link;
+        this.index = index;
     }
 
     public String name() {
         return name;
     }
 
-    public String url() {
-        return url;
+    public String link() {
+        return link;
     }
 
-    public int sequence() {
-        return sequence;
+    public int index() {
+        return index;
     }
 
     @Override
@@ -87,6 +87,6 @@ public class XuanshuwangChapter implements Serializable {
     @Override
     public String toString() {
 
-        return JsonNodeFactory.instance.objectNode().put("name", name).put("sequence", sequence).put("url", url).toString();
+        return JsonNodeFactory.instance.objectNode().put("name", name).put("index", index).put("link", link).toString();
     }
 }
