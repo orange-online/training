@@ -26,10 +26,10 @@ public class LiudatxtNovelConverter {
 
 	public Novel toNovel(LiudatxtNovel novel) {
 
-		return novel != null ? adapt(novel) : null;
+		return novel != null ? done(novel) : null;
 	}
 
-	private Novel adapt(LiudatxtNovel novel) {
+	private Novel done(LiudatxtNovel novel) {
 
 		Novel dto = new Novel();
 		dto.setName(novel.name());

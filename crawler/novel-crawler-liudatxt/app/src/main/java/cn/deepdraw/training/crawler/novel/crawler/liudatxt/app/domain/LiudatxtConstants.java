@@ -9,7 +9,7 @@ public final class LiudatxtConstants {
 
 	private LiudatxtConstants() {}
 
-	public static final String SITE = "BIQUGE";
+	public static final String SITE = "LIUDATXT";
 
 	public static final String URL_BASE = "http://www.txtshuku.org";
 

@@ -26,10 +26,10 @@ public class LiudatxtNovelChapterConverter {
 
 	public Chapter toChapter(LiudatxtNovelChapter chapter) {
 
-		return chapter != null ? adapt(chapter) : null;
+		return chapter != null ? done(chapter) : null;
 	}
 
-	private Chapter adapt(LiudatxtNovelChapter chapter) {
+	private Chapter done(LiudatxtNovelChapter chapter) {
 
 		Chapter dto = new Chapter();
 		dto.setName(chapter.name());
