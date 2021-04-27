@@ -80,5 +80,5 @@ uploadArchives {
 dependencies {
 	api("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
 
-	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:2.2.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 }
