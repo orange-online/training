@@ -3,8 +3,6 @@ package cn.deepdraw.training.crawler.novel.app.domain.core;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -27,9 +25,8 @@ public class NovelPackagingEvent extends IdLongEntity {
 	@Column(name = "novel_id")
 	private Long novelId;
 
-	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "site")
-	private LinkAddr.Site site;
+	private String site;
 
 	@Column(name = "published")
 	private boolean published;
@@ -40,7 +37,7 @@ public class NovelPackagingEvent extends IdLongEntity {
 	private NovelPackagingEvent() {
 	}
 
-	private NovelPackagingEvent(Long novelId, LinkAddr.Site site) {
+	private NovelPackagingEvent(Long novelId, String site) {
 
 		this.novelId = novelId;
 		this.site = site;
@@ -48,7 +45,7 @@ public class NovelPackagingEvent extends IdLongEntity {
 		this.completed = false;
 	}
 
-	public static NovelPackagingEvent of(Long novelId, LinkAddr.Site site) {
+	public static NovelPackagingEvent of(Long novelId, String site) {
 
 		return new NovelPackagingEvent(novelId, site);
 	}
@@ -58,7 +55,7 @@ public class NovelPackagingEvent extends IdLongEntity {
 		return novelId;
 	}
 
-	public LinkAddr.Site site() {
+	public String site() {
 
 		return site;
 	}

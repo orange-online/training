@@ -23,7 +23,7 @@ public class NovelChapterPageConvTest {
 	@Test
 	public void done_happyPath() {
 
-		LinkAddr addr = LinkAddr.of(LinkAddr.Site.BIQUGE, "link", null);
+		LinkAddr addr = LinkAddr.of("BIQUGE", "link", null);
 		Novel novel = Novel.of("novelName", "author", addr);
 		novel.entityId(123L);
 		NovelChapter chapter = NovelChapter.of(novel, "chapterName", addr, 1);

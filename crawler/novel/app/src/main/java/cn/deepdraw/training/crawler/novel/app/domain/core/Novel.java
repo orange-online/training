@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.Validate;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
@@ -68,9 +67,9 @@ public class Novel extends IdLongEntity {
 		return addrs;
 	}
 
-	public LinkAddr addrOf(Site site) {
+	public LinkAddr addrOf(String site) {
 
-		return addrs.stream().filter(addr -> addr.site() == site).findFirst().orElse(null);
+		return addrs.stream().filter(addr -> addr.site().equals(site)).findFirst().orElse(null);
 	}
 
 	public Novel updateAddr(LinkAddr addr) {
@@ -86,7 +85,7 @@ public class Novel extends IdLongEntity {
 		return this;
 	}
 
-	public Novel updateAddrPath(Site site, String path) {
+	public Novel updateAddrPath(String site, String path) {
 
 		Validate.notNull(addrOf(site), "site_not_found").updatePath(path);
 		return this;

@@ -9,11 +9,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
-import cn.deepdraw.training.crawler.novel.app.infrastructure.dubbo.proxy.crawler.NovelCrawlerApiProxy;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelService;
+import cn.deepdraw.training.crawler.novel.app.infrastructure.dubbo.proxy.crawler.NovelCrawlerApiProxy;
 
 /**
  * NovelService Test
@@ -35,7 +34,7 @@ public class NovelServiceTest {
 	@Test
 	public void should_return_a_not_null_instance_when_method_crawl_called_if_novel_donot_exist() {
 		
-		Site site = Site.BIQUGE;
+		String site = "BIQUGE";
 		String link = "link";
 		Novel novelMocked = Mockito.mock(Novel.class);
 		Mockito.when(novelMocked.name()).thenReturn("name");
@@ -55,7 +54,7 @@ public class NovelServiceTest {
 	@Test
 	public void should_return_a_not_null_instance_when_method_crawl_called_if_novel_already_exist() {
 		
-		Site site = Site.BIQUGE;
+		String site = "BIQUGE";
 		String link = "link";
 		Novel novelMocked = Mockito.mock(Novel.class);
 		Mockito.when(novelMocked.name()).thenReturn("name");

@@ -2,7 +2,6 @@ package cn.deepdraw.training.crawler.novel.app.domain.core;
 
 import java.util.List;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
 
 /**
@@ -14,7 +13,7 @@ public interface NovelChapterRepository extends IdEntityRepository<NovelChapter>
 
 	NovelChapter findByChapterId(Long novelId, Long chapterId);
 
-	NovelChapter findByChapterLink(Long novelId, Site site, String link);
+	NovelChapter findByChapterLink(Long novelId, String site, String link);
 
-	List<NovelChapter> findByNovelId(Long novelId, Site site);
+	List<NovelChapter> findByNovelId(Long novelId, String site);
 }

@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapter;
 
@@ -24,7 +23,7 @@ public class NovelChapterTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
 		return Novel.of(name, author, addr);
 	}
 
@@ -33,7 +32,7 @@ public class NovelChapterTest {
 
 		Novel novel = instanceOfNovel();
 		String name = "chapter_name";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "chapter_addr", "chapter_path");
 		NovelChapter chapter = NovelChapter.of(novel, name, addr, 1);
 
 		Assert.assertNotNull(chapter);
@@ -53,7 +52,7 @@ public class NovelChapterTest {
 
 		Novel novel = null;
 		String name = "chapter_name";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "chapter_addr", "chapter_path");
 		NovelChapter.of(novel, name, addr, 1);
 	}
 
@@ -65,7 +64,7 @@ public class NovelChapterTest {
 
 		Novel novel = instanceOfNovel();
 		String name = null;
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "chapter_addr", "chapter_path");
 		NovelChapter.of(novel, name, addr, 1);
 	}
 
@@ -77,7 +76,7 @@ public class NovelChapterTest {
 
 		Novel novel = instanceOfNovel();
 		String name = "  ";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "chapter_addr", "chapter_path");
 		NovelChapter.of(novel, name, addr, 1);
 	}
 
@@ -98,7 +97,7 @@ public class NovelChapterTest {
 
 		Novel novel = instanceOfNovel();
 		String name = "chapter_name";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "chapter_addr", "chapter_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "chapter_addr", "chapter_path");
 		NovelChapter chapter = NovelChapter.of(novel, name, addr, 1).updateAddrPath("chapter_path1");
 
 		Assert.assertNotEquals("chapter_path", chapter.path());

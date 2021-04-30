@@ -3,8 +3,6 @@ package cn.deepdraw.training.crawler.novel.app.domain.core;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.Validate;
@@ -12,7 +10,6 @@ import org.apache.commons.lang3.Validate;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
@@ -30,9 +27,8 @@ public class NovelChapterCrawlingEvent extends IdLongEntity {
 	@Column(name = "novel_id")
 	private Long novelId;
 
-	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "site")
-	private Site site;
+	private String site;
 
 	@Column(name = "chapter_id")
 	private Long chapterId;
@@ -48,17 +44,17 @@ public class NovelChapterCrawlingEvent extends IdLongEntity {
 
 	private NovelChapterCrawlingEvent() {}
 
-	private NovelChapterCrawlingEvent(Long novelId, Site site, Long chapterId, String link) {
+	private NovelChapterCrawlingEvent(Long novelId, String site, Long chapterId, String link) {
 
 		this.novelId = Validate.notNull(novelId, "novel_id_cannot_be_null");
-		this.site = Validate.notNull(site, "site_cannot_be_blank");
+		this.site = Validate.notBlank(site, "site_cannot_be_blank");
 		this.chapterId = Validate.notNull(chapterId, "chapter_id_cannot_be_null");
 		this.link = Validate.notBlank(link, "link_cannot_be_blank");
 		this.published = false;
 		this.completed = false;
 	}
 
-	public static NovelChapterCrawlingEvent of(Long novelId, Site site, Long chapterId, String link) {
+	public static NovelChapterCrawlingEvent of(Long novelId, String site, Long chapterId, String link) {
 
 		return new NovelChapterCrawlingEvent(novelId, site, chapterId, link);
 	}
@@ -68,7 +64,7 @@ public class NovelChapterCrawlingEvent extends IdLongEntity {
 		return novelId;
 	}
 
-	public Site site() {
+	public String site() {
 		
 		return site;
 	}

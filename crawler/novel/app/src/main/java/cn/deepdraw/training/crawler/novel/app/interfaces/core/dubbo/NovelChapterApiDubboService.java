@@ -2,7 +2,6 @@ package cn.deepdraw.training.crawler.novel.app.interfaces.core.dubbo;
 
 import java.util.List;
 
-import org.apache.commons.lang3.EnumUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +12,6 @@ import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterDTO;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterQueryDTO;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelChapterAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapter;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterRepository;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
@@ -54,7 +52,7 @@ public class NovelChapterApiDubboService implements NovelChapterApi {
 	@Override
 	public NovelChapterDTO create(Long novelId, String name, LinkAddress address, Integer index) throws WebAppRuntimeException {
 
-		LinkAddr addr = LinkAddr.of(EnumUtils.getEnum(Site.class, address.getSite()), address.getLink(), address.getPath());
+		LinkAddr addr = LinkAddr.of(address.getSite(), address.getLink(), address.getPath());
 		return chapterConv.done(appService.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr, index)));
 	}
 
@@ -73,7 +71,7 @@ public class NovelChapterApiDubboService implements NovelChapterApi {
 	@Override
 	public List<NovelChapterDTO> findByNovelId(Long novelId, String site) {
 
-		return chapterConv.done(chapterRepo.findByNovelId(novelId, Site.valueOf(site)));
+		return chapterConv.done(chapterRepo.findByNovelId(novelId, site));
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package cn.deepdraw.training.crawler.novel.app.application.core.impl;
 
-import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelCrawlingEventService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEventService;
@@ -51,22 +49,21 @@ public class NovelAppServiceImpl implements NovelAppService {
 	}
 
 	@Override
-	public Novel updatePath(Long novelId, Site site, String path) throws WebAppRuntimeException {
+	public Novel updatePath(Long novelId, String site, String path) throws WebAppRuntimeException {
 
 		return novelRepo.update(findByNovelId(novelId).updateAddrPath(site, path));
 	}
 
 	@Override
-	public Novel crawl(String siteString, String url) {
+	public Novel crawl(String site, String url) {
 		
-		Site site = EnumUtils.getEnum(Site.class, siteString);
 		Novel novel = novelService.crawl(site, url);
 		crawlingEventService.publish(novel, site);
 		return novel;
 	}
 
 	@Override
-	public Novel packaging(Long novelId, Site site) {
+	public Novel packaging(Long novelId, String site) {
 
 		Novel novel = findByNovelId(novelId);
 		packagingEventService.publish(novel, site);

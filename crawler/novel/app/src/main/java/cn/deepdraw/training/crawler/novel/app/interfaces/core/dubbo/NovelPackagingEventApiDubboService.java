@@ -1,6 +1,5 @@
 package cn.deepdraw.training.crawler.novel.app.interfaces.core.dubbo;
 
-import org.apache.commons.lang3.EnumUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.deepdraw.training.crawler.novel.api.NovelPackagingEventApi;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelPackagingEventDTO;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelPackagingEventAppService;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPackagingEventConv;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 
@@ -30,7 +28,7 @@ public class NovelPackagingEventApiDubboService implements NovelPackagingEventAp
 	@Override
 	public NovelPackagingEventDTO create(Long novelId, String site) throws WebAppRuntimeException {
 
-		return eventConv.done(eventAppService.create(novelId, EnumUtils.getEnum(Site.class, site)));
+		return eventConv.done(eventAppService.create(novelId, site));
 	}
 
 	@Override

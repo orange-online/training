@@ -4,7 +4,6 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.infrastructure.mq.NovelPackagingRocketmqProducerSetting;
 import cn.deepdraw.training.crawler.novel.app.infrastructure.mq.RocketmqMessagerProxy;
 
@@ -31,7 +30,7 @@ public class NovelPackagingEventService {
 	@Autowired
 	private RocketmqMessagerProxy messageProxy;
 
-	public NovelPackagingEvent publish(Novel novel, Site site) {
+	public NovelPackagingEvent publish(Novel novel, String site) {
 
 		Validate.notNull(novel.addrOf(site), "unsupported_site");
 		NovelPackagingEvent event = packagingEventRepo.create(NovelPackagingEvent.of(novel.entityId(), site));

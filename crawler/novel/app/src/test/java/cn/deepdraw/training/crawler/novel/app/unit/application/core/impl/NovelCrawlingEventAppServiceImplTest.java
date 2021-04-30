@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import cn.deepdraw.training.crawler.novel.app.application.core.impl.NovelCrawlingEventAppServiceImpl;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelCrawlingEvent;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelCrawlingEventRepository;
@@ -69,12 +68,12 @@ public class NovelCrawlingEventAppServiceImplTest {
 		Long eventId = 123L, novelId = 234L;
 		NovelCrawlingEvent eventMocked = Mockito.mock(NovelCrawlingEvent.class);
 		Mockito.when(eventMocked.novelId()).thenReturn(novelId);
-		Mockito.when(eventMocked.site()).thenReturn(Site.BIQUGE);
+		Mockito.when(eventMocked.site()).thenReturn("BIQUGE");
 		Mockito.when(eventRepo.findByEntityId(eventId)).thenReturn(eventMocked);
 		
 		Novel novelMocked = Mockito.mock(Novel.class);
 		Mockito.when(novelRepo.findByEntityId(novelId)).thenReturn(novelMocked);
-		Mockito.when(eventService.publish(novelMocked, Site.BIQUGE)).thenReturn(eventMocked);
+		Mockito.when(eventService.publish(novelMocked, "BIQUGE")).thenReturn(eventMocked);
 		
 		NovelCrawlingEvent event = serviceImpl.publish(eventId);
 

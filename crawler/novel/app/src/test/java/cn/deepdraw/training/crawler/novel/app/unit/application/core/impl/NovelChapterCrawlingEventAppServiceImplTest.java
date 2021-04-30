@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import cn.deepdraw.training.crawler.novel.app.application.core.impl.NovelChapterCrawlingEventAppServiceImpl;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterCrawlingEvent;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterCrawlingEventRepository;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterCrawlingEventService;
@@ -51,7 +50,7 @@ public class NovelChapterCrawlingEventAppServiceImplTest {
 	@Test
 	public void should_return_a_not_null_instance_when_create_method_called() {
 		
-		Site site = Site.BIQUGE;
+		String site = "BIQUGE";
 		Long novelId = 123L, chapterId = 234L;
 		String link = "link";
 		NovelChapterCrawlingEvent eventMocked = Mockito.mock(NovelChapterCrawlingEvent.class);
@@ -98,17 +97,17 @@ public class NovelChapterCrawlingEventAppServiceImplTest {
 		String path = "path";
 		NovelChapterCrawlingEvent eventMocked = Mockito.mock(NovelChapterCrawlingEvent.class);
 		Mockito.when(eventMocked.novelId()).thenReturn(135L);
-		Mockito.when(eventMocked.site()).thenReturn(Site.BIQUGE);
+		Mockito.when(eventMocked.site()).thenReturn("BIQUGE");
 		Mockito.when(eventRepo.findByEntityId(eventId)).thenReturn(eventMocked);
 		Mockito.when(eventService.complete(eventMocked, path)).thenReturn(eventMocked);
-		Mockito.when(eventRepo.countByNovelAndCompleted(eventMocked.novelId(), Site.BIQUGE, false)).thenReturn(1L);
+		Mockito.when(eventRepo.countByNovelAndCompleted(eventMocked.novelId(), "BIQUGE", false)).thenReturn(1L);
 		
 		NovelChapterCrawlingEvent event = serviceImpl.complete(eventId, path);
 
 		Assert.assertNotNull(event);
 		Mockito.verify(eventRepo).findByEntityId(eventId);
 		Mockito.verify(eventService).complete(eventMocked, path);
-		Mockito.verify(eventRepo).countByNovelAndCompleted(eventMocked.novelId(), Site.BIQUGE, false);
+		Mockito.verify(eventRepo).countByNovelAndCompleted(eventMocked.novelId(), "BIQUGE", false);
 	}
 	
 	@Test

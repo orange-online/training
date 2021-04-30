@@ -1,6 +1,5 @@
 package cn.deepdraw.training.crawler.novel.app.application.core;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEvent;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
 
@@ -11,7 +10,7 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
  */
 public interface NovelPackagingEventAppService {
 
-	NovelPackagingEvent create(Long novelId, Site site) throws WebAppRuntimeException;
+	NovelPackagingEvent create(Long novelId, String site) throws WebAppRuntimeException;
 
 	NovelPackagingEvent publish(Long eventId) throws WebAppRuntimeException;
 

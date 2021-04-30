@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 
 /**
@@ -25,7 +24,7 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
 		Novel novel = Novel.of(name, author, addr);
 		Assert.assertNotNull(novel);
 
@@ -40,7 +39,7 @@ public class NovelTest {
 
 		String name = "  ";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
 
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("name_cannot_be_blank");
@@ -52,7 +51,7 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "  ";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
 
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("author_cannot_be_blank");
@@ -76,9 +75,9 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
 		Novel novel = Novel.of(name, author, addr);
-		Assert.assertSame(addr, novel.addrOf(Site.BIQUGE));
+		Assert.assertSame(addr, novel.addrOf("BIQUGE"));
 	}
 
 	@Test
@@ -86,9 +85,9 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
 		Novel novel = Novel.of(name, author, addr);
-		Assert.assertNull(novel.addrOf(Site.LIUDATXT));
+		Assert.assertNull(novel.addrOf("LIUDATXT"));
 	}
 
 	@Test
@@ -96,8 +95,8 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-		LinkAddr addrNonexistent = LinkAddr.of(Site.LIUDATXT, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
+		LinkAddr addrNonexistent = LinkAddr.of("LIUDATXT", "novel_addr", "novel_path");
 		Novel novel = Novel.of(name, author, addr).updateAddr(addrNonexistent);
 
 		Assert.assertThat(novel.addrs(), Matchers.contains(addr, addrNonexistent));
@@ -109,8 +108,8 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-		LinkAddr addrExistent = LinkAddr.of(Site.BIQUGE, "novel_addr_existent", "novel_path_existent");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
+		LinkAddr addrExistent = LinkAddr.of("BIQUGE", "novel_addr_existent", "novel_path_existent");
 		Novel novel = Novel.of(name, author, addr).updateAddr(addrExistent);
 
 		Assert.assertThat(novel.addrs(), Matchers.contains(addr));
@@ -122,9 +121,9 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
-		Novel novel = Novel.of(name, author, addr).updateAddrPath(Site.BIQUGE, "novel_path_new");
-		Assert.assertSame("novel_path_new", novel.addrOf(Site.BIQUGE).path());
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
+		Novel novel = Novel.of(name, author, addr).updateAddrPath("BIQUGE", "novel_path_new");
+		Assert.assertSame("novel_path_new", novel.addrOf("BIQUGE").path());
 	}
 
 	@Test
@@ -132,10 +131,10 @@ public class NovelTest {
 
 		String name = "novel_name";
 		String author = "novel_author";
-		LinkAddr addr = LinkAddr.of(Site.BIQUGE, "novel_addr", "novel_path");
+		LinkAddr addr = LinkAddr.of("BIQUGE", "novel_addr", "novel_path");
 
 		expectedException.expect(NullPointerException.class);
 		expectedException.expectMessage("site_not_found");
-		Novel.of(name, author, addr).updateAddrPath(Site.LIUDATXT, "novel_path_new");
+		Novel.of(name, author, addr).updateAddrPath("LIUDATXT", "novel_path_new");
 	}
 }

@@ -4,7 +4,6 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.infrastructure.mq.NovelRocketmqProducerSetting;
 import cn.deepdraw.training.crawler.novel.app.infrastructure.mq.RocketmqMessagerProxy;
 
@@ -28,7 +27,7 @@ public class NovelCrawlingEventService {
 	@Autowired
 	private RocketmqMessagerProxy messageProxy;
 
-	public NovelCrawlingEvent publish(Novel novel, Site site) {
+	public NovelCrawlingEvent publish(Novel novel, String site) {
 
 		LinkAddr addrOf = Validate.notNull(novel.addrOf(site), "unsupported_site");
 		NovelCrawlingEvent event = eventRepo.create(NovelCrawlingEvent.of(novel.entityId(), site, addrOf.link()));

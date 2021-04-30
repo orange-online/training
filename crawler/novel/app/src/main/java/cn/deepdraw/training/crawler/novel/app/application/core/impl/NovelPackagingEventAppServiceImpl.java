@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelPackagingEventAppService;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEvent;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEventRepository;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEventService;
@@ -32,7 +31,7 @@ public class NovelPackagingEventAppServiceImpl implements NovelPackagingEventApp
 	private NovelPackagingEventService eventService;
 
 	@Override
-	public NovelPackagingEvent create(Long novelId, Site site) throws WebAppRuntimeException {
+	public NovelPackagingEvent create(Long novelId, String site) throws WebAppRuntimeException {
 
 		return eventRepo.create(NovelPackagingEvent.of(novelId, site));
 	}

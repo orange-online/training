@@ -1,6 +1,5 @@
 package cn.deepdraw.training.crawler.novel.app.domain.core;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
 
 /**
@@ -10,5 +9,5 @@ import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
  */
 public interface NovelCrawlingEventRepository extends IdEntityRepository<NovelCrawlingEvent> {
 
-	NovelCrawlingEvent findByNovelIdAndSite(Long novelId, Site site);
+	NovelCrawlingEvent findByNovelIdAndSite(Long novelId, String site);
 }

@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.Validate;
 
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.framework.orm.mysql.domain.IdLongEntity;
 
 /**
@@ -73,7 +72,7 @@ public class NovelChapter extends IdLongEntity {
 		return index;
 	}
 
-	public Site site() {
+	public String site() {
 
 		return addr.site();
 	}

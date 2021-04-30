@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelChapterCrawlingEventAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapter;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterCrawlingEvent;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapterCrawlingEventRepository;
@@ -43,7 +42,7 @@ public class NovelChapterCrawlingEventAppServiceImpl implements NovelChapterCraw
 	private NovelPackagingEventService packagingEventService;
 
 	@Override
-	public NovelChapterCrawlingEvent create(Long novelId, Site site, Long chapterId, String link) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEvent create(Long novelId, String site, Long chapterId, String link) throws WebAppRuntimeException {
 
 		return eventRepo.create(NovelChapterCrawlingEvent.of(novelId, site, chapterId, link));
 	}
@@ -76,7 +75,7 @@ public class NovelChapterCrawlingEventAppServiceImpl implements NovelChapterCraw
 		return event;
 	}
 
-	private boolean shouldPublishNovelPackagingEvent(Long novelId, Site site) {
+	private boolean shouldPublishNovelPackagingEvent(Long novelId, String site) {
 
 		return eventRepo.countByNovelAndCompleted(novelId, site, false) == NumberUtils.LONG_ZERO;
 	}

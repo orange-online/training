@@ -79,7 +79,7 @@ public class NovelApiDubboServiceTest {
 		id = 123L;
 		name = "name";
 		author = "author";
-		link = LinkAddr.of(LinkAddr.Site.BIQUGE, "link", null);
+		link = LinkAddr.of("BIQUGE", "link", null);
 		address = LinkAddress.of("BIQUGE", "link");
 		novel = Novel.of(name, author, link);
 		novel.entityId(id);
@@ -118,7 +118,7 @@ public class NovelApiDubboServiceTest {
 	@Test
 	public void updatePath_happyPath() throws WebAppRuntimeException {
 
-		Novel novel = Novel.of(name, author, LinkAddr.of(LinkAddr.Site.BIQUGE, "link", "path"));
+		Novel novel = Novel.of(name, author, LinkAddr.of("BIQUGE", "link", "path"));
 		novel.entityId(id);
 		NovelDTO dto = new NovelDTO();
 		dto.setEntityId(id);
@@ -126,7 +126,7 @@ public class NovelApiDubboServiceTest {
 		dto.setAuthor(author);
 		dto.setAddresses(Arrays.asList(LinkAddress.of("BIQUGE", "link", "path")));
 
-		when(appService.updatePath(id, LinkAddr.Site.BIQUGE, "path")).thenReturn(novel);
+		when(appService.updatePath(id, "BIQUGE", "path")).thenReturn(novel);
 		when(novelConv.done(novel)).thenReturn(dto);
 
 		NovelDTO expected = service.updatePath(id, "BIQUGE", "path");

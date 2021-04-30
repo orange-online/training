@@ -2,8 +2,6 @@ package cn.deepdraw.training.crawler.novel.app.domain.core;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -22,9 +20,8 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 
 	private static final long serialVersionUID = 20200609L;
 
-	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "site")
-	private Site site; // 站点
+	private String site; // 站点
 
 	@Column(name = "link")
 	private String link; // 站点链接
@@ -34,19 +31,19 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 
 	private LinkAddr() {}
 
-	private LinkAddr(Site site, String link, String path) {
+	private LinkAddr(String site, String link, String path) {
 
-		this.site = Validate.notNull(site, "site_cannot_be_null");
+		this.site = Validate.notBlank(site, "site_cannot_be_blank");
 		this.link = Validate.notBlank(link, "link_cannot_be_blank");
 		this.path = path;
 	}
 
-	public static LinkAddr of(Site site, String link, String path) {
+	public static LinkAddr of(String site, String link, String path) {
 
 		return new LinkAddr(site, link, path);
 	}
 
-	public Site site() {
+	public String site() {
 
 		return site;
 	}
@@ -114,15 +111,5 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 	public boolean equalTo(LinkAddr link) {
 
 		return equals(link);
-	}
-
-	/**
-	 * 小说站点
-	 * @author huangjiancheng
-	 * 2020-06-09
-	 */
-	public enum Site {
-
-		BIQUGE, XUANSHUWANG, LIUDATXT
 	}
 }

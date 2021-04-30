@@ -7,12 +7,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterQueryDTO;
-import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr.Site;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapter;
 import cn.deepdraw.training.framework.api.builder.query.EntityBaseQueryBuilder;
 
@@ -31,9 +29,9 @@ public class NovelChapterQueryBuilder extends EntityBaseQueryBuilder<NovelChapte
 
 			predicates.add(builder.equal(root.get("novel").get("novelId").as(Long.class), dto.getNovelId()));
 		}
-		if (StringUtils.isNotBlank(dto.getSite()) && EnumUtils.isValidEnum(Site.class, dto.getSite())) {
+		if (StringUtils.isNotBlank(dto.getSite())) {
 
-			predicates.add(builder.equal(root.get("addr").get("site").as(Site.class), EnumUtils.getEnum(Site.class, dto.getSite())));
+			predicates.add(builder.equal(root.get("addr").get("site").as(String.class), dto.getSite()));
 		}
 		if (StringUtils.isNotBlank(dto.getName())) {
 
