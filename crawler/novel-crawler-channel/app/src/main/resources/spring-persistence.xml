@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!--动态选择数据源 -->
+	<bean id="dataSource" class="cn.deepdraw.training.framework.orm.mysql.spring.datasource.DynamicRoutingDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="default" value-ref="datasource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="datasource" />
+	</bean>
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="packagesToScan" value="cn.deepdraw.training.**.domain" />
+		<property name="jpaPropertyMap">
+			<props>
+				<!-- 只启用annotation(屏蔽hbm.xml扫描) -->
+				<prop key="hibernate.archive.autodetection">class</prop>
+				<!-- 禁用Named Query -->
+				<prop key="hibernate.query.startup_check">false</prop>
+				<prop key="hibernate.dialect">${spring.jpa.database-platform}</prop>
+				<!-- 建表策略 -->
+				<prop key="hibernate.hbm2ddl.auto">${spring.jpa.hibernate.ddl-auto}</prop>
+				<!-- 显示sql -->
+				<prop key="hibernate.show_sql">${spring.jpa.show-sql}</prop>
+				<!-- 批量操作大小 -->
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<!-- 批量获取大小 -->
+				<prop key="hibernate.jdbc.fetch_size">20</prop>
+				<!-- 设置缓存类 -->
+				<prop key="hibernate.cache.region.factory_class">${spring.jpa.hibernate.cache.region.factory_class}</prop>
+				<!-- 否使用结构化的方式缓存对象 -->
+				<prop key="hibernate.cache.use_structured_entries">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<!-- 是否缓存查询结果 -->
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.physical_naming_strategy">${spring.jpa.hibernate.naming.physical-strategy}</prop>
+				<prop key="hibernate.javax.cache.provider">${spring.jpa.hibernate.javax.cache.provider}</prop>
+				<prop key="hibernate.javax.cache.uri">${spring.jpa.hibernate.javax.cache.uri}</prop>
+				<prop key="javax.persistence.sharedCache.mode">${spring.jpa.properties.javax.persistence.sharedCache.mode}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!--配置事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 对增、删、改方法进行事务支持 -->
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<!-- 对其它方法(查找/搜索等)进行只读事务 -->
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<!--那些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:advisor pointcut="execution(* cn.deepdraw.training.**..*AppService*.*(..))" advice-ref="txAdvice" />
+	</aop:config>
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

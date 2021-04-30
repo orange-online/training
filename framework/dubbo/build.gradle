@@ -56,9 +56,9 @@ uploadArchives {
 
 dependencies {
 
-	implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
-	implementation("org.apache.dubbo:dubbo-spring-boot-starter:$springBootDubboVersion")
-	implementation("org.apache.dubbo:dubbo-dependencies-zookeeper:$springBootDubboVersion") {
+	api("org.springframework.boot:spring-boot-starter:$springBootVersion")
+	api("org.apache.dubbo:dubbo-spring-boot-starter:$springBootDubboVersion")
+	api("org.apache.dubbo:dubbo-dependencies-zookeeper:$springBootDubboVersion") {
 
 		exclude group: 'org.slf4j', module: 'slf4j-log4j12'
 	}

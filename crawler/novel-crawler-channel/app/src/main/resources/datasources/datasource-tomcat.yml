@@ -1,0 +1,25 @@
+###################################################################################################
+### Tomcat Datasource
+###################################################################################################
+datasource:
+  tomcat:
+    url: ${datasources.tomcat.url}
+    username: ${datasources.tomcat.username}
+    password: ${datasources.tomcat.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-wait: 1000
+    max-idle: 30
+    min-idle: 10
+    max-active: 100
+    initial-size: 10
+    test-while-idle: true
+    test-on-borrow: true
+    validation-interval: 60000
+    validation-query: select 1
+    log-abandoned: true
+    remove-abandoned: true
+    remove-abandoned-timeout: 120
+    abandon-when-percentage-full: 30
+    min-evictable-idle-time-millis: 60000
+    time-between-eviction-runs-millis: 30000
+    jdbc-interceptors: ConnectionState;StatementFinalizer;ResetAbandonedTimer
