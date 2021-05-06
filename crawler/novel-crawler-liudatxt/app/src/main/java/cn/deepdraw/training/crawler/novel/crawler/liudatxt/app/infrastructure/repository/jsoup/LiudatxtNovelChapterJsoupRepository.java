@@ -9,11 +9,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtConstants;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovelChapter;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovelChapterRepository;
 
@@ -23,9 +20,7 @@ import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNo
  * 2020-06-07
  */
 @Component
-public class LiudatxtNovelChapterJsoupRepository implements LiudatxtNovelChapterRepository {
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
+public class LiudatxtNovelChapterJsoupRepository extends LiudatxtNovelBaseJsoupRepository implements LiudatxtNovelChapterRepository {
 
 	@Override
 	public List<LiudatxtNovelChapter> findChapters(String url) {
@@ -33,7 +28,7 @@ public class LiudatxtNovelChapterJsoupRepository implements LiudatxtNovelChapter
 		List<LiudatxtNovelChapter> chapters = new ArrayList<>();
 		try {
 
-			Document document = Jsoup.connect(url).timeout(LiudatxtConstants.TIMEOUT_MILLIS).userAgent(LiudatxtConstants.USER_AGENT).get(); // 获取溜达小说章节html document
+			Document document = Jsoup.connect(url).timeout(getConnectionTimeout()).userAgent(getUserAgent()).get(); // 获取溜达小说章节html document
 			Element chaptersEl = document.getElementById("readerlist"); // 从document中解析小说章节目录节点
 			Elements ulEls = chaptersEl.select("ul"); // 从小说章节目录节点解析章节分卷节点
 			int index = 0;
@@ -61,6 +56,6 @@ public class LiudatxtNovelChapterJsoupRepository implements LiudatxtNovelChapter
 
 	private String prepareChapterUrl(String elhref) {
 
-		return LiudatxtConstants.URL_BASE + elhref;
+		return getURLPrefix() + elhref;
 	}
 }

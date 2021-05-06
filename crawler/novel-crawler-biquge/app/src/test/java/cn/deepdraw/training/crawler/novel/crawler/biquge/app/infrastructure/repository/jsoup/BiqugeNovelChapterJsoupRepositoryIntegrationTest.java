@@ -5,22 +5,49 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeConstants;
 import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeNovelChapter;
+import cn.deepdraw.training.crawler.novel.crawler.channel.api.ChannelApi;
+import cn.deepdraw.training.crawler.novel.crawler.channel.api.dto.ChannelDTO;
 
 /**
  * @Description BiqugeNovelChapterJsoupRepository
  * @Author zhangzhucong
  * @Date 2020/6/6
  **/
+@RunWith(MockitoJUnitRunner.class)
 public class BiqugeNovelChapterJsoupRepositoryIntegrationTest {
 
-    private BiqugeNovelChapterJsoupRepository repo = new BiqugeNovelChapterJsoupRepository();
+	@Spy
+	@InjectMocks
+    private BiqugeNovelChapterJsoupRepository repo;
+	
+	@Mock
+	private ChannelApi channelApi;
+	
+	private ChannelDTO channel;
+	
+	@Before
+	public void before() {
+		
+		channel = new ChannelDTO();
+		channel.setLink("http://www.biquge.com");
+		channel.setTimeout(60000);
+	}
 
     @Test
     public void findChapters_happyPath() {
 
+		Mockito.when(channelApi.findByChannelCode(BiqugeConstants.SITE)).thenReturn(channel);
         List<BiqugeNovelChapter> chapters = repo.findChapters("http://www.biquge.com/0_395/");
         assertThat(chapters, Matchers.hasSize(Matchers.greaterThanOrEqualTo(1)));
     }

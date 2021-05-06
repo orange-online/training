@@ -24,7 +24,7 @@ public class BiqugeNovelJsoupRepository extends BiqugeNovelBaseJsoupRepository i
     public List<BiqugeNovel> findByKeyword(String keyword) {
 
         List<BiqugeNovel> novels = new ArrayList<>();
-        Document document = getDocument(BIQUGE_SEARCH_URL + keyword);
+        Document document = getDocument(getSearchURLPrefix() + keyword);
         Element pageLink = document.getElementById("pagelink");
         if (pageLink == null) {
 
@@ -40,7 +40,7 @@ public class BiqugeNovelJsoupRepository extends BiqugeNovelBaseJsoupRepository i
 
                 break;
             }
-            document = getDocument(BIQUGE_URL + next.attr("href"));
+            document = getDocument(getURLPrefix() + next.attr("href"));
         }
         return novels;
     }
@@ -61,7 +61,7 @@ public class BiqugeNovelJsoupRepository extends BiqugeNovelBaseJsoupRepository i
         for (Element element : elements) {
 
             Element a = element.selectFirst("dt").selectFirst("a");
-            BiqugeNovel biqugeNovel = BiqugeNovel.of(a.text(), element.selectFirst("span").text(), BIQUGE_URL + a.attr("href"));
+            BiqugeNovel biqugeNovel = BiqugeNovel.of(a.text(), element.selectFirst("span").text(), getURLPrefix() + a.attr("href"));
             novels.add(biqugeNovel);
         }
     }

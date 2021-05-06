@@ -125,6 +125,7 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-channel-api:2.0.0')
 	api('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-liudatxt-api:3.0.0')
 
 	api('org.jsoup:jsoup:1.13.1')

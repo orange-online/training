@@ -8,11 +8,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtConstants;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovel;
 import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtNovelRepository;
 import cn.deepdraw.training.framework.utils.HttpUtils;
@@ -25,9 +22,7 @@ import cn.deepdraw.training.framework.utils.collection.MultiValueHashMap;
  * 2020-06-07
  */
 @Component
-public class LiudatxtNovelJsoupRepository implements LiudatxtNovelRepository {
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
+public class LiudatxtNovelJsoupRepository extends LiudatxtNovelBaseJsoupRepository implements LiudatxtNovelRepository {
 
 	@Override
 	public List<LiudatxtNovel> find(String keywords) {
@@ -35,7 +30,7 @@ public class LiudatxtNovelJsoupRepository implements LiudatxtNovelRepository {
 		List<LiudatxtNovel> novels = new ArrayList<>();
 		MultiValueHashMap<String, String> parameters = new MultiValueHashMap<String, String>();
 		parameters.add("searchkey", keywords);
-		Reply reply = HttpUtils.post(LiudatxtConstants.URL_QUERY, parameters);
+		Reply reply = HttpUtils.post(getSearchURLPrefix(), parameters);
 		Document document = Jsoup.parse(reply.getContent());
 		document.getElementById("sitembox").select("dl").forEach(dlEl -> {
 
@@ -48,7 +43,7 @@ public class LiudatxtNovelJsoupRepository implements LiudatxtNovelRepository {
 
 	private String prepareNovelUrl(String url) {
 
-		return LiudatxtConstants.URL_BASE + url;
+		return getURLPrefix() + url;
 	}
 
 	@Override
@@ -56,7 +51,7 @@ public class LiudatxtNovelJsoupRepository implements LiudatxtNovelRepository {
 
 		try {
 
-			Document doc = Jsoup.connect(url).timeout(LiudatxtConstants.TIMEOUT_MILLIS).userAgent(LiudatxtConstants.USER_AGENT).get();
+			Document doc = Jsoup.connect(url).timeout(getConnectionTimeout()).userAgent(getUserAgent()).get();
 			Element smallcons = doc.getElementById("smallcons");
 			String name = smallcons.selectFirst("h1").text();
 			String author = smallcons.getElementsByTag("a").text();

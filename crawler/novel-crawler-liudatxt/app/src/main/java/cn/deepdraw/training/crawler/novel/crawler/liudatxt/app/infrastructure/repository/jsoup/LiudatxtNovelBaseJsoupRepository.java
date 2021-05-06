@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.biquge.app.infrastructure.repository.jsoup;
+package cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.infrastructure.repository.jsoup;
 
 import java.io.IOException;
 
@@ -9,16 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.deepdraw.training.crawler.novel.crawler.biquge.app.domain.BiqugeConstants;
 import cn.deepdraw.training.crawler.novel.crawler.channel.api.ChannelApi;
 import cn.deepdraw.training.crawler.novel.crawler.channel.api.dto.ChannelDTO;
+import cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.domain.LiudatxtConstants;
 
 /**
- * @Description BiqugeNovelBaseJsoupRepository
- * @Author zhangzhucong
- * @Date 2020/6/9
- **/
-public class BiqugeNovelBaseJsoupRepository {
+ * LiudatxtNovel Base Jsoup Repository
+ * @author huangjiancheng
+ * @Date 2021-05-06
+ */
+public class LiudatxtNovelBaseJsoupRepository {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -39,6 +39,11 @@ public class BiqugeNovelBaseJsoupRepository {
         }
     }
     
+    protected String getUserAgent() {
+    	
+    	return "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0";
+    }
+    
     protected String getURLPrefix() {
     	
     	return getChannel().getLink();
@@ -46,7 +51,7 @@ public class BiqugeNovelBaseJsoupRepository {
     
     protected String getSearchURLPrefix() {
     	
-    	return getURLPrefix() + "/searchbook.php?keyword=";
+    	return getURLPrefix() + "/search.php";
     }
     
     protected int getConnectionTimeout() {
@@ -56,6 +61,6 @@ public class BiqugeNovelBaseJsoupRepository {
     
     protected ChannelDTO getChannel() {
     	
-    	return Validate.notNull(channelApi.findByChannelCode(BiqugeConstants.SITE), UNSUPPORTED_SITE);
+    	return Validate.notNull(channelApi.findByChannelCode(LiudatxtConstants.SITE), UNSUPPORTED_SITE);
     }
 }
