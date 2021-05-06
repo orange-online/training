@@ -49,6 +49,12 @@ public class ChannelApiDubboService implements ChannelApi {
 	}
 
 	@Override
+	public ChannelDTO findByChannelCode(String channelCode) {
+
+		return channelConv.done(channelRepo.findByCode(channelCode));
+	}
+
+	@Override
 	public ChannelDTO create(ChannelRequest request) throws WebAppRuntimeException {
 
 		return channelConv.done(channelAppService.create(request));

@@ -19,6 +19,8 @@ public interface ChannelApi {
 	
 	ChannelDTO findByChannelId(Long channelId);
 	
+	ChannelDTO findByChannelCode(String channelCode);
+	
 	ChannelDTO create(ChannelRequest request) throws WebAppRuntimeException;
 	
 	ChannelDTO update(Long channelId, ChannelRequest request) throws WebAppRuntimeException;

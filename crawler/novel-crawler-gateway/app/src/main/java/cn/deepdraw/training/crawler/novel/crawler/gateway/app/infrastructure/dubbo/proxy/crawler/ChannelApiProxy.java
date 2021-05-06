@@ -3,16 +3,16 @@ package cn.deepdraw.training.crawler.novel.crawler.gateway.app.infrastructure.du
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.liudatxt.api.LiudatxtNovelCrawlerApi;
+import cn.deepdraw.training.crawler.novel.crawler.channel.api.ChannelApi;
 
 /**
- * LiudatxtNovelCrawlerApi Proxy
+ * ChannelApi Proxy
  * @author huangjiancheng
- * 2020-05-21
+ * @Date 2021-05-06
  */
 @Component
-public class LiudatxtNovelCrawlerApiProxy {
+public class ChannelApiProxy {
 
 	@DubboReference
-	private LiudatxtNovelCrawlerApi crawlerApi;
+	private ChannelApi channelApi;
 }

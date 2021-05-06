@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import cn.deepdraw.training.crawler.novel.crawler.biquge.api.BiqugeNovelCrawlerApi;
 
 /**
- * Novel Controller
+ * BiqugeNovelCrawlerApi Proxy
  * @author huangjiancheng
  * 2020-05-21
  */

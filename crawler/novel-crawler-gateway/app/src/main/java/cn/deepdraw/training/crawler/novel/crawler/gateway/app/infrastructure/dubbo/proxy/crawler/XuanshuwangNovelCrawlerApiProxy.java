@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import cn.deepdraw.training.crawler.novel.crawler.xuanshuwang.api.XuanshuwangNovelCrawlerApi;
 
 /**
- * Novel Controller
+ * XuanshuwangNovelCrawlerApi Proxy
  * @author huangjiancheng
  * 2020-05-21
  */
