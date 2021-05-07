@@ -22,7 +22,7 @@ public class NovelPageConvTest {
 	@Test
 	public void done_happyPath() {
 
-		LinkAddr addr = LinkAddr.of("BIQUGE", "link", null);
+		LinkAddr addr = LinkAddr.of("BIQUGE", 234L, "link", null);
 		Novel novel = Novel.of("name", "author", addr);
 		novel.entityId(123L);
 		NovelDTO dto = conv.done(novel);

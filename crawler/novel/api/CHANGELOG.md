@@ -1,3 +1,7 @@
+#5.2.0 (2021-05-07)
+Features
+Add the 'version' property in the 'LinkAddr' class to support quarantining the same novel multiple times to crawl results.
+
 #5.1.0 (2021-04-25)
 Features
 Add the 'index' property in the 'NovelChapter' class to store the chapter's index.

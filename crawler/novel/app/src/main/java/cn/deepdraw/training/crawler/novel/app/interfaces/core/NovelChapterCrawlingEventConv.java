@@ -19,7 +19,7 @@ public class NovelChapterCrawlingEventConv extends EntityBaseConv<NovelChapterCr
 
 		NovelChapterCrawlingEventDTO dto = new NovelChapterCrawlingEventDTO();
 		dto.setNovelId(event.novelId());
-		dto.setSite(event.siteString());
+		dto.setSite(event.site());
 		dto.setChapterId(event.chapterId());
 		dto.setLink(event.link());
 		dto.setPublished(event.published());

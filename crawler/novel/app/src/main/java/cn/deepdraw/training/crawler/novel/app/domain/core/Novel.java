@@ -67,14 +67,14 @@ public class Novel extends IdLongEntity {
 		return addrs;
 	}
 
-	public LinkAddr addrOf(String site) {
+	public LinkAddr addrOf(String site, Long version) {
 
-		return addrs.stream().filter(addr -> addr.site().equals(site)).findFirst().orElse(null);
+		return addrs.stream().filter(addr -> addr.site().equals(site) && addr.version().equals(version)).findFirst().orElse(null);
 	}
 
 	public Novel updateAddr(LinkAddr addr) {
 
-		LinkAddr addrOf = addrOf(addr.site());
+		LinkAddr addrOf = addrOf(addr.site(), addr.version());
 		if (addrOf == null) {
 
 			addrs.add(addr);
@@ -85,9 +85,9 @@ public class Novel extends IdLongEntity {
 		return this;
 	}
 
-	public Novel updateAddrPath(String site, String path) {
+	public Novel updateAddrPath(String site, Long version, String path) {
 
-		Validate.notNull(addrOf(site), "site_not_found").updatePath(path);
+		Validate.notNull(addrOf(site, version), "site_not_found").updatePath(path);
 		return this;
 	}
 }

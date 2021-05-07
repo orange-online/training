@@ -31,6 +31,6 @@ public class NovelPageConv extends IdLongEntityPageConv<Novel, NovelDTO> {
 
 	private List<LinkAddress> adaptLinks(List<LinkAddr> links) {
 
-		return links.stream().map(link -> LinkAddress.of(link.site().toString(), link.link(), link.path())).collect(Collectors.toList());
+		return links.stream().map(link -> LinkAddress.of(link.site(), link.version(), link.link(), link.path())).collect(Collectors.toList());
 	}
 }

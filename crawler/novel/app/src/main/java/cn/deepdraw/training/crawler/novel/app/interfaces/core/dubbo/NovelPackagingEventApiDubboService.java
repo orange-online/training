@@ -26,9 +26,9 @@ public class NovelPackagingEventApiDubboService implements NovelPackagingEventAp
 	private NovelPackagingEventConv eventConv;
 
 	@Override
-	public NovelPackagingEventDTO create(Long novelId, String site) throws WebAppRuntimeException {
+	public NovelPackagingEventDTO create(Long novelId, String site, Long version) throws WebAppRuntimeException {
 
-		return eventConv.done(eventAppService.create(novelId, site));
+		return eventConv.done(eventAppService.create(novelId, site, version));
 	}
 
 	@Override

@@ -9,5 +9,5 @@ import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
  */
 public interface NovelCrawlingEventRepository extends IdEntityRepository<NovelCrawlingEvent> {
 
-	NovelCrawlingEvent findByNovelIdAndSite(Long novelId, String site);
+	NovelCrawlingEvent findByNovelId(Long novelId, String site, Long version);
 }

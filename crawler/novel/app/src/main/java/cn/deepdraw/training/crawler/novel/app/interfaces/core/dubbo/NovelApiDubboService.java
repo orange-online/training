@@ -7,12 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.deepdraw.training.crawler.novel.api.NovelApi;
 import cn.deepdraw.training.crawler.novel.api.dto.LinkAddress;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelDTO;
-import cn.deepdraw.training.crawler.novel.api.dto.NovelQueryDTO;
+import cn.deepdraw.training.crawler.novel.api.dto.NovelPageRequest;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPageConv;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelQueryBuilder;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPageRequestBuilder;
 import cn.deepdraw.training.framework.api.conv.page.PageRequestConv;
 import cn.deepdraw.training.framework.api.dto.page.PageDTO;
 import cn.deepdraw.training.framework.api.dto.page.PageRequest;
@@ -37,7 +37,7 @@ public class NovelApiDubboService implements NovelApi {
 	private PageRequestConv pageReqConv;
 
 	@Autowired
-	private NovelQueryBuilder queryBuilder;
+	private NovelPageRequestBuilder reqBuilder;
 
 	@Autowired
 	private NovelAppService appService;
@@ -45,19 +45,19 @@ public class NovelApiDubboService implements NovelApi {
 	@Override
 	public NovelDTO create(String name, String author, LinkAddress link) throws WebAppRuntimeException {
 
-		return novelConv.done(appService.create(name, author, LinkAddr.of(link.getSite(), link.getLink(), link.getPath())));
+		return novelConv.done(appService.create(name, author, LinkAddr.of(link.getSite(), link.getVersion(), link.getLink(), link.getPath())));
 	}
 
 	@Override
 	public NovelDTO updateAddress(Long novelId, LinkAddress link) throws WebAppRuntimeException {
 
-		return novelConv.done(appService.updateLink(novelId, LinkAddr.of(link.getSite(), link.getLink(), link.getPath())));
+		return novelConv.done(appService.updateLink(novelId, LinkAddr.of(link.getSite(), link.getVersion(), link.getLink(), link.getPath())));
 	}
 
 	@Override
-	public NovelDTO updatePath(Long novelId, String site, String path) throws WebAppRuntimeException {
+	public NovelDTO updateAddressPath(Long novelId, String site, Long version, String path) throws WebAppRuntimeException {
 
-		return novelConv.done(appService.updatePath(novelId, site, path));
+		return novelConv.done(appService.updatePath(novelId, site, version, path));
 	}
 
 	@Override
@@ -73,9 +73,9 @@ public class NovelApiDubboService implements NovelApi {
 	}
 
 	@Override
-	public PageDTO<NovelDTO> findByPage(NovelQueryDTO query, PageRequest request) {
+	public PageDTO<NovelDTO> findByPage(NovelPageRequest novelReq, PageRequest request) {
 
-		return novelConv.done(novelRepo.findByPage(queryBuilder.build(query), pageReqConv.done(request)));
+		return novelConv.done(novelRepo.findByPage(reqBuilder.build(novelReq), pageReqConv.done(request)));
 	}
 
 	@Override
@@ -85,8 +85,8 @@ public class NovelApiDubboService implements NovelApi {
 	}
 
 	@Override
-	public NovelDTO packaging(Long novelId, String site) {
+	public NovelDTO packaging(Long novelId, String site, Long version) {
 
-		return novelConv.done(appService.packaging(novelId, site));
+		return novelConv.done(appService.packaging(novelId, site, version));
 	}
 }

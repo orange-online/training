@@ -14,6 +14,8 @@ public class NovelChapterCrawlingEventDTO extends IdEntityDTO {
 	private Long novelId;
 
 	private String site;
+	
+	private Long version;
 
 	private Long chapterId;
 
@@ -37,6 +39,14 @@ public class NovelChapterCrawlingEventDTO extends IdEntityDTO {
 
 	public void setSite(String site) {
 		this.site = site;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public Long getChapterId() {

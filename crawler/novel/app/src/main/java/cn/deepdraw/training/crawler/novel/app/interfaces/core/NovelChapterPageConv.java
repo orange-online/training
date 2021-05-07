@@ -21,7 +21,7 @@ public class NovelChapterPageConv extends IdLongEntityPageConv<NovelChapter, Nov
 		NovelChapterDTO dto = new NovelChapterDTO();
 		dto.setNovelId(chapter.novel().entityId());
 		dto.setName(chapter.name());
-		dto.setAddress(LinkAddress.of(chapter.site().toString(), chapter.link(), chapter.path()));
+		dto.setAddress(LinkAddress.of(chapter.site(), chapter.version(), chapter.link(), chapter.path()));
 		dto.setIndex(chapter.index());
 		return dto;
 	}

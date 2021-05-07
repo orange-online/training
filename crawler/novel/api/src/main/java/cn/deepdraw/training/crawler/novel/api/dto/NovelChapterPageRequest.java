@@ -3,17 +3,19 @@ package cn.deepdraw.training.crawler.novel.api.dto;
 import cn.deepdraw.training.framework.api.dto.query.IdEntityQueryDTO;
 
 /**
- * 小说章节DTO
+ * 小说章节搜索请求
  * @author huangjiancheng
  * 2020-07-22
  */
-public class NovelChapterQueryDTO extends IdEntityQueryDTO {
+public class NovelChapterPageRequest extends IdEntityQueryDTO {
 
 	private static final long serialVersionUID = 20200722L;
 
 	private Long novelId;
 
 	private String site;
+	
+	private Long version;
 
 	private String name;
 
@@ -31,6 +33,14 @@ public class NovelChapterQueryDTO extends IdEntityQueryDTO {
 
 	public void setSite(String site) {
 		this.site = site;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public String getName() {

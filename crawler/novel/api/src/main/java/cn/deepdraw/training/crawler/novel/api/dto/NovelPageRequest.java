@@ -3,11 +3,11 @@ package cn.deepdraw.training.crawler.novel.api.dto;
 import cn.deepdraw.training.framework.api.dto.query.IdEntityQueryDTO;
 
 /**
- * 小说搜索DTO
+ * 小说搜索请求
  * @author huangjiancheng
  * 2020-06-09
  */
-public class NovelQueryDTO extends IdEntityQueryDTO {
+public class NovelPageRequest extends IdEntityQueryDTO {
 
 	private static final long serialVersionUID = 20200609L;
 

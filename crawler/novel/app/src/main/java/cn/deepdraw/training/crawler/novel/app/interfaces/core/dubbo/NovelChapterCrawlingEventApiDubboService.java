@@ -28,15 +28,15 @@ public class NovelChapterCrawlingEventApiDubboService implements NovelChapterCra
 	private NovelChapterCrawlingEventConv eventConv;
 
 	@Override
-	public NovelChapterCrawlingEventDTO create(Long novelId, String site, Long chapterId, String link) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEventDTO create(Long novelId, String site, Long version, Long chapterId, String link) throws WebAppRuntimeException {
 
-		return eventConv.done(eventAppService.create(novelId, site, chapterId, link));
+		return eventConv.done(eventAppService.create(novelId, site, version, chapterId, link));
 	}
 
 	@Override
 	public NovelChapterCrawlingEventDTO publish(Long novelId, String name, LinkAddress address, Integer index) throws WebAppRuntimeException {
 
-		LinkAddr addr = LinkAddr.of(address.getSite(), address.getLink(), address.getPath());
+		LinkAddr addr = LinkAddr.of(address.getSite(), address.getVersion(), address.getLink(), address.getPath());
 		return eventConv.done(eventAppService.publish(novelId, name, addr, index));
 	}
 

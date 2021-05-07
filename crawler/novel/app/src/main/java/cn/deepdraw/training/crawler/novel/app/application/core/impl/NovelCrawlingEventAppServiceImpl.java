@@ -31,16 +31,16 @@ public class NovelCrawlingEventAppServiceImpl implements NovelCrawlingEventAppSe
 	private NovelCrawlingEventService eventService;
 
 	@Override
-	public NovelCrawlingEvent create(Long novelId, String site, String link) throws WebAppRuntimeException {
+	public NovelCrawlingEvent create(Long novelId, String site, Long version, String link) throws WebAppRuntimeException {
 
-		return eventRepo.create(NovelCrawlingEvent.of(novelId, site, link));
+		return eventRepo.create(NovelCrawlingEvent.of(novelId, site, version, link));
 	}
 
 	@Override
 	public NovelCrawlingEvent publish(Long eventId) throws WebAppRuntimeException {
 
 		NovelCrawlingEvent event = Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found");
-		return eventService.publish(novelRepo.findByEntityId(event.novelId()), event.site());
+		return eventService.publish(novelRepo.findByEntityId(event.novelId()), event.site(), event.version());
 	}
 
 	@Override

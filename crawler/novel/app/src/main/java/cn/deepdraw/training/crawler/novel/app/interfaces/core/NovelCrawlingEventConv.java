@@ -19,7 +19,7 @@ public class NovelCrawlingEventConv extends EntityBaseConv<NovelCrawlingEvent, N
 
 		NovelCrawlingEventDTO dto = new NovelCrawlingEventDTO();
 		dto.setNovelId(event.novelId());
-		dto.setSite(event.siteString());
+		dto.setSite(event.site());
 		dto.setLink(event.link());
 		dto.setPublished(event.published());
 		dto.setCompleted(event.completed());

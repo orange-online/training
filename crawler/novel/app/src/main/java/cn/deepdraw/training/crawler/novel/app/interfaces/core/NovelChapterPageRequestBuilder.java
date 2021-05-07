@@ -10,7 +10,7 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterQueryDTO;
+import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterPageRequest;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelChapter;
 import cn.deepdraw.training.framework.api.builder.query.EntityBaseQueryBuilder;
 
@@ -20,10 +20,10 @@ import cn.deepdraw.training.framework.api.builder.query.EntityBaseQueryBuilder;
  * 2020-07-22
  */
 @Component
-public class NovelChapterQueryBuilder extends EntityBaseQueryBuilder<NovelChapter, NovelChapterQueryDTO> {
+public class NovelChapterPageRequestBuilder extends EntityBaseQueryBuilder<NovelChapter, NovelChapterPageRequest> {
 
 	@Override
-	protected void building(Root<NovelChapter> root, CriteriaQuery<?> query, CriteriaBuilder builder, List<Predicate> predicates, NovelChapterQueryDTO dto) {
+	protected void building(Root<NovelChapter> root, CriteriaQuery<?> query, CriteriaBuilder builder, List<Predicate> predicates, NovelChapterPageRequest dto) {
 
 		if (dto.getNovelId() != null) {
 

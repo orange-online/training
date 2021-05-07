@@ -19,9 +19,9 @@ public class NovelCrawlerApiProxy {
 	@DubboReference
 	private NovelCrawlerApiGateway crawlerGateway;
 	
-	public Novel crawl(String site, String link) {
+	public Novel crawl(String site, Long version, String link) {
 
 		cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel novelDTO = Validate.notNull(crawlerGateway.findNovel(site.toString(), link), "novel_crawled_failed");
-		return Novel.of(novelDTO.getName(), novelDTO.getAuthor(), LinkAddr.of(site, link, null));
+		return Novel.of(novelDTO.getName(), novelDTO.getAuthor(), LinkAddr.of(site, version, link, null));
 	}
 }

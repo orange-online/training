@@ -19,13 +19,13 @@ public class NovelService {
 	@Autowired
 	private NovelCrawlerApiProxy crawler;
 
-	public Novel crawl(String site, String link) {
+	public Novel crawl(String site, Long version, String link) {
 		
-		Novel novelCrawled = crawler.crawl(site, link);
+		Novel novelCrawled = crawler.crawl(site, version, link);
 		Novel persistent = novelRepo.findByUnique(novelCrawled.name(), novelCrawled.author());
 		if (persistent != null) {
 			
-			persistent = novelRepo.update(persistent.updateAddr(novelCrawled.addrOf(site)));
+			persistent = novelRepo.update(persistent.updateAddr(novelCrawled.addrOf(site, version)));
 		} else {
 			
 			persistent = novelRepo.create(novelCrawled);

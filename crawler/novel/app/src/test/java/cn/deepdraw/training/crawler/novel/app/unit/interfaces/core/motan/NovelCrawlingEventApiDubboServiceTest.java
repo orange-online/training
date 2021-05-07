@@ -34,17 +34,17 @@ public class NovelCrawlingEventApiDubboServiceTest {
 	@Test
 	public void should_return_a_not_null_instance_when_method_create_called() {
 		
-		Long novelId = 123L;
+		Long novelId = 123L, version = 234L;
 		String site = "site", link = "link";
 		NovelCrawlingEvent eventMocked = Mockito.mock(NovelCrawlingEvent.class);
-		Mockito.when(eventAppService.create(novelId, site, link)).thenReturn(eventMocked);
+		Mockito.when(eventAppService.create(novelId, site, version, link)).thenReturn(eventMocked);
 		NovelCrawlingEventDTO eventDTOMocked = Mockito.mock(NovelCrawlingEventDTO.class);
 		Mockito.when(eventAdapter.done(eventMocked)).thenReturn(eventDTOMocked);
 		
-		NovelCrawlingEventDTO eventDTO = apiMotanService.create(novelId, site, link);
+		NovelCrawlingEventDTO eventDTO = apiMotanService.create(novelId, site, version, link);
 		
 		Assert.assertSame(eventDTOMocked, eventDTO);
-		Mockito.verify(eventAppService).create(novelId, site, link);
+		Mockito.verify(eventAppService).create(novelId, site, version, link);
 		Mockito.verify(eventAdapter).done(eventMocked);
 	}
 	

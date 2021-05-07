@@ -51,12 +51,12 @@ public class NovelChapterCrawlingEventAppServiceImplTest {
 	public void should_return_a_not_null_instance_when_create_method_called() {
 		
 		String site = "BIQUGE";
-		Long novelId = 123L, chapterId = 234L;
+		Long novelId = 123L, chapterId = 234L, version = 345L;
 		String link = "link";
 		NovelChapterCrawlingEvent eventMocked = Mockito.mock(NovelChapterCrawlingEvent.class);
 		Mockito.when(eventRepo.create(Mockito.any())).thenReturn(eventMocked);
 		
-		NovelChapterCrawlingEvent event = serviceImpl.create(novelId, site, chapterId, link);
+		NovelChapterCrawlingEvent event = serviceImpl.create(novelId, site, version, chapterId, link);
 		
 		Assert.assertNotNull(event);
 		Mockito.verify(eventRepo).create(Mockito.any());
@@ -93,21 +93,22 @@ public class NovelChapterCrawlingEventAppServiceImplTest {
 	@Test
 	public void should_return_a_not_null_instance_when_complete_method_called() {
 
-		Long eventId = 123L;
+		Long eventId = 123L, version = 234L;
 		String path = "path";
 		NovelChapterCrawlingEvent eventMocked = Mockito.mock(NovelChapterCrawlingEvent.class);
 		Mockito.when(eventMocked.novelId()).thenReturn(135L);
 		Mockito.when(eventMocked.site()).thenReturn("BIQUGE");
+		Mockito.when(eventMocked.version()).thenReturn(version);
 		Mockito.when(eventRepo.findByEntityId(eventId)).thenReturn(eventMocked);
 		Mockito.when(eventService.complete(eventMocked, path)).thenReturn(eventMocked);
-		Mockito.when(eventRepo.countByNovelAndCompleted(eventMocked.novelId(), "BIQUGE", false)).thenReturn(1L);
+		Mockito.when(eventRepo.countByNovelAndCompleted(eventMocked.novelId(), "BIQUGE", version, false)).thenReturn(1L);
 		
 		NovelChapterCrawlingEvent event = serviceImpl.complete(eventId, path);
 
 		Assert.assertNotNull(event);
 		Mockito.verify(eventRepo).findByEntityId(eventId);
 		Mockito.verify(eventService).complete(eventMocked, path);
-		Mockito.verify(eventRepo).countByNovelAndCompleted(eventMocked.novelId(), "BIQUGE", false);
+		Mockito.verify(eventRepo).countByNovelAndCompleted(eventMocked.novelId(), "BIQUGE", version, false);
 	}
 	
 	@Test

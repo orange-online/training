@@ -30,16 +30,16 @@ public class NovelPackagingEventService {
 	@Autowired
 	private RocketmqMessagerProxy messageProxy;
 
-	public NovelPackagingEvent publish(Novel novel, String site) {
+	public NovelPackagingEvent publish(Novel novel, String site, Long version) {
 
-		Validate.notNull(novel.addrOf(site), "unsupported_site");
-		NovelPackagingEvent event = packagingEventRepo.create(NovelPackagingEvent.of(novel.entityId(), site));
+		Validate.notNull(novel.addrOf(site, version), "unsupported_site");
+		NovelPackagingEvent event = packagingEventRepo.create(NovelPackagingEvent.of(novel.entityId(), site, version));
 		return messageProxy.send(setting, event) ? packagingEventRepo.update(event.publish()) : event;
 	}
 
 	public NovelPackagingEvent complete(NovelPackagingEvent event, String path) {
 
-		eventService.complete(eventRepo.findByNovelIdAndSite(event.novelId(), event.site()), path);
+		eventService.complete(eventRepo.findByNovelId(event.novelId(), event.site(), event.version()), path);
 		return packagingEventRepo.update(event.complete());
 	}
 }

@@ -13,6 +13,7 @@ import cn.deepdraw.training.crawler.novel.app.domain.core.NovelPackagingEventSer
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelService;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
+import cn.deepdraw.training.framework.orm.mysql.domain.identifier.SnowflakeIdGenerator;
 
 /**
  * Novel AppService Impl
@@ -49,24 +50,25 @@ public class NovelAppServiceImpl implements NovelAppService {
 	}
 
 	@Override
-	public Novel updatePath(Long novelId, String site, String path) throws WebAppRuntimeException {
+	public Novel updatePath(Long novelId, String site, Long version, String path) throws WebAppRuntimeException {
 
-		return novelRepo.update(findByNovelId(novelId).updateAddrPath(site, path));
+		return novelRepo.update(findByNovelId(novelId).updateAddrPath(site, version, path));
 	}
 
 	@Override
 	public Novel crawl(String site, String url) {
-		
-		Novel novel = novelService.crawl(site, url);
-		crawlingEventService.publish(novel, site);
+
+		Long version = SnowflakeIdGenerator.getInstance().nextIdentifier(); // TODO Finally, the version will be provided by the version service by huangjiancheng 2021-05-07
+		Novel novel = novelService.crawl(site, version, url);
+		crawlingEventService.publish(novel, site, version);
 		return novel;
 	}
 
 	@Override
-	public Novel packaging(Long novelId, String site) {
+	public Novel packaging(Long novelId, String site, Long version) {
 
 		Novel novel = findByNovelId(novelId);
-		packagingEventService.publish(novel, site);
+		packagingEventService.publish(novel, site, version);
 		return novel;
 	}
 

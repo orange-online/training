@@ -27,16 +27,16 @@ public class NovelCrawlingEventService {
 	@Autowired
 	private RocketmqMessagerProxy messageProxy;
 
-	public NovelCrawlingEvent publish(Novel novel, String site) {
+	public NovelCrawlingEvent publish(Novel novel, String site, Long version) {
 
-		LinkAddr addrOf = Validate.notNull(novel.addrOf(site), "unsupported_site");
-		NovelCrawlingEvent event = eventRepo.create(NovelCrawlingEvent.of(novel.entityId(), site, addrOf.link()));
+		LinkAddr addrOf = Validate.notNull(novel.addrOf(site, version), "unsupported_site");
+		NovelCrawlingEvent event = eventRepo.create(NovelCrawlingEvent.of(novel.entityId(), site, version, addrOf.link()));
 		return messageProxy.send(setting, event) ? eventRepo.update(event.publish()) : event;
 	}
 
 	public NovelCrawlingEvent complete(NovelCrawlingEvent event, String path) {
 
-		novelRepo.update(novelRepo.findByEntityId(event.novelId()).updateAddrPath(event.site(), path));
+		novelRepo.update(novelRepo.findByEntityId(event.novelId()).updateAddrPath(event.site(), event.version(), path));
 		return eventRepo.update(event.complete());
 	}
 }

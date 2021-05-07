@@ -33,7 +33,7 @@ public class NovelChapterCrawlingEventService {
 
 	public NovelChapterCrawlingEvent complete(NovelChapterCrawlingEvent event, String path) {
 
-		chapterRepo.update(chapterRepo.findByChapterId(event.novelId(), event.chapterId()).updateAddrPath(path));
+		chapterRepo.update(chapterRepo.findByChapterId(event.chapterId()).updateAddrPath(path));
 		return eventRepo.update(event.complete());
 		
 	}

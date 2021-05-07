@@ -11,7 +11,7 @@ import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
  */
 public interface NovelChapterCrawlingEventApi {
 
-	NovelChapterCrawlingEventDTO create(Long novelId, String site, Long chapterId, String link) throws WebAppRuntimeException;
+	NovelChapterCrawlingEventDTO create(Long novelId, String site, Long version, Long chapterId, String link) throws WebAppRuntimeException;
 
 	NovelChapterCrawlingEventDTO publish(Long novelId, String name, LinkAddress address, Integer index) throws WebAppRuntimeException;
 

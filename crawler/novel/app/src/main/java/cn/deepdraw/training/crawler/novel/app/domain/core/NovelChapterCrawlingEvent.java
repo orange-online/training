@@ -30,6 +30,9 @@ public class NovelChapterCrawlingEvent extends IdLongEntity {
 	@Column(name = "site")
 	private String site;
 
+	@Column(name = "version")
+	private Long version;
+
 	@Column(name = "chapter_id")
 	private Long chapterId;
 
@@ -44,19 +47,20 @@ public class NovelChapterCrawlingEvent extends IdLongEntity {
 
 	private NovelChapterCrawlingEvent() {}
 
-	private NovelChapterCrawlingEvent(Long novelId, String site, Long chapterId, String link) {
+	private NovelChapterCrawlingEvent(Long novelId, String site, Long version, Long chapterId, String link) {
 
 		this.novelId = Validate.notNull(novelId, "novel_id_cannot_be_null");
 		this.site = Validate.notBlank(site, "site_cannot_be_blank");
+		this.version = Validate.notNull(version, "version_cannot_be_null");
 		this.chapterId = Validate.notNull(chapterId, "chapter_id_cannot_be_null");
 		this.link = Validate.notBlank(link, "link_cannot_be_blank");
 		this.published = false;
 		this.completed = false;
 	}
 
-	public static NovelChapterCrawlingEvent of(Long novelId, String site, Long chapterId, String link) {
+	public static NovelChapterCrawlingEvent of(Long novelId, String site, Long version, Long chapterId, String link) {
 
-		return new NovelChapterCrawlingEvent(novelId, site, chapterId, link);
+		return new NovelChapterCrawlingEvent(novelId, site, version, chapterId, link);
 	}
 
 	public Long novelId() {
@@ -69,9 +73,9 @@ public class NovelChapterCrawlingEvent extends IdLongEntity {
 		return site;
 	}
 
-	public String siteString() {
+	public Long version() {
 		
-		return site.toString();
+		return version;
 	}
 
 	public Long chapterId() {
@@ -111,9 +115,10 @@ public class NovelChapterCrawlingEvent extends IdLongEntity {
 
 		ObjectNode objectNode = JsonNodeFactory.instance.objectNode();
 		objectNode.put("eventId", entityId());
-		objectNode.put("novelId", novelId);
-		objectNode.put("site", siteString());
-		objectNode.put("chapterId", chapterId);
+		objectNode.put("novelId", novelId());
+		objectNode.put("site", site());
+		objectNode.put("version", version());
+		objectNode.put("chapterId", chapterId());
 		objectNode.put("link", link);
 		return objectNode.toString();
 	}

@@ -42,20 +42,20 @@ public class NovelChapterCrawlingEventAppServiceImpl implements NovelChapterCraw
 	private NovelPackagingEventService packagingEventService;
 
 	@Override
-	public NovelChapterCrawlingEvent create(Long novelId, String site, Long chapterId, String link) throws WebAppRuntimeException {
+	public NovelChapterCrawlingEvent create(Long novelId, String site, Long version, Long chapterId, String link) throws WebAppRuntimeException {
 
-		return eventRepo.create(NovelChapterCrawlingEvent.of(novelId, site, chapterId, link));
+		return eventRepo.create(NovelChapterCrawlingEvent.of(novelId, site, version, chapterId, link));
 	}
 
 	@Override
 	public NovelChapterCrawlingEvent publish(Long novelId, String name, LinkAddr addr, Integer index) throws WebAppRuntimeException {
 
-		NovelChapter chapter = chapterRepo.findByChapterLink(novelId, addr.site(), addr.link());
+		NovelChapter chapter = chapterRepo.findByChapterLink(novelId, addr.site(), addr.version(), addr.link());
 		if (chapter == null) {
 
 			chapter = chapterRepo.create(NovelChapter.of(novelRepo.findByEntityId(novelId), name, addr, index));
 		}
-		return eventService.publish(create(novelId, chapter.site(), chapter.entityId(), chapter.link()));
+		return eventService.publish(create(novelId, chapter.site(), addr.version(), chapter.entityId(), chapter.link()));
 	}
 
 	@Override
@@ -68,15 +68,15 @@ public class NovelChapterCrawlingEventAppServiceImpl implements NovelChapterCraw
 	public NovelChapterCrawlingEvent complete(Long eventId, String path) throws WebAppRuntimeException {
 
 		NovelChapterCrawlingEvent event = eventService.complete(Validate.notNull(eventRepo.findByEntityId(eventId), "event_id_not_found"), path);
-		if (shouldPublishNovelPackagingEvent(event.novelId(), event.site())) {
+		if (shouldPublishNovelPackagingEvent(event.novelId(), event.site(), event.version())) {
 
-			packagingEventService.publish(novelRepo.findByEntityId(event.novelId()), event.site());
+			packagingEventService.publish(novelRepo.findByEntityId(event.novelId()), event.site(), event.version());
 		}
 		return event;
 	}
 
-	private boolean shouldPublishNovelPackagingEvent(Long novelId, String site) {
+	private boolean shouldPublishNovelPackagingEvent(Long novelId, String site, Long version) {
 
-		return eventRepo.countByNovelAndCompleted(novelId, site, false) == NumberUtils.LONG_ZERO;
+		return eventRepo.countByNovelAndCompleted(novelId, site, version, false) == NumberUtils.LONG_ZERO;
 	}
 }

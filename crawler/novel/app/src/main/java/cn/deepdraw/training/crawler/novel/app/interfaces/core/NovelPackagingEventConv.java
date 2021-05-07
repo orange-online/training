@@ -19,7 +19,7 @@ public class NovelPackagingEventConv extends EntityBaseConv<NovelPackagingEvent,
 
 		NovelPackagingEventDTO dto = new NovelPackagingEventDTO();
 		dto.setNovelId(event.novelId());
-		dto.setSite(event.siteString());
+		dto.setSite(event.site());
 		dto.setPublished(event.published());
 		dto.setCompleted(event.completed());
 		return dto;

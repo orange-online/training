@@ -26,9 +26,9 @@ public class NovelCrawlingEventApiDubboService implements NovelCrawlingEventApi 
 	private NovelCrawlingEventConv eventConv;
 
 	@Override
-	public NovelCrawlingEventDTO create(Long novelId, String site, String link) throws WebAppRuntimeException {
+	public NovelCrawlingEventDTO create(Long novelId, String site, Long version, String link) throws WebAppRuntimeException {
 
-		return eventConv.done(eventAppService.create(novelId, site, link));
+		return eventConv.done(eventAppService.create(novelId, site, version, link));
 	}
 
 	@Override

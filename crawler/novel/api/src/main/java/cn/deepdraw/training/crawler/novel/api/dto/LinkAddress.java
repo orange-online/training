@@ -12,6 +12,8 @@ public class LinkAddress implements Serializable {
 	private static final long serialVersionUID = 20200609L;
 
 	private String site; // 站点编码
+	
+	private Long version; // 版本
 
 	private String link; // 站点链接
 
@@ -19,27 +21,29 @@ public class LinkAddress implements Serializable {
 
 	public LinkAddress() {}
 
-	private LinkAddress(String site, String link) {
+	private LinkAddress(String site, Long version, String link) {
 
 		this.setSite(site);
+		this.setVersion(version);
 		this.setLink(link);
 	}
 
-	private LinkAddress(String site, String link, String path) {
+	private LinkAddress(String site, Long version, String link, String path) {
 
 		this.setSite(site);
+		this.setVersion(version);
 		this.setLink(link);
 		this.setPath(path);
 	}
 
-	public static LinkAddress of(String site, String link) {
+	public static LinkAddress of(String site, Long version, String link) {
 
-		return new LinkAddress(site, link);
+		return new LinkAddress(site, version, link);
 	}
 
-	public static LinkAddress of(String site, String link, String path) {
+	public static LinkAddress of(String site, Long version, String link, String path) {
 
-		return new LinkAddress(site, link, path);
+		return new LinkAddress(site, version, link, path);
 	}
 
 	public String getSite() {
@@ -48,6 +52,14 @@ public class LinkAddress implements Serializable {
 
 	public void setSite(String site) {
 		this.site = site;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public String getLink() {

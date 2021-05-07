@@ -39,14 +39,14 @@ public class NovelServiceTest {
 		Novel novelMocked = Mockito.mock(Novel.class);
 		Mockito.when(novelMocked.name()).thenReturn("name");
 		Mockito.when(novelMocked.author()).thenReturn("author");
-		Mockito.when(crawler.crawl(site, link)).thenReturn(novelMocked);
+		Mockito.when(crawler.crawl(site, 234L, link)).thenReturn(novelMocked);
 		Mockito.when(novelRepo.findByUnique(novelMocked.name(), novelMocked.author())).thenReturn(null);
 		Mockito.when(novelRepo.create(novelMocked)).thenReturn(novelMocked);
 		
-		Novel novel = service.crawl(site, link);
+		Novel novel = service.crawl(site, 234L, link);
 		
 		Assert.assertNotNull(novel);
-		Mockito.verify(crawler).crawl(site, link);
+		Mockito.verify(crawler).crawl(site, 234L, link);
 		Mockito.verify(novelRepo).findByUnique(novelMocked.name(), novelMocked.author());
 		Mockito.verify(novelRepo).create(novelMocked);
 	}
@@ -60,18 +60,18 @@ public class NovelServiceTest {
 		Mockito.when(novelMocked.name()).thenReturn("name");
 		Mockito.when(novelMocked.author()).thenReturn("author");
 		LinkAddr addrMocked = Mockito.mock(LinkAddr.class);
-		Mockito.when(novelMocked.addrOf(site)).thenReturn(addrMocked);
-		Mockito.when(crawler.crawl(site, link)).thenReturn(novelMocked);
+		Mockito.when(novelMocked.addrOf(site, 234L)).thenReturn(addrMocked);
+		Mockito.when(crawler.crawl(site, 234L, link)).thenReturn(novelMocked);
 
 		Novel persistentMocked = Mockito.mock(Novel.class);
 		Mockito.when(persistentMocked.updateAddr(addrMocked)).thenReturn(persistentMocked);
 		Mockito.when(novelRepo.findByUnique(novelMocked.name(), novelMocked.author())).thenReturn(persistentMocked);
 		Mockito.when(novelRepo.update(persistentMocked)).thenReturn(persistentMocked);
 		
-		Novel novel = service.crawl(site, link);
+		Novel novel = service.crawl(site, 234L, link);
 		
 		Assert.assertNotNull(novel);
-		Mockito.verify(crawler).crawl(site, link);
+		Mockito.verify(crawler).crawl(site, 234L, link);
 		Mockito.verify(novelRepo).findByUnique(novelMocked.name(), novelMocked.author());
 		Mockito.verify(novelRepo).update(persistentMocked);
 	}

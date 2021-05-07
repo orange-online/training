@@ -30,6 +30,9 @@ public class NovelCrawlingEvent extends IdLongEntity {
 	@Column(name = "site")
 	private String site;
 
+	@Column(name = "version")
+	private Long version;
+
 	@Column(name = "link")
 	private String link;
 	
@@ -41,18 +44,19 @@ public class NovelCrawlingEvent extends IdLongEntity {
 
 	private NovelCrawlingEvent() {}
 
-	private NovelCrawlingEvent(Long novelId, String site, String link) {
+	private NovelCrawlingEvent(Long novelId, String site, Long version, String link) {
 
 		this.novelId = Validate.notNull(novelId, "novel_id_cannot_be_null");
 		this.site = Validate.notBlank(site, "site_cannot_be_blank");
+		this.version = Validate.notNull(version, "version_cannot_be_null");
 		this.link = Validate.notBlank(link, "link_cannot_be_blank");
 		this.published = false;
 		this.completed = false;
 	}
 
-	public static NovelCrawlingEvent of(Long novelId, String site, String link) {
+	public static NovelCrawlingEvent of(Long novelId, String site, Long version, String link) {
 
-		return new NovelCrawlingEvent(novelId, site, link);
+		return new NovelCrawlingEvent(novelId, site, version, link);
 	}
 
 	public Long novelId() {
@@ -65,9 +69,9 @@ public class NovelCrawlingEvent extends IdLongEntity {
 		return site;
 	}
 
-	public String siteString() {
+	public Long version() {
 		
-		return site.toString();
+		return version;
 	}
 
 	public String link() {
@@ -102,9 +106,10 @@ public class NovelCrawlingEvent extends IdLongEntity {
 
 		ObjectNode objectNode = JsonNodeFactory.instance.objectNode();
 		objectNode.put("eventId", entityId());
-		objectNode.put("novelId", novelId);
-		objectNode.put("site", siteString());
-		objectNode.put("link", link);
+		objectNode.put("novelId", novelId());
+		objectNode.put("site", site());
+		objectNode.put("version", version());
+		objectNode.put("link", link());
 		return objectNode.toString();
 	}
 

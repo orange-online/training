@@ -23,6 +23,9 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 	@Column(name = "site")
 	private String site; // 站点
 
+	@Column(name = "version")
+	private Long version; // 版本
+
 	@Column(name = "link")
 	private String link; // 站点链接
 
@@ -31,21 +34,27 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 
 	private LinkAddr() {}
 
-	private LinkAddr(String site, String link, String path) {
+	private LinkAddr(String site, Long version, String link, String path) {
 
 		this.site = Validate.notBlank(site, "site_cannot_be_blank");
+		this.version = Validate.notNull(version, "version_cannot_be_null");
 		this.link = Validate.notBlank(link, "link_cannot_be_blank");
 		this.path = path;
 	}
 
-	public static LinkAddr of(String site, String link, String path) {
+	public static LinkAddr of(String site, Long version, String link, String path) {
 
-		return new LinkAddr(site, link, path);
+		return new LinkAddr(site, version, link, path);
 	}
 
 	public String site() {
 
 		return site;
+	}
+
+	public Long version() {
+
+		return version;
 	}
 
 	public String link() {
@@ -60,7 +69,8 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 
 	public LinkAddr update(LinkAddr link) {
 
-		Validate.isTrue(this.site() == link.site(), "site_illegal");
+		Validate.isTrue(this.site().equals(link.site()), "site_illegal");
+		Validate.isTrue(this.version().equals(link.version()), "version_illegal");
 		this.link = link.link();
 		this.path = link.path();
 		return this;
@@ -104,7 +114,7 @@ public class LinkAddr implements ValueObject<LinkAddr> {
 	@Override
 	public String toString() {
 
-		return JsonNodeFactory.instance.objectNode().put("site", site.toString()).put("link", link).put("path", path).toString();
+		return JsonNodeFactory.instance.objectNode().put("site", site).put("version", version).put("link", link).put("path", path).toString();
 	}
 
 	@Override

@@ -20,13 +20,13 @@ import org.springframework.data.jpa.domain.Specification;
 
 import cn.deepdraw.training.crawler.novel.api.dto.LinkAddress;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelDTO;
-import cn.deepdraw.training.crawler.novel.api.dto.NovelQueryDTO;
+import cn.deepdraw.training.crawler.novel.api.dto.NovelPageRequest;
 import cn.deepdraw.training.crawler.novel.app.application.core.NovelAppService;
 import cn.deepdraw.training.crawler.novel.app.domain.core.LinkAddr;
 import cn.deepdraw.training.crawler.novel.app.domain.core.Novel;
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelRepository;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPageConv;
-import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelQueryBuilder;
+import cn.deepdraw.training.crawler.novel.app.interfaces.core.NovelPageRequestBuilder;
 import cn.deepdraw.training.crawler.novel.app.interfaces.core.dubbo.NovelApiDubboService;
 import cn.deepdraw.training.framework.api.conv.page.PageRequestConv;
 import cn.deepdraw.training.framework.api.dto.page.PageDTO;
@@ -65,7 +65,7 @@ public class NovelApiDubboServiceTest {
 	private PageRequestConv pageReqConv;
 
 	@Mock
-	private NovelQueryBuilder queryBuilder;
+	private NovelPageRequestBuilder queryBuilder;
 
 	@Mock
 	private NovelAppService appService;
@@ -79,8 +79,8 @@ public class NovelApiDubboServiceTest {
 		id = 123L;
 		name = "name";
 		author = "author";
-		link = LinkAddr.of("BIQUGE", "link", null);
-		address = LinkAddress.of("BIQUGE", "link");
+		link = LinkAddr.of("BIQUGE", 234L, "link", null);
+		address = LinkAddress.of("BIQUGE", 234L, "link");
 		novel = Novel.of(name, author, link);
 		novel.entityId(id);
 		dto = new NovelDTO();
@@ -118,18 +118,18 @@ public class NovelApiDubboServiceTest {
 	@Test
 	public void updatePath_happyPath() throws WebAppRuntimeException {
 
-		Novel novel = Novel.of(name, author, LinkAddr.of("BIQUGE", "link", "path"));
+		Novel novel = Novel.of(name, author, LinkAddr.of("BIQUGE", 234L, "link", "path"));
 		novel.entityId(id);
 		NovelDTO dto = new NovelDTO();
 		dto.setEntityId(id);
 		dto.setName(name);
 		dto.setAuthor(author);
-		dto.setAddresses(Arrays.asList(LinkAddress.of("BIQUGE", "link", "path")));
+		dto.setAddresses(Arrays.asList(LinkAddress.of("BIQUGE", 234L, "link", "path")));
 
-		when(appService.updatePath(id, "BIQUGE", "path")).thenReturn(novel);
+		when(appService.updatePath(id, "BIQUGE", 234L, "path")).thenReturn(novel);
 		when(novelConv.done(novel)).thenReturn(dto);
 
-		NovelDTO expected = service.updatePath(id, "BIQUGE", "path");
+		NovelDTO expected = service.updateAddressPath(id, "BIQUGE", 234L, "path");
 
 		assertEquals("path", expected.addressOf("BIQUGE").getPath());
 	}
@@ -160,7 +160,7 @@ public class NovelApiDubboServiceTest {
 	@Test
 	public void findByPage_happyPath() {
 
-		NovelQueryDTO query = mock(NovelQueryDTO.class);
+		NovelPageRequest query = mock(NovelPageRequest.class);
 		PageRequest request = mock(PageRequest.class);
 		Specification specification = mock(Specification.class);
 		org.springframework.data.domain.PageRequest pageRequest = mock(org.springframework.data.domain.PageRequest.class);

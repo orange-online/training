@@ -15,9 +15,9 @@ public interface NovelAppService {
 
 	Novel updateLink(Long novelId, LinkAddr link) throws WebAppRuntimeException;
 
-	Novel updatePath(Long novelId, String site, String path) throws WebAppRuntimeException;
+	Novel updatePath(Long novelId, String site, Long version, String path) throws WebAppRuntimeException;
 
 	Novel crawl(String site, String url);
 
-	Novel packaging(Long novelId, String site);
+	Novel packaging(Long novelId, String site, Long version);
 }

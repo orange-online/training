@@ -28,6 +28,9 @@ public class NovelPackagingEvent extends IdLongEntity {
 	@Column(name = "site")
 	private String site;
 
+	@Column(name = "version")
+	private Long version;
+
 	@Column(name = "published")
 	private boolean published;
 
@@ -37,17 +40,18 @@ public class NovelPackagingEvent extends IdLongEntity {
 	private NovelPackagingEvent() {
 	}
 
-	private NovelPackagingEvent(Long novelId, String site) {
+	private NovelPackagingEvent(Long novelId, String site, Long version) {
 
 		this.novelId = novelId;
 		this.site = site;
+		this.version = version;
 		this.published = false;
 		this.completed = false;
 	}
 
-	public static NovelPackagingEvent of(Long novelId, String site) {
+	public static NovelPackagingEvent of(Long novelId, String site, Long version) {
 
-		return new NovelPackagingEvent(novelId, site);
+		return new NovelPackagingEvent(novelId, site, version);
 	}
 
 	public Long novelId() {
@@ -60,9 +64,9 @@ public class NovelPackagingEvent extends IdLongEntity {
 		return site;
 	}
 
-	public String siteString() {
+	public Long version() {
 
-		return site.toString();
+		return version;
 	}
 
 	public boolean published() {
@@ -92,8 +96,9 @@ public class NovelPackagingEvent extends IdLongEntity {
 
 		ObjectNode objectNode = JsonNodeFactory.instance.objectNode();
 		objectNode.put("eventId", entityId());
-		objectNode.put("novelId", novelId);
-		objectNode.put("site", siteString());
+		objectNode.put("novelId", novelId());
+		objectNode.put("site", site());
+		objectNode.put("version", version());
 		return objectNode.toString();
 	}
 

@@ -1,5 +1,7 @@
 package cn.deepdraw.training.crawler.novel.app.infrastructure.core.orm.repository.jpa;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import cn.deepdraw.training.crawler.novel.app.domain.core.NovelCrawlingEvent;
@@ -15,10 +17,11 @@ import cn.deepdraw.training.crawler.novel.app.infrastructure.shared.orm.reposito
 public interface NovelCrawlingEventJpaRepository extends NovelCrawlingEventRepository, IdEntityJpaRepository<NovelCrawlingEvent> {
 
 	@Override
-	default NovelCrawlingEvent findByNovelIdAndSite(Long novelId, String site) {
+	default NovelCrawlingEvent findByNovelId(Long novelId, String site, Long version) {
 
-		return findByNovelIdAndSiteAndRemoved(novelId, site, false);
+		return findByNovelIdAndRemoved(novelId, site, version, false);
 	}
 
-	public NovelCrawlingEvent findByNovelIdAndSiteAndRemoved(Long novelId, String site, boolean removed);
+	@Query("select count(event) from NovelCrawlingEvent event where event.novelId = :novelId and event.site = :site and event.version = :version and event.removed = :removed")
+	public NovelCrawlingEvent findByNovelIdAndRemoved(@Param("novelId") Long novelId, @Param("site") String site, @Param("version") Long version, @Param("removed") boolean removed);
 }

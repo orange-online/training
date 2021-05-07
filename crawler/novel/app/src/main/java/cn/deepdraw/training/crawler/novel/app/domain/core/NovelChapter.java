@@ -77,6 +77,11 @@ public class NovelChapter extends IdLongEntity {
 		return addr.site();
 	}
 
+	public Long version() {
+
+		return addr.version();
+	}
+
 	public String link() {
 
 		return addr.link();

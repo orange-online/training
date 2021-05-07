@@ -9,5 +9,5 @@ import cn.deepdraw.training.crawler.novel.app.domain.shared.IdEntityRepository;
  */
 public interface NovelChapterCrawlingEventRepository extends IdEntityRepository<NovelChapterCrawlingEvent> {
 
-	long countByNovelAndCompleted(Long novelId, String site, boolean completed);
+	long countByNovelAndCompleted(Long novelId, String site, Long version, boolean completed);
 }
