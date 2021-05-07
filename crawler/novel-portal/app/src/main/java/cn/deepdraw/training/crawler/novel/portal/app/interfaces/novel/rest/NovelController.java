@@ -12,7 +12,7 @@ import cn.deepdraw.training.crawler.novel.api.NovelApi;
 import cn.deepdraw.training.crawler.novel.api.NovelPackagingEventApi;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelDTO;
 import cn.deepdraw.training.crawler.novel.api.dto.NovelPackagingEventDTO;
-import cn.deepdraw.training.crawler.novel.api.dto.NovelQueryDTO;
+import cn.deepdraw.training.crawler.novel.api.dto.NovelPageRequest;
 import cn.deepdraw.training.framework.api.dto.page.PageDTO;
 import cn.deepdraw.training.framework.api.dto.page.PageRequest;
 import cn.deepdraw.training.framework.exception.WebAppRuntimeException;
@@ -33,9 +33,9 @@ public class NovelController {
 	private NovelPackagingEventApi packagingEventApi;
 
 	@GetMapping
-	public PageDTO<NovelDTO> findByPage(@ModelAttribute NovelQueryDTO query, @ModelAttribute PageRequest request) {
+	public PageDTO<NovelDTO> findByPage(@ModelAttribute NovelPageRequest novelReq, @ModelAttribute PageRequest pageReq) {
 
-		return novelApi.findByPage(query, request);
+		return novelApi.findByPage(novelReq, pageReq);
 	}
 
 	@GetMapping("/create")

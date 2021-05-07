@@ -22,6 +22,8 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 
 	private String site;
 
+	private Long version;
+
 	private Long chapterId;
 
 	private String link;
@@ -33,6 +35,7 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 		this.setEventId(event.getEntityId());
 		this.setNovelId(event.getNovelId());
 		this.setSite(event.getSite());
+		this.setVersion(event.getVersion());
 		this.setChapterId(event.getChapterId());
 		this.setLink(event.getLink());
 	}
@@ -66,6 +69,14 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 		this.site = site;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	public Long getChapterId() {
 		return chapterId;
 	}
@@ -89,6 +100,7 @@ public class NovelChapterCrawlingEventMessage implements Serializable {
 		objectNode.put("eventId", eventId);
 		objectNode.put("novelId", novelId);
 		objectNode.put("site", site);
+		objectNode.put("version", version);
 		objectNode.put("chapterId", chapterId);
 		objectNode.put("link", link);
 		return objectNode.toString();

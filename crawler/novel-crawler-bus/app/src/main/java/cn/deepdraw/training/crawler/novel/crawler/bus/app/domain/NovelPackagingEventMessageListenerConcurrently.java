@@ -63,7 +63,7 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 
 			String name = prepareResourceStorageName(em);
 			String path = prepareResourceStoragePath(em);
-			byte[] data = prepareResourceStorageData(chapterApi.findByNovelId(em.getNovelId(), em.getSite()));
+			byte[] data = prepareResourceStorageData(chapterApi.findByNovelId(em.getNovelId(), em.getSite(), em.getVersion()));
 			Resource resource = resourceStorageApi.store(FileItem.of(name, path, data));
 			if (StringUtils.isBlank(resource.getPath())) {
 
@@ -107,7 +107,7 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 
 	private String prepareResourceStorageName(NovelPackagingEventMessage message) {
 
-		return message.getNovelId() + "_" + message.getSite();
+		return message.getNovelId() + "_" + message.getSite() + "_" + message.getVersion();
 	}
 
 	private String prepareResourceStoragePath(NovelPackagingEventMessage message) {
@@ -119,7 +119,7 @@ public class NovelPackagingEventMessageListenerConcurrently implements MessageLi
 
 		private static final long serialVersionUID = Long.MAX_VALUE;
 
-		private static final String CHAPTER_INNER_SEPARATOR = "\n";
+		private static final String CHAPTER_INNER_SEPARATOR = "\r\n";
 		
 		private String title;
 		

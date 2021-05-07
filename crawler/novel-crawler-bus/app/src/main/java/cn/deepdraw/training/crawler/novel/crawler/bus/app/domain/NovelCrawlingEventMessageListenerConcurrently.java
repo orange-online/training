@@ -55,7 +55,7 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 		for (int index = 0, len = chaptersOnline.size(); index < len; index++) {
 			
 			Chapter chapter = chaptersOnline.get(index);
-			chapters.add(NovelChapter.of(em.getNovelId(), chapter.getName(), em.getSite(), chapter.getLink(), index + 1));
+			chapters.add(NovelChapter.of(em.getNovelId(), chapter.getName(), em.getSite(), em.getVersion(), chapter.getLink(), index + 1));
 		}
 		chapters.parallelStream().forEach(chapter -> {
 			
@@ -89,24 +89,27 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 		
 		private String site;
 		
+		private Long version;
+		
 		private String link;
 		
 		private Integer index;
 		
 		public NovelChapter() {}
 		
-		public NovelChapter(Long novelId, String name, String site, String link, Integer index) {
+		public NovelChapter(Long novelId, String name, String site, Long version, String link, Integer index) {
 			
 			this.novelId = novelId;
 			this.name = name;
 			this.site = site;
+			this.version = version;
 			this.link = link;
 			this.index = index;
 		}
 		
-		public static NovelChapter of(Long novelId, String name, String site, String link, Integer index) {
+		public static NovelChapter of(Long novelId, String name, String site, Long version, String link, Integer index) {
 			
-			return new NovelChapter(novelId, name, site, link, index);
+			return new NovelChapter(novelId, name, site, version, link, index);
 		}
 
 		public Long getNovelId() {
@@ -133,6 +136,14 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 			this.site = site;
 		}
 
+		public Long getVersion() {
+			return version;
+		}
+
+		public void setVersion(Long version) {
+			this.version = version;
+		}
+
 		public String getLink() {
 			return link;
 		}
@@ -151,7 +162,7 @@ public class NovelCrawlingEventMessageListenerConcurrently implements MessageLis
 
 		public LinkAddress address() {
 			
-			return LinkAddress.of(site, link);
+			return LinkAddress.of(site, version, link);
 		}
 	}
 }

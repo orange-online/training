@@ -19,6 +19,8 @@ public class NovelCrawlingEventMessage implements Serializable {
 	private Long novelId;
 
 	private String site;
+	
+	private Long version;
 
 	private String link;
 
@@ -46,6 +48,14 @@ public class NovelCrawlingEventMessage implements Serializable {
 		this.site = site;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	public String getLink() {
 		return link;
 	}
@@ -61,6 +71,7 @@ public class NovelCrawlingEventMessage implements Serializable {
 		objectNode.put("eventId", eventId);
 		objectNode.put("novelId", novelId);
 		objectNode.put("site", site);
+		objectNode.put("version", version);
 		objectNode.put("link", link);
 		return objectNode.toString();
 	}
