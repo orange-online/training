@@ -18,6 +18,6 @@ public class UserIdAuditorAware implements AuditorAware<Long> {
 	public Optional<Long> getCurrentAuditor() {
 
 		Session session = SessionContext.getInstance().get();
-		return Optional.of(session != null && session.getUserId() != null ? session.getUserId() : 0L);
+		return Optional.ofNullable(session != null && session.getUserId() != null ? session.getUserId() : null);
 	}
 }
