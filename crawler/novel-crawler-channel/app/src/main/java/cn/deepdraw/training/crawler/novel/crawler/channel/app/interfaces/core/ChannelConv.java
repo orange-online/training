@@ -23,6 +23,6 @@ public class ChannelConv extends IdLongEntityConv<Channel, ChannelDTO> {
 		dto.setLink(channel.link());
 		dto.setTimeout(channel.timeout());
 		dto.setAvailable(channel.available());
-		return null;
+		return dto;
 	}
 }

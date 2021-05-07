@@ -73,7 +73,7 @@ public final class SnowflakeIdGenerator {
 	
 	public static SnowflakeIdGenerator getInstance() {
 		
-		return SnowFlakeIdGeneratorHolder.INSTANCE;
+		return SnowflakeIdGeneratorHolder.INSTANCE;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public final class SnowflakeIdGenerator {
 		return System.currentTimeMillis();
 	}
 	
-    private static class SnowFlakeIdGeneratorHolder {
+    private static class SnowflakeIdGeneratorHolder {
     	
         public static SnowflakeIdGenerator INSTANCE = new SnowflakeIdGenerator(13, 14);
     }

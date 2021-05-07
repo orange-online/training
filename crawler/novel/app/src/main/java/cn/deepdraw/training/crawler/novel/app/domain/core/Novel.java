@@ -35,7 +35,7 @@ public class Novel extends IdLongEntity {
 	private String author;
 
 	@ElementCollection
-	@CollectionTable(name = "novel_addrs", joinColumns = @JoinColumn(name = "entity_id"))
+	@CollectionTable(name = "novel_addrs", joinColumns = @JoinColumn(name = "novel_id"))
 	private List<LinkAddr> addrs;
 
 	private Novel() {}

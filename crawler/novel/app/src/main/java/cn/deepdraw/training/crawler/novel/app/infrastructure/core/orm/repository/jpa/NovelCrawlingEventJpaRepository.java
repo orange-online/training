@@ -22,6 +22,6 @@ public interface NovelCrawlingEventJpaRepository extends NovelCrawlingEventRepos
 		return findByNovelIdAndRemoved(novelId, site, version, false);
 	}
 
-	@Query("select count(event) from NovelCrawlingEvent event where event.novelId = :novelId and event.site = :site and event.version = :version and event.removed = :removed")
+	@Query("select event from NovelCrawlingEvent event where event.novelId = :novelId and event.site = :site and event.version = :version and event.removed = :removed")
 	public NovelCrawlingEvent findByNovelIdAndRemoved(@Param("novelId") Long novelId, @Param("site") String site, @Param("version") Long version, @Param("removed") boolean removed);
 }

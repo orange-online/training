@@ -3,11 +3,11 @@ package cn.deepdraw.training.crawler.novel.crawler.liudatxt.app.infrastructure.r
 import java.io.IOException;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.deepdraw.training.crawler.novel.crawler.channel.api.ChannelApi;
 import cn.deepdraw.training.crawler.novel.crawler.channel.api.dto.ChannelDTO;
@@ -23,8 +23,8 @@ public class LiudatxtNovelBaseJsoupRepository {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
 	protected static final String UNSUPPORTED_SITE = "unsupported_site";
-
-    @Autowired
+	
+	@DubboReference
     protected ChannelApi channelApi;
 
     protected Document getDocument(String url) {

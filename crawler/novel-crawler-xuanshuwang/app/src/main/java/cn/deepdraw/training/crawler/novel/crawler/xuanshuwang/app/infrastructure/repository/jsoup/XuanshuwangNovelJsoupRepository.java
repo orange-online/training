@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.deepdraw.training.crawler.novel.crawler.channel.api.ChannelApi;
@@ -40,8 +40,8 @@ public class XuanshuwangNovelJsoupRepository implements XuanshuwangRepository {
     private static final String UNSUPPORTED_SITE = "unsupported_site";
 
     private Logger logger = LoggerFactory.getLogger(getClass());
-
-    @Autowired
+    
+	@DubboReference
     private ChannelApi channelApi;
 
     @Override
