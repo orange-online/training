@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		projectName = 'crawler-novel-crawler-gateway-app'
+		projectName = 'novel-crawler-gateway-app'
 		springBootVersion = '2.3.1.RELEASE'
 
 		configDir = 'src/main/resources'
@@ -126,12 +126,12 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:3.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-biquge-api:3.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-liudatxt-api:3.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-xuanshuwang-api:3.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-channel-api:2.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-novel-crawler-api:4.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-novel-crawler-biquge-api:4.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-novel-crawler-liudatxt-api:4.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-novel-crawler-xuanshuwang-api:4.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-novel-channel-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-novel-crawler-gateway-api:4.0.0')
 
 	testImplementation('junit:junit:4.12')
 	testImplementation('org.mockito:mockito-core:2.23.4')

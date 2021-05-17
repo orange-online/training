@@ -1,10 +1,10 @@
-package cn.deepdraw.training.crawler.novel.crawler.api.gateway;
+package cn.deepdraw.training.novel.crawler.gateway.api;
 
 import java.util.List;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
+import cn.deepdraw.training.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.novel.crawler.api.dto.Novel;
 
 /**
  * NovelCrawlerApi Gateway

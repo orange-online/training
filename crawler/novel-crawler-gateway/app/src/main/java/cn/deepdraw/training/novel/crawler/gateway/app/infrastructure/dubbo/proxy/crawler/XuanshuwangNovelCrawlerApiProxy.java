@@ -1,9 +1,9 @@
-package cn.deepdraw.training.crawler.novel.crawler.gateway.app.infrastructure.dubbo.proxy.crawler;
+package cn.deepdraw.training.novel.crawler.gateway.app.infrastructure.dubbo.proxy.crawler;
 
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.xuanshuwang.api.XuanshuwangNovelCrawlerApi;
+import cn.deepdraw.training.novel.crawler.xuanshuwang.api.XuanshuwangNovelCrawlerApi;
 
 /**
  * XuanshuwangNovelCrawlerApi Proxy

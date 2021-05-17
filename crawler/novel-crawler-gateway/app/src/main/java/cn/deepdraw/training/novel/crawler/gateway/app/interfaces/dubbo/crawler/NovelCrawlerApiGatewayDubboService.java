@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.gateway.app.interfaces.dubbo.crawler;
+package cn.deepdraw.training.novel.crawler.gateway.app.interfaces.dubbo.crawler;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,13 +7,13 @@ import org.apache.commons.lang3.Validate;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.deepdraw.training.crawler.novel.crawler.api.NovelCrawlerApi;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.Novel;
-import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
-import cn.deepdraw.training.crawler.novel.crawler.channel.api.ChannelApi;
-import cn.deepdraw.training.crawler.novel.crawler.channel.api.dto.ChannelDTO;
+import cn.deepdraw.training.novel.channel.api.ChannelApi;
+import cn.deepdraw.training.novel.channel.api.dto.ChannelDTO;
+import cn.deepdraw.training.novel.crawler.api.NovelCrawlerApi;
+import cn.deepdraw.training.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.novel.crawler.api.dto.Novel;
+import cn.deepdraw.training.novel.crawler.gateway.api.NovelCrawlerApiGateway;
 
 /**
  * NovelCrawlerApiGateway MotanService
