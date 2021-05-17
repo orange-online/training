@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
+package cn.deepdraw.training.novel.crawler.bus.app.domain;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,13 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.api.NovelChapterCrawlingEventApi;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.ChapterContent;
-import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
-import cn.deepdraw.training.crawler.storage.api.ResourceStorageApi;
-import cn.deepdraw.training.crawler.storage.api.dto.FileItem;
-import cn.deepdraw.training.crawler.storage.api.dto.Resource;
 import cn.deepdraw.training.framework.utils.JsonUtils;
+import cn.deepdraw.training.novel.api.NovelChapterCrawlingEventApi;
+import cn.deepdraw.training.novel.crawler.api.dto.ChapterContent;
+import cn.deepdraw.training.novel.crawler.gateway.api.NovelCrawlerApiGateway;
+import cn.deepdraw.training.storage.api.ResourceStorageApi;
+import cn.deepdraw.training.storage.api.dto.FileItem;
+import cn.deepdraw.training.storage.api.dto.Resource;
 
 /**
  * 小说章节爬取事件消息监听器（支持并发）

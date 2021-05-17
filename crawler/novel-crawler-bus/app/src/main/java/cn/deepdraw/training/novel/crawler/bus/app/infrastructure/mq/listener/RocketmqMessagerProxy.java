@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.infrastructure.mq.listener;
+package cn.deepdraw.training.novel.crawler.bus.app.infrastructure.mq.listener;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.SendResult;

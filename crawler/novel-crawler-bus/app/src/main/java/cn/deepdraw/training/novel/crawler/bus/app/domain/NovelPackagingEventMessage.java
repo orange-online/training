@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
+package cn.deepdraw.training.novel.crawler.bus.app.domain;
 
 import java.io.Serializable;
 
@@ -6,13 +6,13 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
- * NovelCrawlingEventMessage
+ * NovelPackagingEventMessage
  * @author huangjiancheng
- * @Date 2020-11-29
+ * @Date 2021-02-22
  */
-public class NovelCrawlingEventMessage implements Serializable {
+public class NovelPackagingEventMessage implements Serializable {
 
-	private static final long serialVersionUID = 20201129L;
+	private static final long serialVersionUID = 20210222L;
 
 	private Long eventId;
 
@@ -21,8 +21,6 @@ public class NovelCrawlingEventMessage implements Serializable {
 	private String site;
 	
 	private Long version;
-
-	private String link;
 
 	public Long getEventId() {
 		return eventId;
@@ -56,14 +54,6 @@ public class NovelCrawlingEventMessage implements Serializable {
 		this.version = version;
 	}
 
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
 	@Override
 	public String toString() {
 
@@ -72,7 +62,6 @@ public class NovelCrawlingEventMessage implements Serializable {
 		objectNode.put("novelId", novelId);
 		objectNode.put("site", site);
 		objectNode.put("version", version);
-		objectNode.put("link", link);
 		return objectNode.toString();
 	}
 

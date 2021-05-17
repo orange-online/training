@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.infrastructure.mq.listener;
+package cn.deepdraw.training.novel.crawler.bus.app.infrastructure.mq.listener;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.slf4j.Logger;
@@ -9,10 +9,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.crawler.bus.app.domain.NovelChapterCrawlingEventMessageConsumerSetting;
-import cn.deepdraw.training.crawler.novel.crawler.bus.app.domain.NovelCrawlingEventMessageConsumerSetting;
-import cn.deepdraw.training.crawler.novel.crawler.bus.app.domain.NovelPackagingEventMessageConsumerSetting;
 import cn.deepdraw.training.framework.rocketmq.core.consumer.RocketmqConsumer;
+import cn.deepdraw.training.novel.crawler.bus.app.domain.NovelChapterCrawlingEventMessageConsumerSetting;
+import cn.deepdraw.training.novel.crawler.bus.app.domain.NovelCrawlingEventMessageConsumerSetting;
+import cn.deepdraw.training.novel.crawler.bus.app.domain.NovelPackagingEventMessageConsumerSetting;
 
 /**
  * 小说章节爬取事件消息消费者装载

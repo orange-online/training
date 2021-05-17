@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
+package cn.deepdraw.training.novel.crawler.bus.app.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,12 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import cn.deepdraw.training.crawler.novel.api.NovelChapterCrawlingEventApi;
-import cn.deepdraw.training.crawler.novel.api.dto.LinkAddress;
-import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterCrawlingEventDTO;
-import cn.deepdraw.training.crawler.novel.crawler.api.dto.Chapter;
-import cn.deepdraw.training.crawler.novel.crawler.api.gateway.NovelCrawlerApiGateway;
 import cn.deepdraw.training.framework.utils.JsonUtils;
+import cn.deepdraw.training.novel.api.NovelChapterCrawlingEventApi;
+import cn.deepdraw.training.novel.api.dto.LinkAddress;
+import cn.deepdraw.training.novel.api.dto.NovelChapterCrawlingEventDTO;
+import cn.deepdraw.training.novel.crawler.api.dto.Chapter;
+import cn.deepdraw.training.novel.crawler.gateway.api.NovelCrawlerApiGateway;
 
 /**
  * 小说爬取事件消息监听器（支持并发）

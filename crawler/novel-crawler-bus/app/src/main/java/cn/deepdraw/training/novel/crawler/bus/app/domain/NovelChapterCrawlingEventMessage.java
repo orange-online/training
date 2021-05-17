@@ -1,11 +1,11 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
+package cn.deepdraw.training.novel.crawler.bus.app.domain;
 
 import java.io.Serializable;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import cn.deepdraw.training.crawler.novel.api.dto.NovelChapterCrawlingEventDTO;
+import cn.deepdraw.training.novel.api.dto.NovelChapterCrawlingEventDTO;
 
 /**
  * NovelChapterCrawlingEventMessage

@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.infrastructure.mq.listener;
+package cn.deepdraw.training.novel.crawler.bus.app.infrastructure.mq.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

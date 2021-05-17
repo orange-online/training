@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.novel.crawler.bus.app.domain;
+package cn.deepdraw.training.novel.crawler.bus.app.domain;
 
 import org.apache.rocketmq.client.consumer.listener.MessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
