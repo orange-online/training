@@ -1,0 +1,64 @@
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xmlns='http://www.ehcache.org/v3'
+	xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd">
+
+	<!-- http://www.ehcache.org/documentation/3.8/xml.html -->
+
+	<!--指定缓存持久化目录 -->
+	<persistence directory="${java.io.tmpdir}/ehcache-data/novel-channel-app" />
+
+	<!-- 
+		1、声明一个名为foo的Cache。 
+		2、foo的键值对被声明为字符串类型，如果没有指明，默认是Object类型。 
+		3、foo被声明在堆上保存多达2,000个条目。 
+		4、在它开始被驱逐之前，还有多达500 MB的外堆内存。 
+	-->
+	<!-- 
+	<cache alias="foo">
+		<key-type>java.lang.String</key-type>
+		<value-type>java.lang.String</value-type>
+		<resources>
+			<heap unit="entries">2000</heap>
+			<offheap unit="MB">500</offheap>
+		</resources>
+	</cache>
+	-->
+
+	<!-- <cache-template>可以让你创建一个抽象的<cache>配置文件，该配置文件可以进一步的被扩展。 -->
+	<cache-template name="longKeyCache">
+		<key-type>java.lang.Long</key-type>
+		<value-type>java.lang.Object</value-type>
+		<!-- org.ehcache.config.ResourceUnit中的属性，声明在堆上保存多达2,000个条目 -->
+		<resources>
+			<!-- 配置堆储存 -->
+			<heap unit="entries">2000</heap>
+			<!-- 配置堆外储存 -->
+			<offheap unit="MB">32</offheap>
+			<!-- 配置磁盘持久化储存 -->
+			<disk unit="MB" persistent="true">512</disk>
+		</resources>
+	</cache-template>
+
+	<!-- longCache是这样的cache，它使用名为longKeyCache的<cache-template>，并将其主键覆盖到更广泛的类型 -->
+	<cache alias="longCache" uses-template="longKeyCache">
+		<key-type>java.lang.Long</key-type>
+		<expiry>
+			<!-- 通过ttl指定了cache过期时间,java.util.concurrent.TimeUnit中的属性，这里指定为30秒 -->
+			<ttl unit="seconds">30</ttl>
+		</expiry>
+	</cache>
+
+	<cache alias="default-query-results-region">
+		<expiry>
+			<ttl unit="seconds">300</ttl>
+		</expiry>
+		<heap unit="entries">2000</heap>
+	</cache>
+
+	<cache alias="default-update-timestamps-region">
+		<expiry>
+			<ttl unit="seconds">300</ttl>
+		</expiry>
+		<heap unit="entries">2000</heap>
+	</cache>
+</config>
