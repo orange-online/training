@@ -1,4 +1,4 @@
-package cn.deepdraw.training.crawler.keygen.api;
+package cn.deepdraw.training.keygen.api;
 
 import java.util.List;
 
