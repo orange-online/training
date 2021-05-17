@@ -1,0 +1,140 @@
+buildscript {
+	ext {
+		projectName = 'novel-app'
+		springBootVersion = '2.3.1.RELEASE'
+
+		configDir = 'src/main/resources'
+		allInOneProperties = "$buildDir/tmp/application.properties"
+	}
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+plugins {
+	id 'java'
+	id 'maven'
+    id 'java-library'
+	id 'com.palantir.docker' version '0.20.1'
+	id 'org.sonarqube' version '2.6.2'
+	id 'jacoco'
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply from: 'prelude.gradle'
+
+ext {
+	setPropertyDefaultValue('env', 'local')
+
+	dockerName = "${dockerRegistry()}.cn-hangzhou.aliyuncs.com/deepdraw-app-$env/$projectName:${getReleaseName()}"
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		html.enabled true
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.46 // 单元测试覆盖率不能低于46%
+			}
+		}
+	}
+}
+
+task packProperties {
+
+	doLast {
+
+		delete allInOneProperties
+
+		def props = readProps(configDir, 'application.properties')
+		if (env != 'local') {
+			// spring.profiles.active目前只在本地的application.properties中用.作为约定,线上的profile都通过启动时的jvm参数指定
+			props.remove('spring.profiles.active')
+		}
+		writeProps(props, allInOneProperties)
+
+		// 读取环境配置参数
+		props = readProps(configDir, 'application-' + env + '.properties')
+		writeProps(props, allInOneProperties)
+
+		if (env != 'local') {
+
+			// 读取环境加密参数
+			// props = readProps(configDir, 'application-' + env + '-private.properties')
+			// writeProps(props, allInOneProperties)
+		}
+	}
+}
+
+bootJar {
+
+	// 用环境特有的配置文件,而不用本地的
+	processResources {
+		exclude '**/application*.properties'
+		exclude '**/application*.properties.gpg'
+	}
+	from(allInOneProperties, {
+		into '/BOOT-INF/classes/'
+	})
+}
+bootJar.dependsOn packProperties, jacocoTestCoverageVerification
+
+test {
+	filter {
+		// 现阶段只跑单元测试,不跑集成测试
+		includeTestsMatching 'cn.deepdraw.training.*.unit.*'
+	}
+}
+
+docker {
+
+	dependsOn test, bootJar
+	name dockerName
+	files jar.archivePath
+	buildArgs([ARTIFACT: jar.archiveName, ENVARG: env])
+}
+dockerPush.onlyIf { env != 'local' }
+
+task release {
+	// dependsOn tasks.docker, tasks.dockerTag, tasks.dockerPush
+	dependsOn test, bootJar
+	doLast { // 打包成功后将docker的版本号写入到指定文件中,以方便外界(比如jenkins)读取
+		// project.file('.dockerversion').text = dockerName
+	}
+}
+
+dependencies {
+	implementation('cn.deepdraw.training:deepdraw-training-framework-web:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-api:5.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql:5.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql-api-conv:5.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-framework-rocketmq-core:3.0.0')
+
+	implementation('cn.deepdraw.training:deepdraw-training-novel-api:6.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:3.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-gateway-api:3.0.0')
+
+	testImplementation('junit:junit:4.12')
+	testImplementation('org.mockito:mockito-core:2.23.4')
+	testImplementation('org.hamcrest:java-hamcrest:2.0.0.0')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
