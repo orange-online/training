@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        artifactId = 'deepdraw-training-crawler-novel-crawler-biquge-api'
+        artifactId = 'deepdraw-training-novel-crawler-biquge-api'
     }
     repositories {
         mavenLocal()
@@ -15,7 +15,7 @@ plugins {
 }
 
 group = 'cn.deepdraw.training'
-version = '3.0.0'
+version = '4.0.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -50,7 +50,7 @@ uploadArchives {
 }
 
 dependencies {
-	api('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-api:3.0.0')
+	api('cn.deepdraw.training:deepdraw-training-novel-crawler-api:4.0.0')
 
     testImplementation('junit:junit:4.12')
 }

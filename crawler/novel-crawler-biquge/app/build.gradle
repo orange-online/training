@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		projectName = 'crawler-novel-crawler-biquge-app'
+		projectName = 'novel-crawler-biquge-app'
 		springBootVersion = '2.3.1.RELEASE'
 
 		configDir = 'src/main/resources'
@@ -128,8 +128,8 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-channel-api:2.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-crawler-novel-crawler-biquge-api:3.0.0')
+	api('cn.deepdraw.training:deepdraw-training-novel-crawler-biquge-api:4.0.0')
+	implementation('cn.deepdraw.training:deepdraw-training-novel-channel-api:3.0.0')
 
 	api('org.jsoup:jsoup:1.13.1')
 
