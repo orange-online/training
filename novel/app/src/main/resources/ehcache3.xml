@@ -5,7 +5,7 @@
 	<!-- http://www.ehcache.org/documentation/3.8/xml.html -->
 
 	<!--指定缓存持久化目录 -->
-	<persistence directory="${java.io.tmpdir}/ehcache-data" />
+	<persistence directory="${java.io.tmpdir}/ehcache-data/novel-app" />
 
 	<!-- 
 		1、声明一个名为foo的Cache。 
