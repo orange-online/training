@@ -7,9 +7,9 @@ import java.util.List;
  * @author huangjiancheng
  * @Date 2021-05-17
  */
-public interface IdGeneratorApi {
+public interface IdGenApi {
 
-	Long generateId();
+	Long genId();
 	
-	List<Long> generateIds(long size);
+	List<Long> genIds(long size);
 }
