@@ -126,6 +126,7 @@ dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-cache-sdk-caffeine:1.0.0')
 
+	implementation('cn.deepdraw.training:deepdraw-training-keygen-pool-api:1.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-keygen-gateway-api:1.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-keygen-config-center-api:1.0.0')
 	
