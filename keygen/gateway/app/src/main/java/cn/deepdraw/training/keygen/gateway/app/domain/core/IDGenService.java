@@ -10,6 +10,7 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import cn.deepdraw.training.keygen.gateway.app.domain.event.IDSegmentOfferEventQueueCenter;
 import cn.deepdraw.training.keygen.gateway.app.infrastructure.facade.dubbo.IDSegmentPoolConfigClient;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +26,7 @@ public class IDGenService {
 	private IDSegmentContainer segmentContainer = IDSegmentContainer.getInstance();
 	
 	@Autowired
-	private IDSegmentOfferEventQueue eventQueue;
+	private IDSegmentOfferEventQueueCenter eventCenter;
 	
 	@Autowired
 	private IDSegmentPoolConfigClient poolConfClient;
@@ -46,7 +47,7 @@ public class IDGenService {
 					segmentContainer.offset(ensureSegmentPool().take());
 					if (!segmentContainer.segmentPool().isFull()) {
 						
-						eventQueue.offer(segmentContainer.segmentPool().capacity(), segmentContainer.segmentPool().size()); // send a event to the provider to offer the ID segment.
+						eventCenter.offer(segmentContainer.segmentPool().capacity(), segmentContainer.segmentPool().size()); // send a event to the provider to offer the ID segment.
 					}
 				}
 			}

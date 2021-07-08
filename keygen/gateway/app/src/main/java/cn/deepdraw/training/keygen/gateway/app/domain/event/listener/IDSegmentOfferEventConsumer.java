@@ -1,4 +1,4 @@
-package cn.deepdraw.training.keygen.gateway.app.domain.core;
+package cn.deepdraw.training.keygen.gateway.app.domain.event.listener;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -7,9 +7,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import cn.deepdraw.training.keygen.gateway.app.domain.core.IDSegment;
+import cn.deepdraw.training.keygen.gateway.app.domain.core.IDSegmentContainer;
+import cn.deepdraw.training.keygen.gateway.app.domain.event.IDSegmentOfferEvent;
 import cn.deepdraw.training.keygen.pool.api.IDSegmentPoolApi;
 import cn.deepdraw.training.keygen.pool.api.dto.IDSegmentDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +26,9 @@ import lombok.extern.slf4j.Slf4j;
  * @Date 2021-07-01
  */
 @Slf4j
+@Order(0)
 @Component
-public class IDSegmentOfferEventConsumer {
+public class IDSegmentOfferEventConsumer implements IDSegmentOfferEventListener {
 
 	@DubboReference
 	private IDSegmentPoolApi poolApi;
@@ -46,7 +52,7 @@ public class IDSegmentOfferEventConsumer {
 			}
 		}).exceptionally(e -> { // exceptionally只有一个参数是异常类型，他可以感知异常，同时返回默认数据10
 			
-			log.error("method {} param: event = {}, method {} execution fails and exception message is: {}", "IDSegmentOfferEventConsumer::consume", event.toString(), "Future::get", e.getMessage());
+			log.error("method {} param: event = {}, method {} execution fails, exception message: {}", "IDSegmentOfferEventConsumer::consume", event.toString(), "Future::get", e.getMessage());
 			return false;
 		});
 //		.handle((result, e) -> { // handler既可以感知异常，也可以返回默认数据，是whenComplete和exceptionally的结合
@@ -85,15 +91,25 @@ public class IDSegmentOfferEventConsumer {
 //			log.error("method {} param: event = {}, method {} execution fails and exception message is: {}", "IDSegmentOfferEventConsumer::consume", event.toString(), "Future::get", e.getMessage());
 //		}
 	}
-
-	private ExecutorService getExecutor(int capacity) {
-
-		return ExecutorHolder.executor;
+	
+	private int calculateCorePoolSize(int capacity) {
+		
+		return Math.max(capacity / 2, NumberUtils.INTEGER_ONE);
+	}
+	
+	private int calculateMaximumPoolSize(int capacity) {
+		
+		return capacity;
 	}
 
-	private static final class ExecutorHolder {
+	private ExecutorService getExecutor(int capacity) {
+		// TODO here need a singleton 'ExecutorService' instance.
+		return new ThreadPoolExecutor(calculateCorePoolSize(capacity), calculateMaximumPoolSize(capacity), 5L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+	}
 
-		private static final ExecutorService executor = new ThreadPoolExecutor(3, 5, 5L, TimeUnit.SECONDS,
-				new LinkedBlockingQueue<Runnable>());
+	@Override
+	public void listen(IDSegmentOfferEvent event) {
+		
+		consume(event);;
 	}
 }

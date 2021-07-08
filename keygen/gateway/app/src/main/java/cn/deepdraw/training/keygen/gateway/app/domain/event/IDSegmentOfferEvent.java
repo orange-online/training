@@ -1,4 +1,4 @@
-package cn.deepdraw.training.keygen.gateway.app.domain.core;
+package cn.deepdraw.training.keygen.gateway.app.domain.event;
 
 import org.apache.commons.lang.ObjectUtils;
 
