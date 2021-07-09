@@ -3,11 +3,7 @@ package cn.deepdraw.training.keygen.gateway.app.domain.event.listener;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -15,6 +11,7 @@ import org.springframework.stereotype.Component;
 import cn.deepdraw.training.keygen.gateway.app.domain.core.IDSegment;
 import cn.deepdraw.training.keygen.gateway.app.domain.core.IDSegmentContainer;
 import cn.deepdraw.training.keygen.gateway.app.domain.event.IDSegmentOfferEvent;
+import cn.deepdraw.training.keygen.gateway.app.domain.event.executor.IDSegmentOfferEventExecutorServiceCenter;
 import cn.deepdraw.training.keygen.pool.api.IDSegmentPoolApi;
 import cn.deepdraw.training.keygen.pool.api.dto.IDSegmentDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @Order(0)
 @Component
 public class IDSegmentOfferEventConsumer implements IDSegmentOfferEventListener {
+	
+	private static final IDSegmentOfferEventExecutorServiceCenter EXECUTOR_CENTER = IDSegmentOfferEventExecutorServiceCenter.getInstance();
 
 	@DubboReference
 	private IDSegmentPoolApi poolApi;
@@ -44,7 +43,7 @@ public class IDSegmentOfferEventConsumer implements IDSegmentOfferEventListener 
 				IDSegmentContainer.getInstance().segmentPool().offer(IDSegment.of(idSegment.getStartInclusive(), idSegment.getEndExclusive()));
 			}
 			return !Objects.isNull(idSegment);
-		}, getExecutor(event.capacity())).whenComplete((result, e) -> { // whenComplete第一个参数是结果，第二个参数是异常，他可以感知异常，无法返回默认数据
+		}, getExecutorService(event.capacity())).whenComplete((result, e) -> { // whenComplete第一个参数是结果，第二个参数是异常，他可以感知异常，无法返回默认数据
 			
 			if (!Objects.isNull(result)) {
 				
@@ -91,20 +90,10 @@ public class IDSegmentOfferEventConsumer implements IDSegmentOfferEventListener 
 //			log.error("method {} param: event = {}, method {} execution fails and exception message is: {}", "IDSegmentOfferEventConsumer::consume", event.toString(), "Future::get", e.getMessage());
 //		}
 	}
-	
-	private int calculateCorePoolSize(int capacity) {
-		
-		return Math.max(capacity / 2, NumberUtils.INTEGER_ONE);
-	}
-	
-	private int calculateMaximumPoolSize(int capacity) {
-		
-		return capacity;
-	}
 
-	private ExecutorService getExecutor(int capacity) {
-		// TODO here need a singleton 'ExecutorService' instance.
-		return new ThreadPoolExecutor(calculateCorePoolSize(capacity), calculateMaximumPoolSize(capacity), 5L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+	private ExecutorService getExecutorService(int capacity) {
+		
+		return EXECUTOR_CENTER.getExecutor(capacity).getService();
 	}
 
 	@Override
