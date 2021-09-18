@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import cn.deepdraw.training.framework.cache.sdk.caffeine.core.CaffeineCacher;
 import cn.deepdraw.training.framework.cache.sdk.caffeine.core.CaffeineCacherFactory;
 import cn.deepdraw.training.keygen.config.center.api.IDSegmentPoolConfigApi;
-import cn.deepdraw.training.keygen.config.center.api.dto.IDSegmentPoolConfig;
+import cn.deepdraw.training.keygen.config.center.api.dto.IDSegmentPoolConfigDTO;
 
 /**
  * IDSegmentPoolConfigApi Proxy
@@ -16,19 +16,19 @@ import cn.deepdraw.training.keygen.config.center.api.dto.IDSegmentPoolConfig;
 @Component
 public class IDSegmentPoolConfigClient {
 	
-	private CaffeineCacher<String, IDSegmentPoolConfig> cacher = CaffeineCacherFactory.getInstance(new IDSegmentPoolConfigCacheSetting());
+	private CaffeineCacher<String, IDSegmentPoolConfigDTO> cacher = CaffeineCacherFactory.getInstance(new IDSegmentPoolConfigCacheSetting());
 	
 	@DubboReference
 	private IDSegmentPoolConfigApi poolConfigApi;
 	
-	public IDSegmentPoolConfig getLatestConfig() {
+	public IDSegmentPoolConfigDTO getLatestConfig() {
 		
 		return poolConfigApi.getLatestConfig();
 	}
 	
-	public IDSegmentPoolConfig getCachedLatestConfig() {
+	public IDSegmentPoolConfigDTO getCachedLatestConfig() {
 		
-		IDSegmentPoolConfig poolConfig = cacher.get(IDSegmentPoolConfigCacheSetting.POLICY);
+		IDSegmentPoolConfigDTO poolConfig = cacher.get(IDSegmentPoolConfigCacheSetting.POLICY);
 		if (poolConfig == null) {
 			
 			poolConfig = poolConfigApi.getLatestConfig();

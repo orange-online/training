@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author huangjiancheng
  * @Date 2021-06-03
  */
-public class IDSegmentPoolConfig implements Serializable {
+public class IDSegmentPoolConfigDTO implements Serializable {
 	
 	private static final long serialVersionUID = 20210603L;
 	

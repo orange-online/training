@@ -1,6 +1,6 @@
 package cn.deepdraw.training.keygen.config.center.api;
 
-import cn.deepdraw.training.keygen.config.center.api.dto.IDSegmentPoolConfig;
+import cn.deepdraw.training.keygen.config.center.api.dto.IDSegmentPoolConfigDTO;
 
 /**
  * SegmentPool Config Api
@@ -9,5 +9,5 @@ import cn.deepdraw.training.keygen.config.center.api.dto.IDSegmentPoolConfig;
  */
 public interface IDSegmentPoolConfigApi {
 	
-	IDSegmentPoolConfig getLatestConfig();
+	IDSegmentPoolConfigDTO getLatestConfig();
 }
