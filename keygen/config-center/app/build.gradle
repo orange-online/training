@@ -123,10 +123,10 @@ task release {
 dependencies {
 	implementation('cn.deepdraw.training:deepdraw-training-framework-web:3.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-api:5.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql:5.0.0')
-	implementation('cn.deepdraw.training:deepdraw-training-framework-orm-mysql-api-conv:5.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-dubbo:2.0.0')
 	implementation('cn.deepdraw.training:deepdraw-training-framework-utils:3.0.0')
+	
+	implementation('cn.deepdraw.training:deepdraw-training-keygen-config-center-api:1.0.0')
 
 	testImplementation('junit:junit:4.12')
 	testImplementation('org.mockito:mockito-core:2.23.4')
