@@ -10,4 +10,6 @@ import cn.deepdraw.training.keygen.pool.api.dto.IDSegmentDTO;
 public interface IDSegmentPoolApi {
 	
 	IDSegmentDTO getIDSegment();
+	
+	boolean provide(IDSegmentDTO segment);
 }
