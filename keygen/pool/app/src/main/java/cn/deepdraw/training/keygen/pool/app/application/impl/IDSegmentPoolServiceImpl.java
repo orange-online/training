@@ -29,6 +29,6 @@ public class IDSegmentPoolServiceImpl implements IDSegmentPoolService {
 	@Override
 	public IDSegment provide(long startInclusive, long endExclusive) {
 		
-		return segmentService.create(IDSegment.of(startInclusive, endExclusive));
+		return segmentService.provide(IDSegment.of(startInclusive, endExclusive));
 	}
 }

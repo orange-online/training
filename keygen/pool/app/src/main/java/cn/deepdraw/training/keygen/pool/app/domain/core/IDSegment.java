@@ -36,6 +36,7 @@ public class IDSegment extends IdLongEntity {
 		
 		Validate.exclusiveBetween(0, Long.MAX_VALUE, startInclusive, "start_inclusive_must_be_between_0_and_9223372036854775807");
 		Validate.exclusiveBetween(0, Long.MAX_VALUE, endExclusive, "end_exclusive_must_be_between_0_and_9223372036854775807");
+		Validate.isTrue(endExclusive > startInclusive, "end_exclusive_must_be_greater_than_start_inclusive");
 		this.startInclusive = startInclusive;
 		this.endExclusive = endExclusive;
 		this.consumed = false;
@@ -65,5 +66,11 @@ public class IDSegment extends IdLongEntity {
 		
 		this.consumed = true;
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return "[" + startInclusive + ", " + endExclusive + ")";
 	}
 }
