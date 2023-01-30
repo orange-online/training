@@ -16,8 +16,8 @@ public class ConsoleTester {
 
 	public static void main(String[] args) throws InterruptedException {
 
-//		tryReentrantLockWithCondition();
-		tryCyclicBarrier();
+		tryReentrantLockWithCondition();
+//		tryCyclicBarrier();
 	}
 	
 	public static void tryCyclicBarrier() throws InterruptedException {
@@ -49,7 +49,7 @@ public class ConsoleTester {
 
 		ReentrantLock lock = new ReentrantLock();
 		Condition conditi1 = lock.newCondition();
-		Condition conditi2 = lock.newCondition();
+//		Condition conditi2 = lock.newCondition();
 		AtomicInteger atomicItg = new AtomicInteger(0);
 		Runnable runnable1 = new Runnable() {
 
@@ -66,7 +66,8 @@ public class ConsoleTester {
 
 							System.out.println();
 							System.out.println("runnable1: " + atomicItg.get());
-							conditi2.signal();
+//							conditi2.signal();
+							conditi1.signal();
 							conditi1.await();
 							System.out.println("weakup1...");
 						}
@@ -99,7 +100,8 @@ public class ConsoleTester {
 							System.out.println();
 							System.out.println("runnable2: " + atomicItg.get());
 							conditi1.signal();
-							conditi2.await();
+//							conditi2.await();
+							conditi1.await();
 							System.out.println("weakup2...");
 						}
 						System.out.println("running2...");
